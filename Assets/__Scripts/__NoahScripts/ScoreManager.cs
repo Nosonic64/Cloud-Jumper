@@ -7,6 +7,7 @@ using UnityEngine.SocialPlatforms.Impl;
 
 public class ScoreManager : MonoBehaviour
 {
+    // This script orders the scores and also saves them to a file.
     private ScoreData sd;
 
     private void Awake()

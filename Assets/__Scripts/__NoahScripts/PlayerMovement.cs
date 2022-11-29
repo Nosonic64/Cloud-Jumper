@@ -5,11 +5,11 @@ using UnityEngine.SceneManagement;
 
 public class PlayerMovement : MonoBehaviour
 {
-    private float speed = 40f;
+    private float speed = 30f;
     [SerializeField]
     private float movementSpeed;
-    private float maxSpeed = 14.5f;
-    private float jumpSpeed = 22f;
+    private float maxSpeed = 8.5f;
+    private float jumpSpeed = 20f;
     private float lastInputDir;
     private GameObject lastPlat;
     public GameObject fallPlat;
@@ -24,13 +24,17 @@ public class PlayerMovement : MonoBehaviour
     private bool hasBell;
     public GameObject gameOverUI;
     public Material defaultMat;
+    private float coyoteTime = 0.2f;
+    public float coyoteTimeCounter;
+    private float jumpBufferTime = 0.2f;
+    public float jumpBufferCounter;
     
     void Start()
     {
         collider = GetComponent<CapsuleCollider>();
         rb = GetComponent<Rigidbody>();
         wrapAroundCheck = 1f;
-        distToGround = GetComponent<Collider>().bounds.extents.z;
+        distToGround = GetComponent<Collider>().bounds.extents.y;
         meshRenderer = GetComponent<MeshRenderer>();
         playerLives = 2;
         PlayerInfo.playerLives = playerLives;
@@ -51,7 +55,7 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         PlayerInfo.playerX = transform.position.x;
         PlayerInfo.playerY = transform.position.y;
@@ -78,7 +82,7 @@ public class PlayerMovement : MonoBehaviour
         }
         else if (horizontal == 0 && movementSpeed > 0)
         {
-            movementSpeed -= (speed * 0.8f) * Time.deltaTime;
+            movementSpeed -= (speed * 0.5f) * Time.deltaTime;
         }
 
         if (movementSpeed >= maxSpeed)
@@ -107,20 +111,37 @@ public class PlayerMovement : MonoBehaviour
             PlayerInfo.touchingCeiling = false;
         }
 
-        if (Input.GetKeyDown(KeyCode.W) && GroundCheck())
+        if (jumpBufferCounter > 0f && coyoteTimeCounter > 0f)
         {
             rb.velocity = new Vector3(rb.velocity.x, 0, rb.velocity.z);
             rb.AddForce(transform.up * jumpSpeed, ForceMode.VelocityChange);
+            jumpBufferCounter = 0f;
+        }
+        else
+        {
+            jumpBufferCounter -= Time.deltaTime;
+        }
+
+        if (Input.GetKeyDown(KeyCode.W))
+        {
+            jumpBufferCounter = jumpBufferTime;
+
+        }
+        if (Input.GetKeyUp(KeyCode.W))
+        {
+            coyoteTimeCounter = 0f;
         }
 
         if (GroundCheck())
         {
+            coyoteTimeCounter = coyoteTime;
             PlayerInfo.playerGrounded = true;
             lastStablePos = transform.position;
         }
         else
         {
             PlayerInfo.playerGrounded = false;
+            coyoteTimeCounter -= Time.deltaTime;
             if (Input.GetKeyDown(KeyCode.W) && PlayerInfo.hasDoubleJump)
             {
                 rb.velocity = new Vector3(rb.velocity.x, 0, rb.velocity.z);

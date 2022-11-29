@@ -19,6 +19,9 @@ public class ScoreFlag : MonoBehaviour
 
     void LateUpdate()
     {
+        //If we are using the players score (ie they have game overed once and retried) the max value of the slider will equal the players top score in that play session
+        //Else, if we havent passed the top high score, display the high score currently above the players score
+        //Else, if we have passed the high score, we just display the players score
         if (usePlayerScore)
         {
             slider.maxValue = ScoreHandler.currentPlayerTopDistance;
@@ -55,7 +58,7 @@ public class ScoreFlag : MonoBehaviour
                     }
             }
 
-
+        // When a player game-overs, we use the players top score in that play session to display at the top of the flag
         if (PlayerInfo.gameOver)
         {
             usePlayerScore = true;
