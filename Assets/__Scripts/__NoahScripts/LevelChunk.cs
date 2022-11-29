@@ -18,7 +18,7 @@ public class LevelChunk : MonoBehaviour
             var i = Random.Range(0, PowerUpHandler.powerUps.Length);
             var x = Random.Range(-1, 14);
             var y = Random.Range(-10, 10);
-            var powerUpSpawned = Instantiate(PowerUpHandler.powerUps[i], transform.position + new Vector3(x, y, 4), transform.rotation);
+            var powerUpSpawned = Instantiate(PowerUpHandler.powerUps[i], transform.position + new Vector3(x, y, 0), transform.rotation);
             RaycastHit hit;
             if(Physics.SphereCast(powerUpSpawned.transform.position, 6f, powerUpSpawned.transform.position, out hit))
             {

@@ -13,7 +13,7 @@ public class SpriteSequence : MonoBehaviour
     }
     public void SetPlayer()
     {
-        player.transform.position = new Vector3(0, 8, 14);
+        player.transform.position = new Vector3(8, 8, 0);
     }
 
     public void ParentPlayer()
@@ -28,12 +28,12 @@ public class SpriteSequence : MonoBehaviour
     }
     public void SetSpriteCarryFalse()
     {
-        PlayerInfo.hasInvulnerable = 8f;
         PlayerInfo.spriteCarry = false;
     }
 
     public void UnparentPlayer()
     {
+        PlayerInfo.hasInvulnerable = 3f;
         player.transform.parent = null;
         var playerScript = player.GetComponent<PlayerMovement>();
         playerScript.BellPowerNew(false, false, true);

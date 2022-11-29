@@ -47,7 +47,7 @@ public class PlayerMovement : MonoBehaviour
         {
             PlayerInfo.playerLives = playerLives;
             PlayerInfo.gameOver = false;
-            transform.position = new Vector3(0, 10, 14);
+            transform.position = new Vector3(8, 10, 0);
             rb.velocity = new Vector3(0, 0, rb.velocity.z);
             Instantiate(fallPlat, transform.position - new Vector3(2, 3, 0), transform.rotation);
             rb.isKinematic = false;
@@ -150,27 +150,19 @@ public class PlayerMovement : MonoBehaviour
             }
         }
 
-        if (transform.position.x > 1.01f || transform.position.x < -1.01f)
+        if(Mathf.Floor(transform.position.x) == 17f)
         {
-            wrapAroundCheck = Mathf.Floor(transform.position.x);
+            transform.position = new Vector3(1f, transform.position.y, transform.position.z);
+        }
+        if(Mathf.Floor(transform.position.x) == -1f)
+        {
+            transform.position = new Vector3(16f, transform.position.y, transform.position.z);
         }
 
-        if(wrapAroundCheck % 12 == 0)
-        {
-            if(Mathf.Sign(transform.position.x) == 1)
-            {
-                transform.position = new Vector3(-11f, transform.position.y, transform.position.z);
-            }
-            else
-            {
-                transform.position = new Vector3(11f, transform.position.y, transform.position.z);
-            }
-        }
-
-        if(transform.position.y < -0.5f)
+        if (transform.position.y < -0.5f)
         {
                 PlayerInfo.playerLives--;
-                transform.position = new Vector3(0,10,14);
+                transform.position = new Vector3(8,10,0);
                 rb.velocity = new Vector3(rb.velocity.x, 0, rb.velocity.z);
             if (PlayerInfo.playerLives != 0)
             {

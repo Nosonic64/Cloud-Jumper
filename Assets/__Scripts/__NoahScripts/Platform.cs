@@ -25,20 +25,6 @@ public class Platform : MonoBehaviour
             endColor = Color.grey;
         }
 
-        if (ScoreHandler.distance < 30f)
-        {
-            transform.localScale = new Vector3(1f, 1f, 1f);
-            
-        }
-        else if(ScoreHandler.distance < 60f)
-        {
-            transform.localScale = new Vector3(0.85f, 1f, 1f);
-        }
-        else if (ScoreHandler.distance < 90f)
-        {
-            transform.localScale = new Vector3(0.65f, 1f, 1f);
-        }
-
     }
 
     private void Update()
