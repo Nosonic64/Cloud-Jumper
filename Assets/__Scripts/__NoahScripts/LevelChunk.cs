@@ -16,7 +16,7 @@ public class LevelChunk : MonoBehaviour
         {
             retrySpawn: 
             var i = Random.Range(0, PowerUpHandler.powerUps.Length);
-            var x = Random.Range(-3, 17);
+            var x = Random.Range(-1, 14);
             var y = Random.Range(-10, 10);
             var powerUpSpawned = Instantiate(PowerUpHandler.powerUps[i], transform.position + new Vector3(x, y, 4), transform.rotation);
             RaycastHit hit;
@@ -50,7 +50,7 @@ public class LevelChunk : MonoBehaviour
         if (transform.position.y <= 14f & !spawnedNewLevelChunk)
        {
             var i = Random.Range(0,LevelChunkHandler.levelChunks.Length);
-            Instantiate(LevelChunkHandler.levelChunks[i], transform.position + new Vector3(0,31,0), transform.rotation);
+            Instantiate(LevelChunkHandler.levelChunks[i], transform.position + new Vector3(0,22,0), transform.rotation);
             spawnedNewLevelChunk = true;
        }
 

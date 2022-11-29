@@ -15,7 +15,7 @@ public class Platform : MonoBehaviour
 
     private void Start()
     {
-        mesh = GetComponent<MeshRenderer>();    
+        mesh = GetComponentInChildren<MeshRenderer>();    
         collider = GetComponent<BoxCollider>();
         if (white)
         {
@@ -43,7 +43,7 @@ public class Platform : MonoBehaviour
 
     private void Update()
     {
-        if(PlayerInfo.playerY - 2.1f > transform.position.y)
+        if(PlayerInfo.playerY - 1f > transform.position.y)
         {
             collider.enabled = true;
         }

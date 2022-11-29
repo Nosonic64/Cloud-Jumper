@@ -9,7 +9,7 @@ public class Hazard : MonoBehaviour
         if(other.gameObject.tag == "Player" && PlayerInfo.hasInvulnerable <= 0f)
         {
             var playerScript = other.gameObject.GetComponent<PlayerMovement>();
-            var myMesh = GetComponent<MeshRenderer>();
+            var myMesh = GetComponentInChildren<MeshRenderer>();
             playerScript.meshRenderer.material = myMesh.material;
             PlayerInfo.playerLives--;
             PlayerInfo.hasInvulnerable = 1f;

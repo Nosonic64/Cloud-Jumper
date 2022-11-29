@@ -15,5 +15,6 @@ public class PlayerInfo
     static public bool gameOver;
     static public bool respawn;
     static public bool spriteCarry;
+    static public int retryCount;
 
 }

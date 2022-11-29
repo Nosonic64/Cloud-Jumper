@@ -12,8 +12,12 @@ public class ScoreUi : MonoBehaviour
 
     void Start()
     {
-        scoreManager.AddScore(new Score("NOA", 10));
-        scoreManager.AddScore(new Score("NOH", 20));
+        for (int i = 0; i < 10; i++)
+        {
+            var score = 10;
+            scoreManager.AddScore(new Score("NOA", score * i));
+        }
+
 
         var scores = scoreManager.GetHighScores().ToArray();
         for (int i = 0; i < scores.Length; i++)

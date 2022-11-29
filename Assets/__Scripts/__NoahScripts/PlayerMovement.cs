@@ -30,10 +30,11 @@ public class PlayerMovement : MonoBehaviour
         collider = GetComponent<CapsuleCollider>();
         rb = GetComponent<Rigidbody>();
         wrapAroundCheck = 1f;
-        distToGround = GetComponent<Collider>().bounds.extents.y;
+        distToGround = GetComponent<Collider>().bounds.extents.z;
         meshRenderer = GetComponent<MeshRenderer>();
         playerLives = 2;
         PlayerInfo.playerLives = playerLives;
+        PlayerInfo.retryCount = 1;
     }
 
     private void OnEnable()
@@ -149,8 +150,11 @@ public class PlayerMovement : MonoBehaviour
         {
                 PlayerInfo.playerLives--;
                 transform.position = new Vector3(0,10,14);
-                rb.velocity = new Vector3(rb.velocity.x, 0, rb.velocity.z);   
+                rb.velocity = new Vector3(rb.velocity.x, 0, rb.velocity.z);
+            if (PlayerInfo.playerLives != 0)
+            {
                 Instantiate(fallPlat, transform.position - new Vector3(2, 3, 0), transform.rotation);
+            }
         }
 
         if (PlayerInfo.playerLives == 0 && !PlayerInfo.gameOver)
@@ -185,7 +189,7 @@ public class PlayerMovement : MonoBehaviour
 
     public bool GroundCheck()
     {
-        return (Physics.Raycast(transform.position, Vector3.down, distToGround + 0.1f));
+        return (Physics.Raycast(transform.position, Vector3.down, distToGround));
     }
 
     //Unused Bell function
@@ -203,7 +207,7 @@ public class PlayerMovement : MonoBehaviour
         collider.enabled = c;
         if (c)
         {
-            Instantiate(fallPlat, transform.position - new Vector3(2, 3, 0), transform.rotation);
+            Instantiate(fallPlat, transform.position - new Vector3(2, 2, 0), transform.rotation);
         }
     }
 }
