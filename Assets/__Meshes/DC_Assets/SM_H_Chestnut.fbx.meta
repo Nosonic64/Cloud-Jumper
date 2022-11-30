@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: ad0f385961c75d24a961df8949a485f8
+guid: 5f4b2f1f2dd7dcc4ba30fef695e36aa6
 ModelImporter:
   serializedVersion: 20200
   internalIDToNameTable: []
@@ -7,18 +7,8 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: T_CJ
-    second: {fileID: 2100000, guid: 584d90cb5e7ebad41902385443c85386, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: T_CJ_eye_L
-    second: {fileID: 2100000, guid: 43cf7b7bfa0b4c64b8f05844484e7af6, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: T_CJ_eye_R
-    second: {fileID: 2100000, guid: 56ce691834df7eb41acfb0ba579fb8e9, type: 2}
+      name: T_HC
+    second: {fileID: 2100000, guid: 8cc187bf6a8d8624b9ac9131e1744ecb, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
