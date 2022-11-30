@@ -61,8 +61,6 @@ MonoBehaviour:
   disableTimer: 0
   disableTimerSet: 4
   playerTouched: 0
-  white: 1
-  grey: 0
 --- !u!1 &8714884110609391059
 GameObject:
   m_ObjectHideFlags: 0
@@ -122,7 +120,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 5561349426305759274, guid: 35356ef78bdd65c409b109a4e0632024, type: 3}
+  - {fileID: 2100000, guid: 82c4e3e686206ca46a7cb3ed3352a1a9, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

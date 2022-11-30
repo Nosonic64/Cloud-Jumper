@@ -13,9 +13,9 @@ GameObject:
   - component: {fileID: 3674615041974713877}
   - component: {fileID: 3674615041974713876}
   - component: {fileID: 8517757606074050019}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: PU_DoubleJump
-  m_TagString: Untagged
+  m_TagString: PowerUp
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

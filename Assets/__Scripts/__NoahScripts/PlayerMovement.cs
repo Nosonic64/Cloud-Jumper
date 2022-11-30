@@ -55,7 +55,7 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    private void FixedUpdate()
+    private void Update()
     {
         PlayerInfo.playerX = transform.position.x;
         PlayerInfo.playerY = transform.position.y;
@@ -109,17 +109,6 @@ public class PlayerMovement : MonoBehaviour
         else
         {
             PlayerInfo.touchingCeiling = false;
-        }
-
-        if (jumpBufferCounter > 0f && coyoteTimeCounter > 0f)
-        {
-            rb.velocity = new Vector3(rb.velocity.x, 0, rb.velocity.z);
-            rb.AddForce(transform.up * jumpSpeed, ForceMode.VelocityChange);
-            jumpBufferCounter = 0f;
-        }
-        else
-        {
-            jumpBufferCounter -= Time.deltaTime;
         }
 
         if (Input.GetKeyDown(KeyCode.W))
@@ -192,11 +181,35 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+    private void FixedUpdate()
+    {
+        if (jumpBufferCounter > 0f && coyoteTimeCounter > 0f)
+        {
+            rb.velocity = new Vector3(rb.velocity.x, 0, rb.velocity.z);
+            rb.AddForce(transform.up * jumpSpeed, ForceMode.VelocityChange);
+            jumpBufferCounter = 0f;
+        }
+        else
+        {
+            jumpBufferCounter -= Time.deltaTime;
+        }
+    }
+
     private void OnCollisionEnter(Collision collision)
     {
         if(collision.gameObject.tag == "Platform")
         {
             lastPlat = collision.gameObject;
+        }
+    }
+
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.tag == "Hazard" && PlayerInfo.hasInvulnerable <= 0f)
+        {
+            PlayerInfo.playerLives--;
+            PlayerInfo.hasInvulnerable = 1f;
+            Destroy(other.gameObject);
         }
     }
 

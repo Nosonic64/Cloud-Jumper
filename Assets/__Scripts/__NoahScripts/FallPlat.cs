@@ -8,21 +8,18 @@ public class FallPlat : MonoBehaviour
     public float disableTimerSet;
     public bool playerTouched;
     private BoxCollider collider;
-    private MeshRenderer mesh;
     void Start()
     {
-        mesh = GetComponentInChildren<MeshRenderer>();
         disableTimer = disableTimerSet;
     }
 
 
     void Update()
     {
+
         if (disableTimer > 0f)
         {
-            disableTimer -= 1f * Time.deltaTime;
-            float lerp = Mathf.PingPong(Time.time, disableTimer) / disableTimer;
-            mesh.material.color = Color.Lerp(Color.yellow, Color.black, lerp);
+            disableTimer -= Time.deltaTime;
         }
 
         if (playerTouched && !PlayerInfo.playerGrounded && disableTimer <= 5f || disableTimer <= 0f)

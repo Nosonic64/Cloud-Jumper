@@ -7,24 +7,11 @@ public class Platform : MonoBehaviour
     private BoxCollider collider;
     public float disableTimer;
     public float disableTimerSet;
-    private MeshRenderer mesh;
     public bool playerTouched;
-    public bool white;
-    public bool grey;
-    private Color endColor;
 
     private void Start()
     {
-        mesh = GetComponentInChildren<MeshRenderer>();    
         collider = GetComponent<BoxCollider>();
-        if (white)
-        {
-            endColor = Color.white;
-        } else if (grey)
-        {
-            endColor = Color.grey;
-        }
-
     }
 
     private void Update()
@@ -42,17 +29,14 @@ public class Platform : MonoBehaviour
         {
             Destroy(gameObject);
         }
-
-        if(disableTimer > 0f)
-        {
-            disableTimer -= 1f * Time.deltaTime;
-            float lerp = Mathf.PingPong(Time.time, disableTimer) / disableTimer;
-            mesh.material.color = Color.Lerp(Color.black, endColor, lerp);
-
-        }
         else if(disableTimer <= 0f && playerTouched)
         {
             gameObject.SetActive(false);
+        }
+
+        if(disableTimer > 0f)
+        {
+            disableTimer -= Time.deltaTime;
         }
     }
 
