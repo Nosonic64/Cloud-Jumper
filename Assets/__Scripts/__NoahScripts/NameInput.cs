@@ -61,8 +61,8 @@ public class NameInput : MonoBehaviour
             scoreUi.UpdateScores();
             scoreManager.SaveScore();
             }
-            PlayerInfo.gameOver = false;
-            PlayerInfo.playerLives = 2;
+
+            GameManager.instance.player.GameOver = false;
             ScoreHandler.distance = 0;
             ScoreHandler.currentPlayerTopDistance = 0;
             texts[3].text = "";
@@ -72,8 +72,7 @@ public class NameInput : MonoBehaviour
             gameOverUi.seconds = 10;
             gameOverUi.miliseconds = 0;
             gameOverUi.timerUp = false;
-            PlayerInfo.retryCount = 1;
-            PlayerInfo.respawn = true;
+            GameManager.instance.player.GoBackToInitial();
             thingsToSwitch.SwitchStuff();
         }
     }

@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 3674615041974713882}
   - component: {fileID: 3674615041974713877}
   - component: {fileID: 3674615041974713876}
-  - component: {fileID: 8517757606074050019}
+  - component: {fileID: 6180424493855671895}
   m_Layer: 2
   m_Name: PU_DoubleJump
   m_TagString: PowerUp
@@ -96,7 +96,7 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.75
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &8517757606074050019
+--- !u!114 &6180424493855671895
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -105,6 +105,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 3674615041974713879}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 412b11f21eaa1734c8de5702bf2e1b6c, type: 3}
+  m_Script: {fileID: 11500000, guid: c57e83324ef16054582c0b9c952102b8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  id: 0

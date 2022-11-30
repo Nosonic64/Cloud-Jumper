@@ -38,7 +38,7 @@ public class GameOver : MonoBehaviour
 
         if(seconds > 0f || miliseconds > 0f) 
         {
-            if (PlayerInfo.retryCount > 0)
+            if (GameManager.instance.player.RetryCount > 0)
             {
                 miliseconds -= Time.deltaTime * 100;
             }
@@ -64,10 +64,10 @@ public class GameOver : MonoBehaviour
         {
             seconds = 10;
             miliseconds = 0;
-            PlayerInfo.respawn = true;
-            PlayerInfo.retryCount = 0;
+            GameManager.instance.player.RetryCount--;
+            player.SetActive(true);
+            GameManager.instance.player.GameOverRespawn();
             gameObject.SetActive(false);
-            player.SetActive(true); 
         }
     }
 }

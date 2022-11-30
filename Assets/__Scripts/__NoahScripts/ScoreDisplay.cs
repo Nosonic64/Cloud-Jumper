@@ -14,6 +14,6 @@ public class ScoreDisplay : MonoBehaviour
 
     private void Update()
     {
-        text.text = ("Distance: " + ScoreHandler.distance.ToString("F0") + " | Lives: " + PlayerInfo.playerLives + " | Your Top Score: " + ScoreHandler.currentPlayerTopDistance.ToString("F0"));
+        text.text = ("Distance: " + ScoreHandler.distance.ToString("F0") + " | Lives: " + GameManager.instance.player.PlayerLives + " | Your Top Score: " + ScoreHandler.currentPlayerTopDistance.ToString("F0"));
     }
 }

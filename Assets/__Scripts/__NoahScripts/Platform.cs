@@ -4,25 +4,30 @@ using UnityEngine;
 
 public class Platform : MonoBehaviour
 {
-    private BoxCollider collider;
-    public float disableTimer;
-    public float disableTimerSet;
-    public bool playerTouched;
+    #region private variables
+    private BoxCollider platCollider;
+    private bool playerTouched;
+    #endregion
+
+    #region serialized variables
+    [SerializeField] private float disableTimer;
+    [SerializeField] private float disableTimerSet;
+    #endregion
 
     private void Start()
     {
-        collider = GetComponent<BoxCollider>();
+        platCollider = GetComponent<BoxCollider>();
     }
 
     private void Update()
     {
-        if(PlayerInfo.playerY - 1f > transform.position.y)
+        if(GameManager.instance.player.transform.position.y - 1f > transform.position.y)
         {
-            collider.enabled = true;
+            platCollider.enabled = true;
         }
-        else if(PlayerInfo.playerY < transform.position.y)
+        else if(GameManager.instance.player.transform.position.y < transform.position.y)
         {
-            collider.enabled = false;
+            platCollider.enabled = false;
         }
 
         if(transform.position.y < -1f)

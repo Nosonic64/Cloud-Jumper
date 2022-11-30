@@ -4,10 +4,16 @@ using UnityEngine;
 
 public class FallPlat : MonoBehaviour
 {
-    public float disableTimer;
-    public float disableTimerSet;
-    public bool playerTouched;
-    private BoxCollider collider;
+    #region private variables
+    private bool playerTouched;
+    private BoxCollider platCollider;
+    #endregion
+
+    #region serialized variables
+    [SerializeField] private float disableTimer;
+    [SerializeField] private float disableTimerSet;
+    #endregion
+
     void Start()
     {
         disableTimer = disableTimerSet;
@@ -16,13 +22,12 @@ public class FallPlat : MonoBehaviour
 
     void Update()
     {
-
         if (disableTimer > 0f)
         {
             disableTimer -= Time.deltaTime;
         }
 
-        if (playerTouched && !PlayerInfo.playerGrounded && disableTimer <= 5f || disableTimer <= 0f)
+        if (playerTouched && !GameManager.instance.player.GroundCheck() && disableTimer <= 5f || disableTimer <= 0f)
         {
             Destroy(gameObject);
         }

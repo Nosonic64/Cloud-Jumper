@@ -2,15 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DoubleJump : MonoBehaviour
+public class FallKillBox : MonoBehaviour
 {
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.tag == "Player")
         {
-            PlayerInfo.hasDoubleJump = true;
-            Destroy(gameObject);
+            if(GameManager.instance.player.PlayerLives > 0)
+            {
+                GameManager.instance.player.NormalRespawn();
+            }
         }
     }
-
 }
