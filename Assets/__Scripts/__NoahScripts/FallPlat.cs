@@ -27,7 +27,7 @@ public class FallPlat : MonoBehaviour
             disableTimer -= Time.deltaTime;
         }
 
-        if (playerTouched && !GameManager.instance.player.GroundCheck() && disableTimer <= 5f || disableTimer <= 0f)
+        if (playerTouched && !GameManager.instance.player.GroundCheck() && disableTimer <= 5f || disableTimer <= 0f || Vector3.Distance(transform.position, GameManager.instance.player.transform.position) > 4f)
         {
             Destroy(gameObject);
         }

@@ -9,6 +9,8 @@ public class PlayerMovement : MonoBehaviour
     private Rigidbody rb;
     private CapsuleCollider colliderPlayer;
     private MeshRenderer meshRenderer;
+    private PlayerSounds playerSounds;
+    private AudioSource[] audioSources = new AudioSource[0];
     private bool hasBell;
     private bool gameOver;
     private bool touchingYClamp;
@@ -42,10 +44,11 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float jumpBufferTime = 0.2f;
     [Space]
     [Header("Misc")]
+    [SerializeField] private Vector3 respawnPoint = new Vector3(8, 10, 0);
     [SerializeField] private Material defaultMat;
     [SerializeField] private GameObject fallPlat;
     [SerializeField] private GameObject yClamp;
-    [SerializeField] private Vector3 respawnPoint = new Vector3(8, 10, 0);
+    [SerializeField] private GameObject platLandParticleSystem;
     #endregion
 
     #region getters setters
@@ -54,6 +57,7 @@ public class PlayerMovement : MonoBehaviour
     public int PlayerLives { get => playerLives; set => playerLives = value; }
     public bool GameOver { get => gameOver; set => gameOver = value; }
     public bool TouchingYClamp { get => touchingYClamp; }
+    public PlayerSounds PlayerSounds { get => playerSounds;}
     #endregion
     private void OnEnable()
     {
@@ -62,6 +66,8 @@ public class PlayerMovement : MonoBehaviour
 
     void Start()
     {
+        playerSounds = GetComponent<PlayerSounds>();
+        audioSources = GetComponents<AudioSource>();
         colliderPlayer = GetComponent<CapsuleCollider>();
         rb = GetComponent<Rigidbody>();
         distToGround = GetComponent<Collider>().bounds.extents.y;
@@ -97,7 +103,7 @@ public class PlayerMovement : MonoBehaviour
             hasBell = false;
         }
 
-        if (transform.position.y >= yClamp.transform.position.y)
+        if (transform.position.y >= yClamp.transform.position.y && playerLives > 0)
         {
             transform.position = new Vector3(transform.position.x, yClamp.transform.position.y, transform.position.z);
             touchingYClamp = true;
@@ -155,6 +161,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (jumpBufferCounter > 0f && coyoteTimeCounter > 0f)
         {
+            PlayAudio(playerSounds.Sounds[0], 1f);
             rb.velocity = new Vector3(rb.velocity.x, 0, rb.velocity.z);
             rb.AddForce(transform.up * jumpSpeed, ForceMode.VelocityChange);
             jumpBufferCounter = 0f;
@@ -181,7 +188,10 @@ public class PlayerMovement : MonoBehaviour
     {
         if (other.gameObject.tag == "Platform")
         {
-            // Play particle burst
+            platLandParticleSystem.transform.SetParent(other.gameObject.transform);
+            platLandParticleSystem.transform.position = transform.position;
+            var particlePlay = platLandParticleSystem.GetComponent<ParticleSystem>();
+            particlePlay.Play();
         }
     }
 
@@ -191,6 +201,14 @@ public class PlayerMovement : MonoBehaviour
         {
             var powerUpID = other.GetComponent<PowerUp>().Id;
             PowerUp(powerUpID);
+            Destroy(other.gameObject);
+        }
+
+        if (other.gameObject.tag == "Hazard" && hasInvulnerable <= 0f)
+        {
+            PlayAudio(playerSounds.Sounds[1], 0.5f);
+            playerLives--;
+            hasInvulnerable = 1f;
             Destroy(other.gameObject);
         }
     }
@@ -253,6 +271,22 @@ public class PlayerMovement : MonoBehaviour
         retryCount = maxRetrys;
         transform.position = respawnPoint;
         rb.velocity = Vector3.zero; //Reset the players velocity to zero 
+    }
+
+    public void PlayAudio(AudioClip clip, float volume)
+    {
+        if (audioSources[0].isPlaying && clip != audioSources[0].clip)
+        {
+            audioSources[1].volume = volume;
+            audioSources[1].clip = clip;
+            audioSources[1].Play();
+        }
+        else
+        {
+            audioSources[0].volume = volume;
+            audioSources[0].clip = clip;
+            audioSources[0].Play();
+        }
     }
 }
 

@@ -31,6 +31,7 @@ public class GameManager : MonoBehaviour
             {
                 ScoreHandler.currentPlayerTopDistance = ScoreHandler.distance;
             }
+            player.transform.position = new Vector3(0, 0, 0);
             gameOverUI.SetActive(true);
             player.GameOver = true;
             player.gameObject.SetActive(false);

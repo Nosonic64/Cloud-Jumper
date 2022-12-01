@@ -7,6 +7,7 @@ public class Platform : MonoBehaviour
     #region private variables
     private BoxCollider platCollider;
     private bool playerTouched;
+    private AudioSource audioSource;
     #endregion
 
     #region serialized variables
@@ -17,6 +18,7 @@ public class Platform : MonoBehaviour
     private void Start()
     {
         platCollider = GetComponent<BoxCollider>();
+        audioSource = GetComponent<AudioSource>();
     }
 
     private void Update()
@@ -47,10 +49,14 @@ public class Platform : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if(collision.gameObject.tag == "Player" & disableTimer <= 0)
+        if(collision.gameObject.tag == "Player")
         {
-            disableTimer = disableTimerSet;
-            playerTouched = true;
+            audioSource.Play();
+            if (disableTimer <= 0)
+            {
+                disableTimer = disableTimerSet;
+                playerTouched = true;
+            }
         }
     }
 
