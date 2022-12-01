@@ -32,7 +32,7 @@ public class Platform : MonoBehaviour
             platCollider.enabled = false;
         }
 
-        if(transform.position.y < -1f)
+        if(transform.position.y < -2f)
         {
             Destroy(gameObject);
         }

@@ -13,7 +13,7 @@ public class PlayerMovement : MonoBehaviour
     private AudioSource[] audioSources = new AudioSource[0];
     private bool hasBell;
     private bool gameOver;
-    private bool touchingYClamp;
+    [SerializeField] private bool touchingYClamp;
     private bool hasDoubleJump;
     private float hasInvulnerable;
     private float movementSpeed;
@@ -23,7 +23,7 @@ public class PlayerMovement : MonoBehaviour
     private float coyoteTimeCounter;
     private float jumpBufferCounter;
     private float rightWrapAroundThreshold = 17f;
-    private float leftWrapAroundThreshold = 0f;
+    private float leftWrapAroundThreshold = -1f;
     private int playerLives;
     private int retryCount;
     #endregion
@@ -34,8 +34,8 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private int maxRetrys;
     [Space]
     [Header("Character Movement Variables")]
-    [SerializeField] private float acceleration = 30f;
-    [SerializeField] private float decceleration = 15f;
+    [SerializeField] private float acceleration = 12f;
+    [SerializeField] private float decceleration = 60f;
     [SerializeField] private float maxSpeed = 8.5f;
     [SerializeField] private float jumpSpeed = 20f;
     [Space]
@@ -56,7 +56,7 @@ public class PlayerMovement : MonoBehaviour
     public int RetryCount { get => retryCount; set => retryCount = value; }
     public int PlayerLives { get => playerLives; set => playerLives = value; }
     public bool GameOver { get => gameOver; set => gameOver = value; }
-    public bool TouchingYClamp { get => touchingYClamp; }
+    public bool TouchingYClamp { get => touchingYClamp; set => gameOver = value; }
     public PlayerSounds PlayerSounds { get => playerSounds;}
     #endregion
     private void OnEnable()
@@ -103,7 +103,7 @@ public class PlayerMovement : MonoBehaviour
             hasBell = false;
         }
 
-        if (transform.position.y >= yClamp.transform.position.y && playerLives > 0)
+        if (transform.position.y >= yClamp.transform.position.y)
         {
             transform.position = new Vector3(transform.position.x, yClamp.transform.position.y, transform.position.z);
             touchingYClamp = true;
@@ -131,9 +131,9 @@ public class PlayerMovement : MonoBehaviour
         {
             coyoteTimeCounter -= Time.deltaTime;
             if (Input.GetButtonDown("Jump") && hasDoubleJump)
-            {
-                rb.velocity = new Vector3(rb.velocity.x, 0, rb.velocity.z);
-                rb.AddForce(transform.up * jumpSpeed, ForceMode.VelocityChange);
+            { 
+                coyoteTimeCounter = coyoteTime;
+                jumpBufferCounter = jumpBufferTime;
                 hasDoubleJump = false;
             }
         }
@@ -232,6 +232,7 @@ public class PlayerMovement : MonoBehaviour
 
             case 2:
                 GameManager.instance.bellSprite.StartAnim();
+                hasInvulnerable = 7f;
                 BellPower(true, true, false);
                 break;
         }
@@ -250,6 +251,7 @@ public class PlayerMovement : MonoBehaviour
 
     public void GameOverRespawn()
     {
+        hasInvulnerable = 3f;
         playerLives = maxPlayerLives;
         gameOver = false; 
         transform.position = respawnPoint;
@@ -259,6 +261,7 @@ public class PlayerMovement : MonoBehaviour
 
     public void NormalRespawn()
     {
+        hasInvulnerable = 3f;
         playerLives--;
         transform.position = respawnPoint;
         rb.velocity = Vector3.zero; //Reset the players velocity to zero 
