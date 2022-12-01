@@ -4,64 +4,76 @@ using UnityEngine;
 
 public class LevelChunk : MonoBehaviour
 {
-    public GameObject topHelper;
-    private float scrollMultiple;
+    #region private variables
     private bool spawnedNewLevelChunk;
+    private float bellScrollSpeedMultiple = 60f;
+    private float createNewChunkThreshold = 0f; 
+    private float deleteThisChunkThreshold = -22f;
+    #endregion
 
     void Start()
     {
-        scrollMultiple = 1f;
-        var randomNumber = Random.Range(0, 100);
-        if (randomNumber <= PowerUpHandler.chanceToSpawnPowerUp)
+        SpawnRandomPowerUp();
+    }
+
+    private void Update()
+    {
+        if(GameManager.instance.player.TouchingYClamp && GameManager.instance.player.PlayerLives > 0)
         {
-            retrySpawn: 
-            var i = Random.Range(0, PowerUpHandler.powerUps.Length);
-            var x = Random.Range(-1, 14);
-            var y = Random.Range(-10, 10);
-            var powerUpSpawned = Instantiate(PowerUpHandler.powerUps[i], transform.position + new Vector3(x, y, 4), transform.rotation);
+            transform.position -= transform.up * GameManager.instance.player.GetRigidbody.velocity.y * Time.deltaTime;
+            ScoreHandler.distance += Time.deltaTime;
+        }
+
+        if(GameManager.instance.bellSprite.SpriteCarryingPlayer)
+        {
+            transform.position -= transform.up * bellScrollSpeedMultiple * Time.deltaTime;
+            ScoreHandler.distance += Time.deltaTime;
+        }
+
+        if (transform.position.y <= createNewChunkThreshold & !spawnedNewLevelChunk)
+        {
+            SpawnRandomLevelChunk();
+            
+        }
+
+       if(transform.position.y <= deleteThisChunkThreshold)
+        {
+            Destroy(gameObject);
+        }
+    }
+
+    private void SpawnRandomPowerUp()
+    {
+        var randomNumber = Random.Range(0, 100);
+        if (randomNumber <= GameManager.instance.powerUpManager.ChanceToSpawnPowerUp)
+        {
+        retrySpawn:
+            var powerUpToSpawn = Random.Range(0, GameManager.instance.powerUpManager.PowerUps.Length);
+            var powerUpXSpawn = Random.Range(2, 14);
+            var powerUpYSpawn = Random.Range(-6, 6);
+            var powerUpSpawned = Instantiate(GameManager.instance.powerUpManager.PowerUps[powerUpToSpawn], transform.position + new Vector3(powerUpXSpawn, powerUpYSpawn, 0), transform.rotation);
+            //This code below is meant to check everything around where the power up has spawned, and if it colliding with something (Hazard, platform) its meant to retry spawning it in. 
+            //it doesnt seem to work though. 
             RaycastHit hit;
-            if(Physics.SphereCast(powerUpSpawned.transform.position, 6f, powerUpSpawned.transform.position, out hit))
+            if (Physics.SphereCast(powerUpSpawned.transform.position, 6f, powerUpSpawned.transform.position, out hit))
             {
                 Destroy(powerUpSpawned);
                 goto retrySpawn;
             }
             powerUpSpawned.transform.parent = transform;
-            PowerUpHandler.chanceToSpawnPowerUp = PowerUpHandler.initialChanceToSpawnPowerUp;
+            GameManager.instance.powerUpManager.ChanceToSpawnPowerUp = GameManager.instance.powerUpManager.ChanceToSpawnPowerUpSet;
         }
         else
         {
-            PowerUpHandler.chanceToSpawnPowerUp += 15;
+            GameManager.instance.powerUpManager.ChanceToSpawnPowerUp += GameManager.instance.powerUpManager.AddToChance;
         }
+
     }
 
-    private void Update()
+    private void SpawnRandomLevelChunk()
     {
-        if(PlayerInfo.touchingCeiling)
-        {
-            transform.position -= transform.up * (PlayerInfo.playerYVelocity * scrollMultiple) * Time.deltaTime;
-        }
-
-        if(PlayerInfo.spriteCarry)
-        {
-            transform.position -= transform.up * 60f * Time.deltaTime;
-            ScoreHandler.distance += Time.deltaTime;
-        }
-
-        if (transform.position.y <= 14f & !spawnedNewLevelChunk)
-       {
-            var i = Random.Range(0,LevelChunkHandler.levelChunks.Length);
-            Instantiate(LevelChunkHandler.levelChunks[i], transform.position + new Vector3(0,22,0), transform.rotation);
-            spawnedNewLevelChunk = true;
-       }
-
-       if(topHelper.transform.position.y < 0f)
-        {
-            Destroy(gameObject);
-        }
-
-      // if (PlayerInfo.gameOver)
-      //  {
-      //      transform.position += transform.up * 5f * Time.deltaTime;
-      //  }
+        var levelChunkToSpawnFromArray = Random.Range(0, GameManager.instance.levelChunkManager.LevelChunks.Length);
+        Instantiate(GameManager.instance.levelChunkManager.LevelChunks[levelChunkToSpawnFromArray], transform.position + new Vector3(0, 22, 0), transform.rotation);
+        spawnedNewLevelChunk = true;
     }
 }

@@ -4,78 +4,59 @@ using UnityEngine;
 
 public class Platform : MonoBehaviour
 {
-    private BoxCollider collider;
-    public float disableTimer;
-    public float disableTimerSet;
-    private MeshRenderer mesh;
-    public bool playerTouched;
-    public bool white;
-    public bool grey;
-    private Color endColor;
+    #region private variables
+    private BoxCollider platCollider;
+    private bool playerTouched;
+    private AudioSource audioSource;
+    #endregion
+
+    #region serialized variables
+    [SerializeField] private float disableTimer;
+    [SerializeField] private float disableTimerSet;
+    #endregion
 
     private void Start()
     {
-        mesh = GetComponentInChildren<MeshRenderer>();    
-        collider = GetComponent<BoxCollider>();
-        if (white)
-        {
-            endColor = Color.white;
-        } else if (grey)
-        {
-            endColor = Color.grey;
-        }
-
-        if (ScoreHandler.distance < 30f)
-        {
-            transform.localScale = new Vector3(1f, 1f, 1f);
-            
-        }
-        else if(ScoreHandler.distance < 60f)
-        {
-            transform.localScale = new Vector3(0.85f, 1f, 1f);
-        }
-        else if (ScoreHandler.distance < 90f)
-        {
-            transform.localScale = new Vector3(0.65f, 1f, 1f);
-        }
-
+        platCollider = GetComponent<BoxCollider>();
+        audioSource = GetComponent<AudioSource>();
     }
 
     private void Update()
     {
-        if(PlayerInfo.playerY - 1f > transform.position.y)
+        if(GameManager.instance.player.transform.position.y - 1f > transform.position.y)
         {
-            collider.enabled = true;
+            platCollider.enabled = true;
         }
-        else if(PlayerInfo.playerY < transform.position.y)
+        else if(GameManager.instance.player.transform.position.y < transform.position.y)
         {
-            collider.enabled = false;
+            platCollider.enabled = false;
         }
 
-        if(transform.position.y < -1f)
+        if(transform.position.y < -2f)
         {
             Destroy(gameObject);
-        }
-
-        if(disableTimer > 0f)
-        {
-            disableTimer -= 1f * Time.deltaTime;
-            float lerp = Mathf.PingPong(Time.time, disableTimer) / disableTimer;
-            mesh.material.color = Color.Lerp(Color.black, endColor, lerp);
-
         }
         else if(disableTimer <= 0f && playerTouched)
         {
             gameObject.SetActive(false);
         }
+
+        if(disableTimer > 0f)
+        {
+            disableTimer -= Time.deltaTime;
+        }
     }
 
     private void OnCollisionEnter(Collision collision)
     {
-        if(collision.gameObject.tag == "Player" & disableTimer <= 0)
+        if(collision.gameObject.tag == "Player")
         {
-            disableTimer = disableTimerSet;
-            playerTouched = true;
+            audioSource.Play();
+            if (disableTimer <= 0)
+            {
+                disableTimer = disableTimerSet;
+                playerTouched = true;
+            }
         }
     }
 

@@ -4,14 +4,18 @@ using UnityEngine;
 
 public class FallPlat : MonoBehaviour
 {
-    public float disableTimer;
-    public float disableTimerSet;
-    public bool playerTouched;
-    private BoxCollider collider;
-    private MeshRenderer mesh;
+    #region private variables
+    private bool playerTouched;
+    private BoxCollider platCollider;
+    #endregion
+
+    #region serialized variables
+    [SerializeField] private float disableTimer;
+    [SerializeField] private float disableTimerSet;
+    #endregion
+
     void Start()
     {
-        mesh = GetComponentInChildren<MeshRenderer>();
         disableTimer = disableTimerSet;
     }
 
@@ -20,12 +24,10 @@ public class FallPlat : MonoBehaviour
     {
         if (disableTimer > 0f)
         {
-            disableTimer -= 1f * Time.deltaTime;
-            float lerp = Mathf.PingPong(Time.time, disableTimer) / disableTimer;
-            mesh.material.color = Color.Lerp(Color.yellow, Color.black, lerp);
+            disableTimer -= Time.deltaTime;
         }
 
-        if (playerTouched && !PlayerInfo.playerGrounded && disableTimer <= 5f || disableTimer <= 0f)
+        if (playerTouched && !GameManager.instance.player.GroundCheck() && disableTimer <= 5f || disableTimer <= 0f || Vector3.Distance(transform.position, GameManager.instance.player.transform.position) > 4f)
         {
             Destroy(gameObject);
         }

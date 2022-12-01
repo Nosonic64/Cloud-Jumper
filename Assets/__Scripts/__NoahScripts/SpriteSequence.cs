@@ -1,42 +1,49 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class SpriteSequence : MonoBehaviour
 {
-    public GameObject player;
-    public Animator anim;
+    #region private variables
+    private bool spriteCarryingPlayer;
+    private Animator anim;
+    #endregion
+
+    #region getters and setters
+    public bool SpriteCarryingPlayer { get => spriteCarryingPlayer; }
+    #endregion
 
     private void Start()
     {
         anim = GetComponent<Animator>();
     }
+
+    public void StartAnim()
+    {
+        anim.Play("Sprite_Sequence");
+    }
     public void SetPlayer()
     {
-        player.transform.position = new Vector3(0, 8, 14);
+        GameManager.instance.player.transform.position = new Vector3(8, 8, 0);
     }
 
     public void ParentPlayer()
     {
-        player.transform.parent = gameObject.transform;
+        GameManager.instance.player.transform.parent = gameObject.transform;
     }
 
     //Unity animation events allow you to call functions, but not if they have arguments for some reason, so i have to call 2 seperate functions to change a boolean
     public void SetSpriteCarryTrue()
     {
-        PlayerInfo.spriteCarry = true;
+        spriteCarryingPlayer = true;
     }
     public void SetSpriteCarryFalse()
     {
-        PlayerInfo.hasInvulnerable = 8f;
-        PlayerInfo.spriteCarry = false;
+        spriteCarryingPlayer = false;
     }
 
     public void UnparentPlayer()
     {
-        player.transform.parent = null;
-        var playerScript = player.GetComponent<PlayerMovement>();
-        playerScript.BellPowerNew(false, false, true);
+        GameManager.instance.player.transform.parent = null;
+        GameManager.instance.player.BellPower(false,false,true);
     }
 
     public void GoBackToIdle()
