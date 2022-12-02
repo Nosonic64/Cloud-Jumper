@@ -7,12 +7,12 @@ public class ScoreFlag : MonoBehaviour
 {
     private Slider slider;
     private Text text;
-    public int i;
-    public bool usePlayerScore;
+    private int highScoreToBeat;
+    private bool usePlayerScore;
 
     void Start()
     {
-        i = 0;
+        highScoreToBeat = 0;
         slider = GetComponent<Slider>();
         text = GetComponentInChildren<Text>();
     }
@@ -24,38 +24,34 @@ public class ScoreFlag : MonoBehaviour
         //Else, if we have passed the highest score, we just display the players score
         if (usePlayerScore)
         {
-            slider.maxValue = ScoreHandler.currentPlayerTopDistance;
+            slider.maxValue = GameManager.instance.scoreManager.CurrentPlayerTopDistance;
         }
-        else if (i != ScoreData.scores.Count)
+        else if (highScoreToBeat != ScoreData.scores.Count)
         {
-            slider.maxValue = ScoreData.scores[i].score;
+            slider.maxValue = ScoreData.scores[highScoreToBeat].score;
         }
         else
         {
-            slider.minValue = ScoreHandler.distance - 0.1f;
-            slider.maxValue = ScoreHandler.distance + 0.1f;
+            slider.minValue = GameManager.instance.scoreManager.Distance - 0.1f;
+            slider.maxValue = GameManager.instance.scoreManager.Distance + 0.1f;
         }
 
         text.text = slider.maxValue.ToString("F0") + "m";
-        slider.value = ScoreHandler.distance;
+        slider.value = GameManager.instance.scoreManager.Distance;
 
             if (slider.value >= slider.maxValue)
             {
                 if (usePlayerScore)
                 {
                     usePlayerScore = false;
-                    if (i != 0)
+                    if (highScoreToBeat != 0)
                     {
-                        slider.minValue = ScoreData.scores[i - 1].score;
+                        slider.minValue = ScoreData.scores[highScoreToBeat - 1].score;
                     }
                     return;
                 }
-                slider.minValue = ScoreData.scores[i].score;
-                i++;
-                    if(i == ScoreData.scores.Count)
-                    {
-
-                    }
+                slider.minValue = ScoreData.scores[highScoreToBeat].score;
+                highScoreToBeat++;
             }
 
         // When a player game-overs, we use the players top score in that play session to display at the top of the flag
@@ -64,5 +60,11 @@ public class ScoreFlag : MonoBehaviour
             usePlayerScore = true;
             slider.minValue = 0f;
         }
+    }
+
+    private void OnDisable()
+    {
+        highScoreToBeat = 0;
+        usePlayerScore = false;
     }
 }

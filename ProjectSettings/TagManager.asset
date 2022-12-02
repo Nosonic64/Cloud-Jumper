@@ -7,11 +7,12 @@ TagManager:
   - Platform
   - PowerUp
   - Hazard
+  - Ceiling
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Ground
   - Water
   - UI
   - 

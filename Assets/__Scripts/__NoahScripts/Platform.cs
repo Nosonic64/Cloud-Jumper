@@ -8,6 +8,7 @@ public class Platform : MonoBehaviour
     private BoxCollider platCollider;
     private bool playerTouched;
     private AudioSource audioSource;
+    private float deleteThreshold = -2f;
     #endregion
 
     #region serialized variables
@@ -32,7 +33,7 @@ public class Platform : MonoBehaviour
             platCollider.enabled = false;
         }
 
-        if(transform.position.y < -2f)
+        if(transform.position.y < deleteThreshold)
         {
             Destroy(gameObject);
         }

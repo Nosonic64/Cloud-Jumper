@@ -4,6 +4,6 @@ using UnityEngine;
 
 public class ScoreHandler
 {
-    static public float distance;
-    static public float currentPlayerTopDistance;
+    //static public float distance;
+    //static public float currentPlayerTopDistance;
 }
