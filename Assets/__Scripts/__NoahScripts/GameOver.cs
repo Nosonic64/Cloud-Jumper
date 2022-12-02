@@ -49,13 +49,13 @@ public class GameOver : MonoBehaviour
             }
         }
 
-        if(ScoreHandler.distance > 0f)
+        if(GameManager.instance.scoreManager.Distance > 0f)
         {
-            ScoreHandler.distance -= Time.deltaTime * ScoreHandler.distance / 12f;
+            GameManager.instance.scoreManager.Distance -= Time.deltaTime * GameManager.instance.scoreManager.Distance / 12f;
         }
         else
         {
-            ScoreHandler.distance = 0f;
+            GameManager.instance.scoreManager.Distance = 0f;
         }
 
         timer.text = string.Format("{0}:{1}", seconds, (int)miliseconds);

@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 2861513933442665869}
   - component: {fileID: 2861513933442665866}
   - component: {fileID: 4805494487329645596}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Plat_BreakCloud
   m_TagString: Platform
   m_Icon: {fileID: 0}

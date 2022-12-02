@@ -10,6 +10,7 @@ public class GameManager : MonoBehaviour
     public SpriteSequence bellSprite;
     public LevelChunkManager levelChunkManager;
     public PowerUpManager powerUpManager;
+    public ScoreManager scoreManager;
 
     void Awake()
     {
@@ -20,22 +21,6 @@ public class GameManager : MonoBehaviour
         else if(instance != this)
         {
             Destroy(gameObject);
-        }
-    }
-
-    private void Update()
-    {
-        if(player.PlayerLives == 0)
-        {
-            if (ScoreHandler.distance > ScoreHandler.currentPlayerTopDistance)
-            {
-                ScoreHandler.currentPlayerTopDistance = ScoreHandler.distance;
-            }
-            player.transform.position = new Vector3(0, 0, 0);
-            gameOverUI.SetActive(true);
-            player.GameOver = true;
-            player.gameObject.SetActive(false);
-            player.PlayerLives = -1;
         }
     }
 }

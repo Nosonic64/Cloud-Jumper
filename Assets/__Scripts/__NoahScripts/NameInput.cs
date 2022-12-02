@@ -2,78 +2,92 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class NameInput : MonoBehaviour
 {
-    public Text[] texts = new Text[0];
+    #region private variables
     private string letters = " ABCDEFGHIJKLMNOPQRSTUVWXYZ ";
-    private int i;
-    public bool highScoreNotAchieved;
-    public ScoreManager scoreManager;
-    public ScoreUi scoreUi;
-    public ScoreFlag scoreFlag;
-    public GameOver gameOverUi;
+    private int selectedLetter;
     private StartGameHandler thingsToSwitch;
+    private float inputDelay = 0.2f;
+    private float inputDelayCounter;
+    #endregion
+
+    #region serialized variables
+    [SerializeField] private GameOver gameOverUi;
+    [SerializeField] private HighScoreManager highScoreManager;
+    [SerializeField] private ScoreUi scoreUi;
+    [SerializeField] private ScoreFlag scoreFlag;
+    [SerializeField] private Text[] texts = new Text[0];
+    #endregion
 
     void Start()
     {
         thingsToSwitch = GetComponent<StartGameHandler>();
-        i = 1;
+        selectedLetter = 1;
+        if (GameManager.instance.scoreManager.CurrentPlayerTopDistance < ScoreData.scores[0].score)
+        {
+            ResetStuff();
+        }
+        UpdateLetterDisplay();
     }
 
     void Update()
     {
-        if (ScoreHandler.currentPlayerTopDistance < ScoreData.scores[0].score)
+        if(inputDelayCounter > 0f)
         {
-            highScoreNotAchieved = true;
-        }
-        else
-        {
-            highScoreNotAchieved = false;
+            inputDelayCounter -= Time.deltaTime;
         }
 
-        if (Input.GetKeyDown(KeyCode.A) && i != 1)
+        if (Input.GetAxisRaw("Horizontal") < 0 && selectedLetter != 1 && inputDelayCounter <= 0f)
         {
-            i -= 1;
+            selectedLetter -= 1;
+            inputDelayCounter = inputDelay;
+            UpdateLetterDisplay();
         }
 
-        if (Input.GetKeyDown(KeyCode.D) & i != letters.Length - 2)
+        if (Input.GetAxisRaw("Horizontal") > 0 && selectedLetter != letters.Length - 2 && inputDelayCounter <= 0f)
         {
-            i += 1;
-        }
-            texts[0].text = letters[i - 1].ToString();
-            texts[1].text = letters[i].ToString();
-            texts[2].text = letters[i + 1].ToString();
-
-        if (Input.GetKeyDown(KeyCode.W))
-        {
-            texts[3].text += letters[i];
+            selectedLetter += 1;
+            inputDelayCounter = inputDelay;
+            UpdateLetterDisplay();
         }
 
-        if (texts[3].text.ToCharArray().Length == 3 || highScoreNotAchieved)
+        if (Input.GetButtonDown("Jump"))
         {
-            if (!highScoreNotAchieved)
-            {
-                // scoreManager.AddScore(new Score(texts[3].text, Mathf.Floor(ScoreHandler.currentPlayerTopDistance)));
-            ScoreData.scores[0] = new Score(texts[3].text, Mathf.Floor(ScoreHandler.currentPlayerTopDistance));
+            texts[3].text += letters[selectedLetter];
+        }
+
+        if (texts[3].text.ToCharArray().Length == 3)
+        {
+            ScoreData.scores[0] = new Score(texts[3].text, Mathf.Floor(GameManager.instance.scoreManager.CurrentPlayerTopDistance));
             scoreUi.UpdateScores();
-            scoreManager.SaveScore();
-            }
-
-            GameManager.instance.player.GameOver = false;
-            ScoreHandler.distance = 0;
-            ScoreHandler.currentPlayerTopDistance = 0;
-            texts[3].text = "";
-            i = 1;
-            scoreFlag.i = 0;
-            scoreFlag.usePlayerScore = false;
-            gameOverUi.seconds = 10;
-            gameOverUi.miliseconds = 0;
-            gameOverUi.timerUp = false;
-            GameManager.instance.player.GoBackToInitial();
-            thingsToSwitch.SwitchStuff();
+            highScoreManager.SaveScore();
+            ResetStuff();
         }
+    }
+
+    private void UpdateLetterDisplay()
+    {
+        texts[0].text = letters[selectedLetter - 1].ToString();
+        texts[1].text = letters[selectedLetter].ToString();
+        texts[2].text = letters[selectedLetter + 1].ToString();
+    }
+
+    private void ResetStuff()
+    {
+        GameManager.instance.player.GameOver = false;
+        GameManager.instance.scoreManager.Distance = 0;
+        GameManager.instance.scoreManager.CurrentPlayerTopDistance = 0;
+        texts[3].text = "";
+        selectedLetter = 1;
+        gameOverUi.seconds = 10;
+        gameOverUi.miliseconds = 0;
+        gameOverUi.timerUp = false;
+        GameManager.instance.player.GoBackToInitial();
+        thingsToSwitch.SwitchStuff();
     }
 }

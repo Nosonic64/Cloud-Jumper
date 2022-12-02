@@ -7,13 +7,14 @@ public class PlayerMovement : MonoBehaviour
 {
     #region private variables
     private Rigidbody rb;
-    private CapsuleCollider colliderPlayer;
-    private MeshRenderer meshRenderer;
+    private BoxCollider colliderPlayer;
     private PlayerSounds playerSounds;
     private AudioSource[] audioSources = new AudioSource[0];
+    private PlayerParticles playerParticles;
+    private Vector3 fallPlatSpawnOffset = new Vector3(2,4,0);
     private bool hasBell;
     private bool gameOver;
-    [SerializeField] private bool touchingYClamp;
+    private bool touchingYClamp;
     private bool hasDoubleJump;
     private float hasInvulnerable;
     private float movementSpeed;
@@ -32,12 +33,15 @@ public class PlayerMovement : MonoBehaviour
     [Header("Character Stat Variables")]
     [SerializeField] private int maxPlayerLives;
     [SerializeField] private int maxRetrys;
+    [SerializeField] private float hitStopAmount;
     [Space]
     [Header("Character Movement Variables")]
     [SerializeField] private float acceleration = 12f;
     [SerializeField] private float decceleration = 60f;
     [SerializeField] private float maxSpeed = 8.5f;
     [SerializeField] private float jumpSpeed = 20f;
+    [SerializeField] private float sphereCastRadius = 0.17f;
+    [SerializeField] private float sphereCastMaxDistance = 0.5f;
     [Space]
     [Header("Coyote Time Variables")]
     [SerializeField] private float coyoteTime = 0.2f;
@@ -49,6 +53,9 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private GameObject fallPlat;
     [SerializeField] private GameObject yClamp;
     [SerializeField] private GameObject platLandParticleSystem;
+    [SerializeField] private GameObject groundedChecker;
+    [SerializeField] private LayerMask groundMask;
+    [SerializeField] private bool grounded;
     #endregion
 
     #region getters setters
@@ -61,17 +68,17 @@ public class PlayerMovement : MonoBehaviour
     #endregion
     private void OnEnable()
     {
-        Instantiate(fallPlat, transform.position - new Vector3(2, 3, 0), transform.rotation);
+        Instantiate(fallPlat, transform.position - fallPlatSpawnOffset, transform.rotation);
     }
 
     void Start()
     {
+        playerParticles = GetComponent<PlayerParticles>();
         playerSounds = GetComponent<PlayerSounds>();
         audioSources = GetComponents<AudioSource>();
-        colliderPlayer = GetComponent<CapsuleCollider>();
+        colliderPlayer = GetComponent<BoxCollider>();
         rb = GetComponent<Rigidbody>();
-        distToGround = GetComponent<Collider>().bounds.extents.y;
-        meshRenderer = GetComponent<MeshRenderer>();
+        distToGround = colliderPlayer.bounds.size.y / 2;
         playerLives = maxPlayerLives; 
         retryCount = maxRetrys;
         gameObject.SetActive(false);
@@ -151,9 +158,14 @@ public class PlayerMovement : MonoBehaviour
         {
              hasInvulnerable -= Time.deltaTime;
         }
+
+        if (hitStopAmount > 0)
+        {
+            hitStopAmount -= Time.unscaledDeltaTime;
+        }
         else
         {
-            meshRenderer.material = defaultMat;
+            Time.timeScale = 1;
         }
     }
 
@@ -206,16 +218,31 @@ public class PlayerMovement : MonoBehaviour
 
         if (other.gameObject.tag == "Hazard" && hasInvulnerable <= 0f)
         {
+            playerParticles.ParticleObjects[0].Play();
             PlayAudio(playerSounds.Sounds[1], 0.5f);
             playerLives--;
             hasInvulnerable = 1f;
             Destroy(other.gameObject);
+            if (playerLives > 0)
+            {
+                HitStop(0.1f);
+            }
+            else
+            {
+                GameManager.instance.scoreManager.PlayerDeathScoreChange();
+            }
         }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+       
     }
 
     public bool GroundCheck()
     {
-        return (Physics.Raycast(transform.position, Vector3.down, distToGround));
+        Ray ray = new Ray(groundedChecker.transform.position, Vector3.down);
+        return grounded = (Physics.SphereCast(ray, sphereCastRadius, sphereCastMaxDistance, groundMask)); 
     }
 
     public void PowerUp(int id) // 0 == DoubleJump | 1 == MoonCake(Invulnerable) | 2 == Bell(Sprite comes down and flys player up) |
@@ -228,6 +255,7 @@ public class PlayerMovement : MonoBehaviour
 
             case 1:
                 hasInvulnerable = 5f;
+                playerParticles.ParticleObjects[1].Play();
                 break;
 
             case 2:
@@ -245,7 +273,7 @@ public class PlayerMovement : MonoBehaviour
         colliderPlayer.enabled = c;
         if (c)
         {
-            Instantiate(fallPlat, transform.position - new Vector3(2, 3, 0), transform.rotation);
+            Instantiate(fallPlat, transform.position - fallPlatSpawnOffset, transform.rotation);
         }
     }
 
@@ -256,7 +284,7 @@ public class PlayerMovement : MonoBehaviour
         gameOver = false; 
         transform.position = respawnPoint;
         rb.velocity = Vector3.zero; //Reset the players velocity to zero 
-        Instantiate(fallPlat, transform.position - new Vector3(2, 3, 0), transform.rotation); //We offset the platform otherwise it would spawn to the left of the player
+        Instantiate(fallPlat, transform.position - fallPlatSpawnOffset, transform.rotation); //We offset the platform otherwise it would spawn to the left of the player
     }
 
     public void NormalRespawn()
@@ -265,7 +293,7 @@ public class PlayerMovement : MonoBehaviour
         playerLives--;
         transform.position = respawnPoint;
         rb.velocity = Vector3.zero; //Reset the players velocity to zero 
-        Instantiate(fallPlat, transform.position - new Vector3(2, 3, 0), transform.rotation);
+        Instantiate(fallPlat, transform.position - fallPlatSpawnOffset, transform.rotation);
     }
 
     public void GoBackToInitial()
@@ -290,6 +318,11 @@ public class PlayerMovement : MonoBehaviour
             audioSources[0].clip = clip;
             audioSources[0].Play();
         }
+    }
+    private void HitStop(float amount)
+    {
+        hitStopAmount = amount;
+        Time.timeScale = 0;
     }
 }
 

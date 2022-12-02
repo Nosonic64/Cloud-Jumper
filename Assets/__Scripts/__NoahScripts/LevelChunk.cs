@@ -20,14 +20,17 @@ public class LevelChunk : MonoBehaviour
     {
         if(GameManager.instance.player.TouchingYClamp && GameManager.instance.player.PlayerLives > 0)
         {
-            transform.position -= transform.up * GameManager.instance.player.GetRigidbody.velocity.y * Time.deltaTime;
-            ScoreHandler.distance += Time.deltaTime;
+           if (GameManager.instance.player.GetRigidbody.velocity.y > 0)
+           {
+                transform.position -= transform.up * GameManager.instance.player.GetRigidbody.velocity.y * Time.deltaTime;
+                GameManager.instance.scoreManager.Distance += Time.deltaTime;
+           }
         }
 
         if(GameManager.instance.bellSprite.SpriteCarryingPlayer)
         {
             transform.position -= transform.up * bellScrollSpeedMultiple * Time.deltaTime;
-            ScoreHandler.distance += Time.deltaTime;
+            GameManager.instance.scoreManager.Distance += Time.deltaTime;
         }
 
         if (transform.position.y <= createNewChunkThreshold & !spawnedNewLevelChunk)

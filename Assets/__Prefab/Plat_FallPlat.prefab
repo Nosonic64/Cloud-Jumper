@@ -12,9 +12,9 @@ GameObject:
   - component: {fileID: 2861513933442665869}
   - component: {fileID: 6783017217890632368}
   - component: {fileID: 8251262686085131043}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Plat_FallPlat
-  m_TagString: Untagged
+  m_TagString: Platform
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -45,7 +45,7 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 16, y: 0.016200066, z: 1}
+  m_Size: {x: 16, y: 0.13, z: 1}
   m_Center: {x: 2, y: 0.99189997, z: -0.5}
 --- !u!114 &6783017217890632368
 MonoBehaviour:

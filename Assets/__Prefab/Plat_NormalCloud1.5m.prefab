@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 2861513933442665869}
   - component: {fileID: 2861513933442665866}
   - component: {fileID: 6471601376553169057}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Plat_NormalCloud1.5m
   m_TagString: Platform
   m_Icon: {fileID: 0}
@@ -45,7 +45,7 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 0
   serializedVersion: 2
-  m_Size: {x: 1.5668166, y: 0.016200066, z: 1}
+  m_Size: {x: 1.5668166, y: 0.13, z: 1}
   m_Center: {x: 2.0036821, y: 0.99189997, z: -0.5}
 --- !u!114 &2861513933442665866
 MonoBehaviour:
