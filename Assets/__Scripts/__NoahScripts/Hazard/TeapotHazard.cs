@@ -6,8 +6,6 @@ public class TeapotHazard : Hazard
 {
     [SerializeField] Droplet dropletPrefab;
     public Vector3 directionOfObject;
-
-
     public float spawnTime;
     float spawnTimer;
 
@@ -26,6 +24,7 @@ public class TeapotHazard : Hazard
     private void Update()
     {
         SpawnTears();
+        Move();
     }
 
 
