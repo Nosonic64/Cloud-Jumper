@@ -7,7 +7,7 @@ using UnityEngine;
 public class ScoreUi : MonoBehaviour
 {
     public RowUi rowUi;
-    public ScoreManager scoreManager;
+    public HighScoreManager highScoreManager;
     public List<RowUi> rows;
 
     void Start()
@@ -15,11 +15,11 @@ public class ScoreUi : MonoBehaviour
         for (int i = 0; i < 10; i++)
         {
             var score = 10;
-            scoreManager.AddScore(new Score("NOA", score * i));
+            highScoreManager.AddScore(new Score("NOA", score * i));
         }
 
 
-        var scores = scoreManager.GetHighScores().ToArray();
+        var scores = highScoreManager.GetHighScores().ToArray();
         for (int i = 0; i < scores.Length; i++)
         {    
             var row = Instantiate(rowUi, transform).GetComponent<RowUi>();
@@ -38,7 +38,7 @@ public class ScoreUi : MonoBehaviour
         }
         if (rows.Count == 0)
         {
-            var scores = scoreManager.GetHighScores().ToArray();
+            var scores = highScoreManager.GetHighScores().ToArray();
             for (int i = 0; i < scores.Length; i++)
             {
                 var row = Instantiate(rowUi, transform).GetComponent<RowUi>();

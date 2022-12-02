@@ -8,14 +8,14 @@ public class LandingParticle : MonoBehaviour
 
     private void Start()
     {
-        landParticle = GetComponent<ParticleSystem>();  
+        landParticle = GetComponent<ParticleSystem>();
     }
 
     private void Update()
     {
-        if(!landParticle.isEmitting)
-        {
-            transform.SetParent(null);
+       if (!landParticle.isEmitting)
+       {
+           transform.SetParent(null);
         }
     }
 }

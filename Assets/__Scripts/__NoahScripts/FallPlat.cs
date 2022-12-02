@@ -5,8 +5,8 @@ using UnityEngine;
 public class FallPlat : MonoBehaviour
 {
     #region private variables
-    private bool playerTouched;
     private BoxCollider platCollider;
+    private LandingParticle landingParticle;
     #endregion
 
     #region serialized variables
@@ -17,6 +17,7 @@ public class FallPlat : MonoBehaviour
     void Start()
     {
         disableTimer = disableTimerSet;
+        landingParticle = FindObjectOfType<LandingParticle>();
     }
 
 
@@ -27,17 +28,10 @@ public class FallPlat : MonoBehaviour
             disableTimer -= Time.deltaTime;
         }
 
-        if (playerTouched && !GameManager.instance.player.GroundCheck() && disableTimer <= 5f || disableTimer <= 0f || Vector3.Distance(transform.position, GameManager.instance.player.transform.position) > 4f)
+        if(disableTimer <= 0f || Vector3.Distance(transform.position, GameManager.instance.player.transform.position) > 5f)
         {
+            landingParticle.transform.parent = null;
             Destroy(gameObject);
-        }
-    }
-
-    private void OnCollisionEnter(Collision collision)
-    {
-        if(collision.gameObject.tag == "Player")
-        {
-            playerTouched = true;
         }
     }
 }

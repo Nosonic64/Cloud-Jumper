@@ -1,39 +1,30 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.SocialPlatforms.Impl;
 
 public class ScoreManager : MonoBehaviour
 {
-    // This script orders the scores and also saves them to a file.
-    private ScoreData sd;
+    #region private variables
+    private float distance;
+    private float currentPlayerTopDistance;
+    #endregion
 
-    private void Awake()
-    {
-        var json = PlayerPrefs.GetString("scores", "{}");
-        sd = new ScoreData();  
-    }
+    #region getters and setters
+    public float Distance { get => distance; set => distance = value; }
+    public float CurrentPlayerTopDistance { get => currentPlayerTopDistance; set => currentPlayerTopDistance = value; }
+    #endregion
 
-    public IEnumerable<Score> GetHighScores()
+    public void PlayerDeathScoreChange()
     {
-        return ScoreData.scores.OrderByDescending(x => x.score);
-    }
-
-    public void AddScore(Score score)
-    {
-        ScoreData.scores.Add(score);
-    }
-
-    private void OnDestroy()
-    {
-        SaveScore();
-    }
-
-    public void SaveScore()
-    {
-        var json = JsonUtility.ToJson(sd);
-        PlayerPrefs.SetString("scores",json);
+        if (GameManager.instance.scoreManager.Distance > GameManager.instance.scoreManager.CurrentPlayerTopDistance)
+        {
+            GameManager.instance.scoreManager.CurrentPlayerTopDistance = GameManager.instance.scoreManager.Distance;
+        }
+        GameManager.instance.player.transform.position = new Vector3(0, 0, 0);
+        GameManager.instance.gameOverUI.SetActive(true);
+        GameManager.instance.player.GameOver = true;
+        GameManager.instance.player.gameObject.SetActive(false);
+        GameManager.instance.player.PlayerLives = -1;
     }
 }
