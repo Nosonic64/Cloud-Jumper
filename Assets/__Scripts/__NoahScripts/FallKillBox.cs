@@ -14,7 +14,7 @@ public class FallKillBox : MonoBehaviour
     }
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag == "Player")
+        if (other.gameObject.CompareTag("Player"))
         {
             if(GameManager.instance.player.PlayerLives > 0)
             {

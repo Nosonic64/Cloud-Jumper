@@ -8,7 +8,7 @@ public class LevelChunk : MonoBehaviour
     private bool spawnedNewLevelChunk;
     private float bellScrollSpeedMultiple = 60f;
     private float createNewChunkThreshold = 0f; 
-    private float deleteThisChunkThreshold = -22f;
+    private float deleteThisChunkThreshold = -24f;
     #endregion
 
     void Start()
@@ -53,12 +53,12 @@ public class LevelChunk : MonoBehaviour
         retrySpawn:
             var powerUpToSpawn = Random.Range(0, GameManager.instance.powerUpManager.PowerUps.Length);
             var powerUpXSpawn = Random.Range(2, 14);
-            var powerUpYSpawn = Random.Range(-6, 6);
+            var powerUpYSpawn = Random.Range(9,22);
             var powerUpSpawned = Instantiate(GameManager.instance.powerUpManager.PowerUps[powerUpToSpawn], transform.position + new Vector3(powerUpXSpawn, powerUpYSpawn, 0), transform.rotation);
             //This code below is meant to check everything around where the power up has spawned, and if it colliding with something (Hazard, platform) its meant to retry spawning it in. 
             //it doesnt seem to work though. 
             RaycastHit hit;
-            if (Physics.SphereCast(powerUpSpawned.transform.position, 6f, powerUpSpawned.transform.position, out hit))
+            if (Physics.SphereCast(powerUpSpawned.transform.position, 1f, Vector3.down, out hit, 0.01f))
             {
                 Destroy(powerUpSpawned);
                 goto retrySpawn;
@@ -68,6 +68,8 @@ public class LevelChunk : MonoBehaviour
         }
         else
         {
+            //For each time we dont spawn a powerup, we up the chance one can spawn next time.
+            //Once we do spawn a powerup, we reset the chance to its base value
             GameManager.instance.powerUpManager.ChanceToSpawnPowerUp += GameManager.instance.powerUpManager.AddToChance;
         }
 

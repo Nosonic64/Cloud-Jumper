@@ -7,6 +7,7 @@ public class FallPlat : MonoBehaviour
     #region private variables
     private BoxCollider platCollider;
     private LandingParticle landingParticle;
+    private bool playerTouched;
     #endregion
 
     #region serialized variables
@@ -28,10 +29,24 @@ public class FallPlat : MonoBehaviour
             disableTimer -= Time.deltaTime;
         }
 
-        if(disableTimer <= 0f || Vector3.Distance(transform.position, GameManager.instance.player.transform.position) > 5f)
+        if(disableTimer <= 0f || Vector3.Distance(transform.position, GameManager.instance.player.transform.position) > 3f && playerTouched || GameManager.instance.player.Grounded && !playerTouched && disableTimer <= 5f)
         {
-            landingParticle.transform.parent = null;
+            if (landingParticle != null)
+            {
+                if (landingParticle.transform.parent != null)
+                {
+                    landingParticle.transform.parent = null;
+                }
+            }
             Destroy(gameObject);
+        }
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Player") && !playerTouched)
+        {
+            playerTouched = true;
         }
     }
 }

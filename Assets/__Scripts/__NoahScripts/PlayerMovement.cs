@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.InteropServices.WindowsRuntime;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -16,6 +17,7 @@ public class PlayerMovement : MonoBehaviour
     private bool gameOver;
     private bool touchingYClamp;
     private bool hasDoubleJump;
+    private bool grounded;
     private float hasInvulnerable;
     private float movementSpeed;
     private float lastInputDir;
@@ -23,17 +25,20 @@ public class PlayerMovement : MonoBehaviour
     private float distToGround;
     private float coyoteTimeCounter;
     private float jumpBufferCounter;
+    private float hitStopAmountCounter;
     private float rightWrapAroundThreshold = 17f;
     private float leftWrapAroundThreshold = -1f;
     private int playerLives;
     private int retryCount;
+
     #endregion
 
     #region serialized fields
     [Header("Character Stat Variables")]
     [SerializeField] private int maxPlayerLives;
     [SerializeField] private int maxRetrys;
-    [SerializeField] private float hitStopAmount;
+    [SerializeField] private float hitStopAmountSet;
+    [SerializeField] private float hitBlinkingRate;
     [Space]
     [Header("Character Movement Variables")]
     [SerializeField] private float acceleration = 12f;
@@ -54,8 +59,9 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private GameObject yClamp;
     [SerializeField] private GameObject platLandParticleSystem;
     [SerializeField] private GameObject groundedChecker;
+    [SerializeField] private GameObject mesh;
+    [SerializeField] private GameObject doubleJumpDrum;
     [SerializeField] private LayerMask groundMask;
-    [SerializeField] private bool grounded;
     #endregion
 
     #region getters setters
@@ -65,6 +71,7 @@ public class PlayerMovement : MonoBehaviour
     public bool GameOver { get => gameOver; set => gameOver = value; }
     public bool TouchingYClamp { get => touchingYClamp; set => gameOver = value; }
     public PlayerSounds PlayerSounds { get => playerSounds;}
+    public bool Grounded { get => grounded;}
     #endregion
     private void OnEnable()
     {
@@ -88,14 +95,10 @@ public class PlayerMovement : MonoBehaviour
     {
         horizontalInput = Input.GetAxisRaw("Horizontal");
 
-        if(horizontalInput != 0)
-        {
-            lastInputDir = horizontalInput;
-        }
-
         if(horizontalInput != 0 && movementSpeed < maxSpeed)
         {
             movementSpeed += acceleration * Time.deltaTime;
+            lastInputDir = horizontalInput;
         }
         else if (horizontalInput == 0 && movementSpeed > 0)
         {
@@ -103,12 +106,6 @@ public class PlayerMovement : MonoBehaviour
         }
 
         movementSpeed = Mathf.Clamp(movementSpeed, 0, maxSpeed);
-
-        if (rb.velocity.y < 0 && hasBell) // Explain what this does
-        {
-            colliderPlayer.enabled = true;
-            hasBell = false;
-        }
 
         if (transform.position.y >= yClamp.transform.position.y)
         {
@@ -141,6 +138,7 @@ public class PlayerMovement : MonoBehaviour
             { 
                 coyoteTimeCounter = coyoteTime;
                 jumpBufferCounter = jumpBufferTime;
+                Instantiate(doubleJumpDrum, transform.position, Quaternion.identity);
                 hasDoubleJump = false;
             }
         }
@@ -159,9 +157,9 @@ public class PlayerMovement : MonoBehaviour
              hasInvulnerable -= Time.deltaTime;
         }
 
-        if (hitStopAmount > 0)
+        if (hitStopAmountCounter > 0)
         {
-            hitStopAmount -= Time.unscaledDeltaTime;
+            hitStopAmountCounter -= Time.unscaledDeltaTime;
         }
         else
         {
@@ -198,7 +196,7 @@ public class PlayerMovement : MonoBehaviour
 
     void OnCollisionEnter(Collision other)
     {
-        if (other.gameObject.tag == "Platform")
+        if (other.gameObject.CompareTag("Platform"))
         {
             platLandParticleSystem.transform.SetParent(other.gameObject.transform);
             platLandParticleSystem.transform.position = transform.position;
@@ -209,34 +207,30 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.gameObject.tag == "PowerUp")
+        if(other.gameObject.CompareTag("PowerUp"))
         {
             var powerUpID = other.GetComponent<PowerUp>().Id;
             PowerUp(powerUpID);
             Destroy(other.gameObject);
         }
 
-        if (other.gameObject.tag == "Hazard" && hasInvulnerable <= 0f)
+        if (other.gameObject.CompareTag("Hazard") && hasInvulnerable <= 0f)
         {
-            playerParticles.ParticleObjects[0].Play();
+            PlayParticle(0);
             PlayAudio(playerSounds.Sounds[1], 0.5f);
             playerLives--;
             hasInvulnerable = 1f;
+            StartCoroutine(Blink(hasInvulnerable));
             Destroy(other.gameObject);
             if (playerLives > 0)
             {
-                HitStop(0.1f);
+                HitStop(hitStopAmountSet);
             }
             else
             {
                 GameManager.instance.scoreManager.PlayerDeathScoreChange();
             }
         }
-    }
-
-    private void OnTriggerExit(Collider other)
-    {
-       
     }
 
     public bool GroundCheck()
@@ -255,31 +249,38 @@ public class PlayerMovement : MonoBehaviour
 
             case 1:
                 hasInvulnerable = 5f;
-                playerParticles.ParticleObjects[1].Play();
+                PlayParticle(1);
                 break;
 
             case 2:
                 GameManager.instance.bellSprite.StartAnim();
-                hasInvulnerable = 7f;
-                BellPower(true, true, false);
+                rb.velocity = Vector3.zero;
+                hasBell = true;
+                colliderPlayer.enabled = false;
+                rb.useGravity = false;
                 break;
         }
     }
 
-    public void BellPower(bool a, bool b, bool c)
+    public void ResetFromBell()
     {
-        rb.isKinematic = a;
-        hasBell = b;
-        colliderPlayer.enabled = c;
-        if (c)
+        hasBell = false;
+        colliderPlayer.enabled = true;
+        rb.useGravity = true;
+        hasInvulnerable = 2f;
+        Ray ray = new Ray(transform.position, Vector3.down);
+        if(Physics.SphereCast(ray, 0.5f, 1f, groundMask))
         {
-            Instantiate(fallPlat, transform.position - fallPlatSpawnOffset, transform.rotation);
+            transform.position += new Vector3(0, 3, 0);
         }
     }
 
     public void GameOverRespawn()
     {
+        mesh.SetActive(true);
         hasInvulnerable = 3f;
+        StartCoroutine(Blink(hasInvulnerable));
+        PlayParticle(1);
         playerLives = maxPlayerLives;
         gameOver = false; 
         transform.position = respawnPoint;
@@ -289,7 +290,10 @@ public class PlayerMovement : MonoBehaviour
 
     public void NormalRespawn()
     {
+        mesh.SetActive(true);
         hasInvulnerable = 3f;
+        StartCoroutine(Blink(hasInvulnerable));
+        PlayParticle(1);
         playerLives--;
         transform.position = respawnPoint;
         rb.velocity = Vector3.zero; //Reset the players velocity to zero 
@@ -298,6 +302,8 @@ public class PlayerMovement : MonoBehaviour
 
     public void GoBackToInitial()
     {
+        mesh.SetActive(true);
+        gameOver = false;
         playerLives = maxPlayerLives;
         retryCount = maxRetrys;
         transform.position = respawnPoint;
@@ -319,10 +325,41 @@ public class PlayerMovement : MonoBehaviour
             audioSources[0].Play();
         }
     }
+
+    public void PlayParticle(int particleToPlay) // 0 == Pain particle (Player has been hit) | 1 == Invulnerability particle
+    {
+        switch (particleToPlay) 
+        {
+            case 0:
+                playerParticles.ParticleObjects[0].Play();
+                break;
+
+            case 1:
+                playerParticles.ParticleObjects[1].Stop();
+                playerParticles.ParticleObjects[1].Clear();
+                var main = playerParticles.ParticleObjects[1].main;
+                main.duration = hasInvulnerable;
+                playerParticles.ParticleObjects[1].Play();
+                break;
+        }
+    }
+
     private void HitStop(float amount)
     {
-        hitStopAmount = amount;
+        hitStopAmountCounter = amount;
         Time.timeScale = 0;
+    }
+
+    private IEnumerator Blink(float waitTime)
+    {
+        while(waitTime > 0f)
+        {
+            mesh.SetActive(false);
+            yield return new WaitForSeconds(hitBlinkingRate);
+            mesh.SetActive(true);
+            yield return new  WaitForSeconds(hitBlinkingRate);
+            waitTime -= hitBlinkingRate * 2; //this is stupid
+        }
     }
 }
 
