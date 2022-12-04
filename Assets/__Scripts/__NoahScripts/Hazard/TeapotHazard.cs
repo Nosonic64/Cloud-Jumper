@@ -6,10 +6,9 @@ public class TeapotHazard : Hazard
 {
     [SerializeField] Droplet dropletPrefab;
     public Vector3 directionOfObject;
-
-
     public float spawnTime;
     float spawnTimer;
+    public float destroyPos = -5;
 
     public void SpawnTears()
     {
@@ -26,6 +25,12 @@ public class TeapotHazard : Hazard
     private void Update()
     {
         SpawnTears();
+        Move();
+
+        if (transform.position.x < destroyPos)
+        {
+            Destroy(gameObject);
+        }
     }
 
 
