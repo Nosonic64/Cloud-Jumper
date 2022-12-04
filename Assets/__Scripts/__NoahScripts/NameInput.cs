@@ -9,16 +9,14 @@ using UnityEngine.UI;
 public class NameInput : MonoBehaviour
 {
     #region private variables
+    private Switcher thingsToSwitch;
     private string letters = " ABCDEFGHIJKLMNOPQRSTUVWXYZ ";
     private int selectedLetter;
-    private StartGameHandler thingsToSwitch;
     private float inputDelay = 0.2f;
     private float inputDelayCounter;
     #endregion
 
     #region serialized variables
-    [SerializeField] private GameOver gameOverUi;
-    [SerializeField] private HighScoreManager highScoreManager;
     [SerializeField] private ScoreUi scoreUi;
     [SerializeField] private ScoreFlag scoreFlag;
     [SerializeField] private Text[] texts = new Text[0];
@@ -26,9 +24,9 @@ public class NameInput : MonoBehaviour
 
     void Start()
     {
-        thingsToSwitch = GetComponent<StartGameHandler>();
+        thingsToSwitch = GetComponent<Switcher>();
         selectedLetter = 1;
-        if (GameManager.instance.scoreManager.CurrentPlayerTopDistance < ScoreData.scores[0].score)
+        if (GameManager.instance.scoreManager.CurrentPlayerTopDistance < GameManager.instance.highScoreHandler.scores[0].score)
         {
             ResetStuff();
         }
@@ -63,9 +61,10 @@ public class NameInput : MonoBehaviour
 
         if (texts[3].text.ToCharArray().Length == 3)
         {
-            ScoreData.scores[0] = new Score(texts[3].text, Mathf.Floor(GameManager.instance.scoreManager.CurrentPlayerTopDistance));
+            var playersScore = new Score(texts[3].text, Mathf.Floor(GameManager.instance.scoreManager.CurrentPlayerTopDistance));
+            GameManager.instance.highScoreHandler.AddScore(playersScore);
+            GameManager.instance.highScoreHandler.SaveScoresToFile();
             scoreUi.UpdateScores();
-            highScoreManager.SaveScore();
             ResetStuff();
         }
     }
@@ -79,15 +78,10 @@ public class NameInput : MonoBehaviour
 
     private void ResetStuff()
     {
-        GameManager.instance.player.GameOver = false;
         GameManager.instance.scoreManager.Distance = 0;
         GameManager.instance.scoreManager.CurrentPlayerTopDistance = 0;
         texts[3].text = "";
         selectedLetter = 1;
-        gameOverUi.seconds = 10;
-        gameOverUi.miliseconds = 0;
-        gameOverUi.timerUp = false;
-        GameManager.instance.player.GoBackToInitial();
         thingsToSwitch.SwitchStuff();
     }
 }

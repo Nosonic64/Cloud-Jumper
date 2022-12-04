@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.InteropServices.WindowsRuntime;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -12,10 +13,13 @@ public class PlayerMovement : MonoBehaviour
     private AudioSource[] audioSources = new AudioSource[0];
     private PlayerParticles playerParticles;
     private Vector3 fallPlatSpawnOffset = new Vector3(2,4,0);
+    private IEnumerator blinkCoroutine;
     private bool hasBell;
     private bool gameOver;
+    private bool beforeStart;
     private bool touchingYClamp;
     private bool hasDoubleJump;
+    private bool grounded;
     private float hasInvulnerable;
     private float movementSpeed;
     private float lastInputDir;
@@ -23,17 +27,20 @@ public class PlayerMovement : MonoBehaviour
     private float distToGround;
     private float coyoteTimeCounter;
     private float jumpBufferCounter;
+    private float hitStopAmountCounter;
     private float rightWrapAroundThreshold = 17f;
     private float leftWrapAroundThreshold = -1f;
     private int playerLives;
     private int retryCount;
+
     #endregion
 
     #region serialized fields
     [Header("Character Stat Variables")]
     [SerializeField] private int maxPlayerLives;
     [SerializeField] private int maxRetrys;
-    [SerializeField] private float hitStopAmount;
+    [SerializeField] private float hitStopAmountSet;
+    [SerializeField] private float hitBlinkingRate;
     [Space]
     [Header("Character Movement Variables")]
     [SerializeField] private float acceleration = 12f;
@@ -49,13 +56,15 @@ public class PlayerMovement : MonoBehaviour
     [Space]
     [Header("Misc")]
     [SerializeField] private Vector3 respawnPoint = new Vector3(8, 10, 0);
-    [SerializeField] private Material defaultMat;
+    [SerializeField] private Vector3 startPoint = new Vector3(8, 1, 0);
     [SerializeField] private GameObject fallPlat;
+    [SerializeField] private GameObject startPlat;
     [SerializeField] private GameObject yClamp;
     [SerializeField] private GameObject platLandParticleSystem;
     [SerializeField] private GameObject groundedChecker;
+    [SerializeField] private GameObject mesh;
+    [SerializeField] private GameObject doubleJumpDrum;
     [SerializeField] private LayerMask groundMask;
-    [SerializeField] private bool grounded;
     #endregion
 
     #region getters setters
@@ -65,11 +74,8 @@ public class PlayerMovement : MonoBehaviour
     public bool GameOver { get => gameOver; set => gameOver = value; }
     public bool TouchingYClamp { get => touchingYClamp; set => gameOver = value; }
     public PlayerSounds PlayerSounds { get => playerSounds;}
+    public bool Grounded { get => grounded;}
     #endregion
-    private void OnEnable()
-    {
-        Instantiate(fallPlat, transform.position - fallPlatSpawnOffset, transform.rotation);
-    }
 
     void Start()
     {
@@ -81,53 +87,48 @@ public class PlayerMovement : MonoBehaviour
         distToGround = colliderPlayer.bounds.size.y / 2;
         playerLives = maxPlayerLives; 
         retryCount = maxRetrys;
-        gameObject.SetActive(false);
+        mesh.SetActive(false);
+        rb.useGravity = false;
+        beforeStart = true;
     }
 
     private void Update()
     {
-        horizontalInput = Input.GetAxisRaw("Horizontal");
+        if (!gameOver && !beforeStart)
+        {
+             horizontalInput = Input.GetAxisRaw("Horizontal");
 
-        if(horizontalInput != 0)
-        {
-            lastInputDir = horizontalInput;
-        }
+            if(horizontalInput != 0 && movementSpeed < maxSpeed)
+            {
+                movementSpeed += acceleration * Time.deltaTime;
+                lastInputDir = horizontalInput;
+            }
+            else if (horizontalInput == 0 && movementSpeed > 0)
+            {
+                movementSpeed -= decceleration * Time.deltaTime; 
+            }
 
-        if(horizontalInput != 0 && movementSpeed < maxSpeed)
-        {
-            movementSpeed += acceleration * Time.deltaTime;
-        }
-        else if (horizontalInput == 0 && movementSpeed > 0)
-        {
-            movementSpeed -= decceleration * Time.deltaTime; 
-        }
+            movementSpeed = Mathf.Clamp(movementSpeed, 0, maxSpeed);
 
-        movementSpeed = Mathf.Clamp(movementSpeed, 0, maxSpeed);
+            if (transform.position.y >= yClamp.transform.position.y)
+            {
+                transform.position = new Vector3(transform.position.x, yClamp.transform.position.y, transform.position.z);
+                touchingYClamp = true;
+            }
+            else
+            {
+                touchingYClamp = false;
+            }
 
-        if (rb.velocity.y < 0 && hasBell) // Explain what this does
-        {
-            colliderPlayer.enabled = true;
-            hasBell = false;
-        }
+            if (Input.GetButtonDown("Jump"))
+            {
+                jumpBufferCounter = jumpBufferTime;
 
-        if (transform.position.y >= yClamp.transform.position.y)
-        {
-            transform.position = new Vector3(transform.position.x, yClamp.transform.position.y, transform.position.z);
-            touchingYClamp = true;
-        }
-        else
-        {
-            touchingYClamp = false;
-        }
-
-        if (Input.GetButtonDown("Jump"))
-        {
-            jumpBufferCounter = jumpBufferTime;
-
-        }
-        if (Input.GetButtonUp("Jump"))
-        {
-            coyoteTimeCounter = 0f;
+            }
+            if (Input.GetButtonUp("Jump"))
+            {
+                coyoteTimeCounter = 0f;
+            }
         }
 
         if (GroundCheck())
@@ -141,6 +142,7 @@ public class PlayerMovement : MonoBehaviour
             { 
                 coyoteTimeCounter = coyoteTime;
                 jumpBufferCounter = jumpBufferTime;
+                Instantiate(doubleJumpDrum, transform.position, Quaternion.identity);
                 hasDoubleJump = false;
             }
         }
@@ -159,9 +161,9 @@ public class PlayerMovement : MonoBehaviour
              hasInvulnerable -= Time.deltaTime;
         }
 
-        if (hitStopAmount > 0)
+        if (hitStopAmountCounter > 0)
         {
-            hitStopAmount -= Time.unscaledDeltaTime;
+            hitStopAmountCounter -= Time.unscaledDeltaTime;
         }
         else
         {
@@ -183,7 +185,7 @@ public class PlayerMovement : MonoBehaviour
             jumpBufferCounter -= Time.deltaTime;
         }
 
-        if (!gameOver && !hasBell)
+        if (!gameOver && !hasBell && !beforeStart)
         {
             if (horizontalInput != 0)
             {
@@ -198,7 +200,7 @@ public class PlayerMovement : MonoBehaviour
 
     void OnCollisionEnter(Collision other)
     {
-        if (other.gameObject.tag == "Platform")
+        if (other.gameObject.CompareTag("Platform"))
         {
             platLandParticleSystem.transform.SetParent(other.gameObject.transform);
             platLandParticleSystem.transform.position = transform.position;
@@ -209,101 +211,125 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.gameObject.tag == "PowerUp")
+        if(other.gameObject.CompareTag("PowerUp"))
         {
-            var powerUpID = other.GetComponent<PowerUp>().Id;
-            PowerUp(powerUpID);
-            Destroy(other.gameObject);
+            var powerUp = other.GetComponent<PowerUp>();
+            PowerUp(powerUp.Id);
+            powerUp.PowerUpObtained();
         }
 
-        if (other.gameObject.tag == "Hazard" && hasInvulnerable <= 0f)
+        if (other.gameObject.CompareTag("Hazard") && hasInvulnerable <= 0f)
         {
-            playerParticles.ParticleObjects[0].Play();
+            PlayParticle(0);
             PlayAudio(playerSounds.Sounds[1], 0.5f);
             playerLives--;
             hasInvulnerable = 1f;
+            PlayerHit();
             Destroy(other.gameObject);
-            if (playerLives > 0)
-            {
-                HitStop(0.1f);
-            }
-            else
-            {
-                GameManager.instance.scoreManager.PlayerDeathScoreChange();
+            HitStop(hitStopAmountSet);
+            if (playerLives <= 0)
+            { 
+                GameOverSetup();
             }
         }
     }
 
-    private void OnTriggerExit(Collider other)
-    {
-       
-    }
-
+    #region ground check function
     public bool GroundCheck()
     {
         Ray ray = new Ray(groundedChecker.transform.position, Vector3.down);
         return grounded = (Physics.SphereCast(ray, sphereCastRadius, sphereCastMaxDistance, groundMask)); 
     }
+    #endregion
 
-    public void PowerUp(int id) // 0 == DoubleJump | 1 == MoonCake(Invulnerable) | 2 == Bell(Sprite comes down and flys player up) |
-    {
-        switch (id) 
-        {
-            case 0:
-                hasDoubleJump = true;
-                break;
-
-            case 1:
-                hasInvulnerable = 5f;
-                playerParticles.ParticleObjects[1].Play();
-                break;
-
-            case 2:
-                GameManager.instance.bellSprite.StartAnim();
-                hasInvulnerable = 7f;
-                BellPower(true, true, false);
-                break;
-        }
-    }
-
-    public void BellPower(bool a, bool b, bool c)
-    {
-        rb.isKinematic = a;
-        hasBell = b;
-        colliderPlayer.enabled = c;
-        if (c)
-        {
-            Instantiate(fallPlat, transform.position - fallPlatSpawnOffset, transform.rotation);
-        }
-    }
-
+    //Normal respawns (From falling with a life) and respawns from a game over require different variables to change
+    #region respawn functions
     public void GameOverRespawn()
     {
+        mesh.SetActive(true);
         hasInvulnerable = 3f;
+        PlayerHit();
+        PlayParticle(1);
         playerLives = maxPlayerLives;
         gameOver = false; 
         transform.position = respawnPoint;
         rb.velocity = Vector3.zero; //Reset the players velocity to zero 
+        rb.useGravity = true;
+        colliderPlayer.enabled = true;
         Instantiate(fallPlat, transform.position - fallPlatSpawnOffset, transform.rotation); //We offset the platform otherwise it would spawn to the left of the player
     }
 
     public void NormalRespawn()
     {
+        mesh.SetActive(true);
         hasInvulnerable = 3f;
+        PlayerHit();
+        PlayParticle(1);
         playerLives--;
         transform.position = respawnPoint;
         rb.velocity = Vector3.zero; //Reset the players velocity to zero 
         Instantiate(fallPlat, transform.position - fallPlatSpawnOffset, transform.rotation);
     }
+    #endregion 
+
+    //Different points of the game require the player to have different variables on or off
+    #region state change functions
+    public void PlayerGameStart()
+    {
+        transform.position = startPoint;
+        mesh.SetActive(true);
+        rb.useGravity = true;
+        colliderPlayer.enabled = true;
+        beforeStart = false;
+        var startingPlatform = Instantiate(startPlat, transform.position - new Vector3(0,2,0), transform.rotation);
+        startingPlatform.transform.parent = FindObjectOfType<LevelChunk>().transform;  
+
+    }
 
     public void GoBackToInitial()
     {
+        gameOver = false;
+        beforeStart = true;
+        mesh.SetActive(false);
+        rb.useGravity = false;
         playerLives = maxPlayerLives;
         retryCount = maxRetrys;
-        transform.position = respawnPoint;
+        transform.position = startPoint;
         rb.velocity = Vector3.zero; //Reset the players velocity to zero 
     }
+    public void ResetFromBell()
+    {
+        hasBell = false;
+        colliderPlayer.enabled = true;
+        rb.useGravity = true;
+        hasInvulnerable = 2f;
+        Ray ray = new Ray(transform.position, Vector3.down);
+        if (Physics.SphereCast(ray, 0.5f, 1f, groundMask))
+        {
+            transform.position += new Vector3(0, 3, 0);
+        }
+    }
+    public void GameOverSetup()
+    {
+        if (GameManager.instance.scoreManager.Distance > GameManager.instance.scoreManager.CurrentPlayerTopDistance)
+        {
+            GameManager.instance.scoreManager.CurrentPlayerTopDistance = GameManager.instance.scoreManager.Distance;
+        }
+        if (blinkCoroutine != null)
+        {
+            StopCoroutine(blinkCoroutine);
+        }
+        GameManager.instance.gameOverUI.SetActive(true);
+        mesh.SetActive(false);
+        colliderPlayer.enabled = false;
+        gameOver = true;
+        rb.useGravity = false;
+        playerLives = -1;
+    }
+    #endregion
 
+    //Pass in functions include playing audio, player particles, powerup handling
+    #region pass in functions
     public void PlayAudio(AudioClip clip, float volume)
     {
         if (audioSources[0].isPlaying && clip != audioSources[0].clip)
@@ -319,10 +345,78 @@ public class PlayerMovement : MonoBehaviour
             audioSources[0].Play();
         }
     }
+
+    public void PlayParticle(int particleToPlay) // 0 == Pain particle (Player has been hit) | 1 == Invulnerability particle
+    {
+        switch (particleToPlay) 
+        {
+            case 0:
+                playerParticles.ParticleObjects[0].Play();
+                break;
+
+            case 1:
+                playerParticles.ParticleObjects[1].Stop();
+                playerParticles.ParticleObjects[1].Clear();
+                var main = playerParticles.ParticleObjects[1].main;
+                main.duration = hasInvulnerable;
+                playerParticles.ParticleObjects[1].Play();
+                break;
+        }
+    }
+
+    public void PowerUp(int id) // 0 == DoubleJump | 1 == MoonCake(Invulnerable) | 2 == Bell(Sprite comes down and flys player up) |
+    {
+        switch (id)
+        {
+            case 0:
+                hasDoubleJump = true;
+                break;
+
+            case 1:
+                hasInvulnerable = 5f;
+                PlayParticle(1);
+                break;
+
+            case 2:
+                GameManager.instance.bellSprite.StartAnim();
+                rb.velocity = Vector3.zero;
+                hasBell = true;
+                colliderPlayer.enabled = false;
+                rb.useGravity = false;
+                break;
+        }
+    }
+    #endregion
+
+    //Functions to do with when the player is hit
+    #region playerhit functions
     private void HitStop(float amount)
     {
-        hitStopAmount = amount;
+        hitStopAmountCounter = amount;
         Time.timeScale = 0;
     }
+
+    private IEnumerator Blink(float waitTime)
+    {
+        while(waitTime > 0f)
+        {
+            mesh.SetActive(false);
+            yield return new WaitForSeconds(hitBlinkingRate);
+            mesh.SetActive(true);
+            yield return new  WaitForSeconds(hitBlinkingRate);
+            waitTime -= hitBlinkingRate * 2; //this is stupid
+        }
+    }
+
+    private void PlayerHit()
+    {
+        if (blinkCoroutine != null)
+        {
+            StopCoroutine(blinkCoroutine);
+        }
+        blinkCoroutine = Blink(hasInvulnerable);
+        StartCoroutine(blinkCoroutine);
+    }
+    #endregion
 }
 

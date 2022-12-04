@@ -14,17 +14,4 @@ public class ScoreManager : MonoBehaviour
     public float Distance { get => distance; set => distance = value; }
     public float CurrentPlayerTopDistance { get => currentPlayerTopDistance; set => currentPlayerTopDistance = value; }
     #endregion
-
-    public void PlayerDeathScoreChange()
-    {
-        if (GameManager.instance.scoreManager.Distance > GameManager.instance.scoreManager.CurrentPlayerTopDistance)
-        {
-            GameManager.instance.scoreManager.CurrentPlayerTopDistance = GameManager.instance.scoreManager.Distance;
-        }
-        GameManager.instance.player.transform.position = new Vector3(0, 0, 0);
-        GameManager.instance.gameOverUI.SetActive(true);
-        GameManager.instance.player.GameOver = true;
-        GameManager.instance.player.gameObject.SetActive(false);
-        GameManager.instance.player.PlayerLives = -1;
-    }
 }

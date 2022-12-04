@@ -9,13 +9,12 @@ public class LandingParticle : MonoBehaviour
     private void Start()
     {
         landParticle = GetComponent<ParticleSystem>();
+        var main = landParticle.main;
+        main.stopAction = ParticleSystemStopAction.Callback;
     }
 
-    private void Update()
+    void OnParticleSystemStopped()
     {
-       if (!landParticle.isEmitting)
-       {
-           transform.SetParent(null);
-        }
+        transform.SetParent(null);
     }
 }

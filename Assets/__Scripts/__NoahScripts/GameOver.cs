@@ -6,16 +6,22 @@ using UnityEngine.UI;
 
 public class GameOver : MonoBehaviour
 {
-    public Text timer;
-    public float seconds = 10;
-    public float miliseconds = 0;
-    private StartGameHandler thingsToSwitch;
-    public bool timerUp = false;
-    public GameObject player;
+    [SerializeField] private Text timer;
+    private float seconds = 10;
+    private float miliseconds = 0;
+    private Switcher thingsToSwitch;
+    private bool timerUp = false;
 
     private void Start()
     {
-        thingsToSwitch = GetComponent<StartGameHandler>();
+        thingsToSwitch = GetComponent<Switcher>();
+    }
+
+    private void OnEnable()
+    {
+        seconds = 10;
+        miliseconds = 0;
+        timerUp = false;
     }
 
     void Update()
@@ -25,6 +31,8 @@ public class GameOver : MonoBehaviour
         {
             if (seconds <= 0)
             {
+                GameManager.instance.levelChunkManager.ResetTimerCounter = 0f;
+                GameManager.instance.player.GoBackToInitial();
                 thingsToSwitch.SwitchStuff();
                 timerUp = true;
             }
@@ -49,7 +57,9 @@ public class GameOver : MonoBehaviour
             }
         }
 
-        if(GameManager.instance.scoreManager.Distance > 0f)
+        timer.text = string.Format("{0}:{1}", seconds, (int)miliseconds);
+
+        if (GameManager.instance.scoreManager.Distance > 0f)
         {
             GameManager.instance.scoreManager.Distance -= Time.deltaTime * GameManager.instance.scoreManager.Distance / 12f;
         }
@@ -58,14 +68,10 @@ public class GameOver : MonoBehaviour
             GameManager.instance.scoreManager.Distance = 0f;
         }
 
-        timer.text = string.Format("{0}:{1}", seconds, (int)miliseconds);
-
         if(Input.GetKeyDown(KeyCode.I) && !timerUp)
         {
-            seconds = 10;
-            miliseconds = 0;
+            GameManager.instance.levelChunkManager.ResetTimerCounter = 0f;
             GameManager.instance.player.RetryCount--;
-            player.SetActive(true);
             GameManager.instance.player.GameOverRespawn();
             gameObject.SetActive(false);
         }

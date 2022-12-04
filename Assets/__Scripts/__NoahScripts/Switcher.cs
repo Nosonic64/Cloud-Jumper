@@ -2,11 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class StartGameHandler : MonoBehaviour
+public class Switcher : MonoBehaviour
 {
-    public GameObject[] thingsToSwitch =  new GameObject[0];
+    #region private variables
     private int i = 0;
-    public KeyCode key;
+    #endregion
+
+    #region serialized variables
+    [SerializeField] private GameObject[] thingsToSwitch =  new GameObject[0];
+    [SerializeField]private KeyCode key;
+    #endregion
+
 
     private void OnEnable()
     {

@@ -14,7 +14,7 @@ public class FallKillBox : MonoBehaviour
     }
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag == "Player")
+        if (other.gameObject.CompareTag("Player"))
         {
             if(GameManager.instance.player.PlayerLives > 0)
             {
@@ -24,7 +24,8 @@ public class FallKillBox : MonoBehaviour
             if(GameManager.instance.player.PlayerLives <= 0)
             {
                 audioSource.Play();
-                GameManager.instance.scoreManager.PlayerDeathScoreChange();
+                GameManager.instance.levelChunkManager.ResetTimerCounter = GameManager.instance.levelChunkManager.ResetTimer;
+                GameManager.instance.player.GameOverSetup();
             }
         }
     }
