@@ -7,7 +7,8 @@ public class LevelChunk : MonoBehaviour
     #region private variables
     private bool spawnedNewLevelChunk;
     private float bellScrollSpeedMultiple = 60f;
-    private float createNewChunkThreshold = 0f; 
+    private float resetScrollMultiple = 15f;
+    private float createNewChunkThreshold = 4f; 
     private float deleteThisChunkThreshold = -24f;
     #endregion
 
@@ -31,6 +32,11 @@ public class LevelChunk : MonoBehaviour
         {
             transform.position -= transform.up * bellScrollSpeedMultiple * Time.deltaTime;
             GameManager.instance.scoreManager.Distance += Time.deltaTime;
+        }
+
+        if(GameManager.instance.levelChunkManager.ResetTimerCounter > 0f)
+        {
+            transform.position -= transform.up * resetScrollMultiple * Time.deltaTime;
         }
 
         if (transform.position.y <= createNewChunkThreshold & !spawnedNewLevelChunk)

@@ -60,7 +60,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 652da3c63cd776a489f7ee3f1d9c6aae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  disableTimer: 0
   disableTimerSet: 2
 --- !u!82 &4805494487329645596
 AudioSource:
@@ -442,8 +441,8 @@ ParticleSystem:
     startSize:
       serializedVersion: 2
       minMaxState: 3
-      scalar: 1
-      minScalar: 0.5
+      scalar: 0.5
+      minScalar: 0.25
       maxCurve:
         serializedVersion: 2
         m_Curve:

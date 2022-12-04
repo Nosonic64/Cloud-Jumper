@@ -29,7 +29,7 @@ public class FallPlat : MonoBehaviour
             disableTimer -= Time.deltaTime;
         }
 
-        if(disableTimer <= 0f || Vector3.Distance(transform.position, GameManager.instance.player.transform.position) > 3f && playerTouched || GameManager.instance.player.Grounded && !playerTouched && disableTimer <= 5f)
+        if(disableTimer <= 0f || GameManager.instance.player.transform.position.y > transform.position.y + 3f && playerTouched || GameManager.instance.player.Grounded && !playerTouched && disableTimer <= 5f)
         {
             if (landingParticle != null)
             {

@@ -9,7 +9,7 @@ using UnityEngine.UI;
 public class NameInput : MonoBehaviour
 {
     #region private variables
-    private StartGameHandler thingsToSwitch;
+    private Switcher thingsToSwitch;
     private string letters = " ABCDEFGHIJKLMNOPQRSTUVWXYZ ";
     private int selectedLetter;
     private float inputDelay = 0.2f;
@@ -19,14 +19,12 @@ public class NameInput : MonoBehaviour
     #region serialized variables
     [SerializeField] private ScoreUi scoreUi;
     [SerializeField] private ScoreFlag scoreFlag;
-    [SerializeField] private GameOver gameOverUi;
-    [SerializeField] private HighScoreManager highScoreManager;
     [SerializeField] private Text[] texts = new Text[0];
     #endregion
 
     void Start()
     {
-        thingsToSwitch = GetComponent<StartGameHandler>();
+        thingsToSwitch = GetComponent<Switcher>();
         selectedLetter = 1;
         if (GameManager.instance.scoreManager.CurrentPlayerTopDistance < GameManager.instance.highScoreHandler.scores[0].score)
         {
@@ -84,10 +82,6 @@ public class NameInput : MonoBehaviour
         GameManager.instance.scoreManager.CurrentPlayerTopDistance = 0;
         texts[3].text = "";
         selectedLetter = 1;
-        gameOverUi.seconds = 10;
-        gameOverUi.miliseconds = 0;
-        gameOverUi.timerUp = false;
-        GameManager.instance.player.GoBackToInitial();
         thingsToSwitch.SwitchStuff();
     }
 }

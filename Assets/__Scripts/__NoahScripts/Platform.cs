@@ -7,6 +7,7 @@ public class Platform : MonoBehaviour
     #region private variables
     private BoxCollider platCollider;
     private AudioSource audioSource;
+    private LandingParticle landingParticle;
     private bool playerTouched;
     private float disableTimer;
     private float deleteThreshold = -4f;
@@ -20,11 +21,12 @@ public class Platform : MonoBehaviour
     {
         platCollider = GetComponent<BoxCollider>();
         audioSource = GetComponent<AudioSource>();
+        landingParticle = FindObjectOfType<LandingParticle>();
     }
 
     private void Update()
     {
-        if(GameManager.instance.player.transform.position.y - 1.4f > transform.position.y)
+        if(GameManager.instance.player.transform.position.y - 1.8f > transform.position.y)
         {
             platCollider.enabled = true;
         }
@@ -35,6 +37,13 @@ public class Platform : MonoBehaviour
 
         if(transform.position.y < deleteThreshold)
         {
+            if (landingParticle != null)
+            {
+                if (landingParticle.transform.parent != null)
+                {
+                    landingParticle.transform.parent = null;
+                }
+            }
             Destroy(gameObject);
         }
         else if(disableTimer <= 0f && playerTouched)
