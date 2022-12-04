@@ -8,6 +8,7 @@ public class TeapotHazard : Hazard
     public Vector3 directionOfObject;
     public float spawnTime;
     float spawnTimer;
+    public float destroyPos = -5;
 
     public void SpawnTears()
     {
@@ -25,6 +26,11 @@ public class TeapotHazard : Hazard
     {
         SpawnTears();
         Move();
+
+        if (transform.position.x < destroyPos)
+        {
+            Destroy(gameObject);
+        }
     }
 
 
