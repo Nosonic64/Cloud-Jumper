@@ -11,22 +11,19 @@ public class NameInput : MonoBehaviour
     #region private variables
     private string letters = " ABCDEFGHIJKLMNOPQRSTUVWXYZ ";
     private int selectedLetter;
-    private StartGameHandler thingsToSwitch;
+    private Switcher thingsToSwitch;
     private float inputDelay = 0.2f;
     private float inputDelayCounter;
     #endregion
 
     #region serialized variables
-    [SerializeField] private GameOver gameOverUi;
-    [SerializeField] private HighScoreManager highScoreManager;
     [SerializeField] private ScoreUi scoreUi;
-    [SerializeField] private ScoreFlag scoreFlag;
     [SerializeField] private Text[] texts = new Text[0];
     #endregion
 
     void Start()
     {
-        thingsToSwitch = GetComponent<StartGameHandler>();
+        thingsToSwitch = GetComponent<Switcher>();
         selectedLetter = 1;
         if (GameManager.instance.scoreManager.CurrentPlayerTopDistance < GameManager.instance.scoreData.scores[9].score)
         {
@@ -86,9 +83,6 @@ public class NameInput : MonoBehaviour
         GameManager.instance.scoreManager.CurrentPlayerTopDistance = 0;
         texts[3].text = "";
         selectedLetter = 1;
-        gameOverUi.seconds = 10;
-        gameOverUi.miliseconds = 0;
-        gameOverUi.timerUp = false;
         GameManager.instance.player.GoBackToInitial();
         thingsToSwitch.SwitchStuff();
     }

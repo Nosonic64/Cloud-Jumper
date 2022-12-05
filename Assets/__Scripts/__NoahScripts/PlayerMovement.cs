@@ -75,6 +75,8 @@ public class PlayerMovement : MonoBehaviour
     public bool TouchingYClamp { get => touchingYClamp; set => gameOver = value; }
     public PlayerSounds PlayerSounds { get => playerSounds;}
     public bool Grounded { get => grounded;}
+    public float HorizontalInput { get => horizontalInput;}
+    public float LastInputDir { get => lastInputDir;}
     #endregion
 
     void Start()
@@ -139,7 +141,8 @@ public class PlayerMovement : MonoBehaviour
         {
             coyoteTimeCounter -= Time.deltaTime;
             if (Input.GetButtonDown("Jump") && hasDoubleJump)
-            { 
+            {
+                playerParticles.ParticleObjects[2].Stop();
                 coyoteTimeCounter = coyoteTime;
                 jumpBufferCounter = jumpBufferTime;
                 Instantiate(doubleJumpDrum, transform.position, Quaternion.identity);
@@ -303,11 +306,12 @@ public class PlayerMovement : MonoBehaviour
         colliderPlayer.enabled = true;
         rb.useGravity = true;
         hasInvulnerable = 2f;
-        Ray ray = new Ray(transform.position, Vector3.down);
-        if (Physics.SphereCast(ray, 0.5f, 1f, groundMask))
+        Ray ray = new Ray(transform.position + new Vector3(0,1,0), Vector3.down);
+        if (Physics.SphereCast(ray, 0.5f, 0.5f, groundMask))
         {
             transform.position += new Vector3(0, 3, 0);
         }
+        Instantiate(fallPlat, transform.position - fallPlatSpawnOffset, transform.rotation);
     }
     public void GameOverSetup()
     {
@@ -361,6 +365,9 @@ public class PlayerMovement : MonoBehaviour
                 main.duration = hasInvulnerable;
                 playerParticles.ParticleObjects[1].Play();
                 break;
+            case 2:
+                playerParticles.ParticleObjects[2].Play();
+                break;
         }
     }
 
@@ -370,6 +377,7 @@ public class PlayerMovement : MonoBehaviour
         {
             case 0:
                 hasDoubleJump = true;
+                PlayParticle(2);
                 break;
 
             case 1:

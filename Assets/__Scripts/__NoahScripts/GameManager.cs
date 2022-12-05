@@ -11,8 +11,6 @@ public class GameManager : MonoBehaviour
     public LevelChunkManager levelChunkManager;
     public PowerUpManager powerUpManager;
     public ScoreManager scoreManager;
-    public HighScoreHandler highScoreHandler;
-
     public ScoreData scoreData;
 
     void Awake()
