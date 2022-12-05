@@ -23,7 +23,7 @@ public class FallKillBox : MonoBehaviour
                 GameManager.instance.player.Invoke("NormalRespawn", respawnTimerWait);
             }
 
-            if(GameManager.instance.player.PlayerLives <= 0)
+            if(GameManager.instance.player.PlayerLives <= 1)
             {
                 audioSource.Play();
                 GameManager.instance.levelChunkManager.ResetTimerCounter = GameManager.instance.levelChunkManager.ResetTimer;

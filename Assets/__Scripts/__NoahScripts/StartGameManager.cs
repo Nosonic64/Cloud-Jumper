@@ -5,7 +5,7 @@ using UnityEngine;
 public class StartGameManager : MonoBehaviour
 {
     [SerializeField] private GameObject startButton;
-    private float resetScreenScrollAmount = 5f;
+    private float resetScreenScrollAmount = 2f;
     private void Update()
     {
         if (Input.GetButtonDown("Jump"))

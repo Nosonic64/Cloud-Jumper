@@ -8,8 +8,9 @@ public class LevelChunk : MonoBehaviour
     private bool spawnedNewLevelChunk;
     private float bellScrollSpeedMultiple = 60f;
     private float resetScrollMultiple = 15f;
-    private float createNewChunkThreshold = 4f; 
-    private float deleteThisChunkThreshold = -24f;
+    private float createNewChunkThreshold = -46f; 
+    private float deleteThisChunkThreshold = -92f;
+    private float placeNewOffset = 92f;
     #endregion
 
     void Start()
@@ -84,7 +85,7 @@ public class LevelChunk : MonoBehaviour
     private void SpawnRandomLevelChunk()
     {
         var levelChunkToSpawnFromArray = Random.Range(0, GameManager.instance.levelChunkManager.LevelChunks.Length);
-        Instantiate(GameManager.instance.levelChunkManager.LevelChunks[levelChunkToSpawnFromArray], transform.position + new Vector3(0, 22, 0), transform.rotation);
+        Instantiate(GameManager.instance.levelChunkManager.LevelChunks[levelChunkToSpawnFromArray], transform.position + new Vector3(0, placeNewOffset, 0), transform.rotation);
         spawnedNewLevelChunk = true;
     }
 }

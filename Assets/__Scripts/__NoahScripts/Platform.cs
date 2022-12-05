@@ -26,7 +26,7 @@ public class Platform : MonoBehaviour
 
     private void Update()
     {
-        if(GameManager.instance.player.transform.position.y - 1.8f > transform.position.y)
+        if(GameManager.instance.player.transform.position.y - 1.5f > transform.position.y)
         {
             platCollider.enabled = true;
         }
@@ -34,21 +34,19 @@ public class Platform : MonoBehaviour
         {
             platCollider.enabled = false;
         }
-
-        if(transform.position.y < deleteThreshold)
+        if (!GameManager.instance.levelChunkManager.DontBreakPlats)
         {
-            if (landingParticle != null)
+            if (transform.position.y < deleteThreshold || disableTimer <= 0f && playerTouched)
             {
-                if (landingParticle.transform.parent != null)
+                if (landingParticle != null)
                 {
-                    landingParticle.transform.parent = null;
+                    if (landingParticle.transform.parent != null)
+                    {
+                        landingParticle.transform.parent = null;
+                    }
                 }
+                Destroy(gameObject);
             }
-            Destroy(gameObject);
-        }
-        else if(disableTimer <= 0f && playerTouched)
-        {
-            gameObject.SetActive(false);
         }
 
         if(disableTimer > 0f)
