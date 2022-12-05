@@ -19,7 +19,8 @@ public class ScoreUi : MonoBehaviour
         }
 
 
-        var scores = highScoreManager.GetHighScores().ToArray();
+        //var scores = highScoreManager.GetHighScores().ToArray();
+        var scores = GameManager.instance.scoreData.scores;
         for (int i = 0; i < scores.Length; i++)
         {    
             var row = Instantiate(rowUi, transform).GetComponent<RowUi>();
@@ -38,7 +39,8 @@ public class ScoreUi : MonoBehaviour
         }
         if (rows.Count == 0)
         {
-            var scores = highScoreManager.GetHighScores().ToArray();
+            //var scores = highScoreManager.GetHighScores().ToArray();
+            var scores = GameManager.instance.scoreData.scores;
             for (int i = 0; i < scores.Length; i++)
             {
                 var row = Instantiate(rowUi, transform).GetComponent<RowUi>();

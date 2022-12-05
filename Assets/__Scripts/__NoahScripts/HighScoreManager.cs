@@ -16,14 +16,14 @@ public class HighScoreManager : MonoBehaviour
         sd = new ScoreData();  
     }
 
-    public IEnumerable<Score> GetHighScores()
-    {
-        return ScoreData.scores.OrderByDescending(x => x.score);
-    }
+    //public IEnumerable<Score> GetHighScores()
+   // {
+   //     //return ScoreData.scores.OrderByDescending(x => x.score);
+   // }
 
     public void AddScore(Score score)
     {
-        ScoreData.scores.Add(score);
+        //ScoreData.scores.Add(score);
     }
 
     private void OnDestroy()

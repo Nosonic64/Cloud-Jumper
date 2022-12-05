@@ -28,7 +28,7 @@ public class NameInput : MonoBehaviour
     {
         thingsToSwitch = GetComponent<StartGameHandler>();
         selectedLetter = 1;
-        if (GameManager.instance.scoreManager.CurrentPlayerTopDistance < ScoreData.scores[0].score)
+        if (GameManager.instance.scoreManager.CurrentPlayerTopDistance < GameManager.instance.scoreData.scores[9].score)
         {
             ResetStuff();
         }
@@ -63,9 +63,11 @@ public class NameInput : MonoBehaviour
 
         if (texts[3].text.ToCharArray().Length == 3)
         {
-            ScoreData.scores[0] = new Score(texts[3].text, Mathf.Floor(GameManager.instance.scoreManager.CurrentPlayerTopDistance));
+            //ScoreData.scores[0] = new Score(texts[3].text, Mathf.Floor(GameManager.instance.scoreManager.CurrentPlayerTopDistance));
+            GameManager.instance.scoreData.AddScore(texts[3].text, (int)Mathf.Floor(GameManager.instance.scoreManager.CurrentPlayerTopDistance));
             scoreUi.UpdateScores();
-            highScoreManager.SaveScore();
+            //highScoreManager.SaveScore();
+            GameManager.instance.scoreData.SaveScoresToFile();
             ResetStuff();
         }
     }

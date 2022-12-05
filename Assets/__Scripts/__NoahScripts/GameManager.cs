@@ -12,6 +12,8 @@ public class GameManager : MonoBehaviour
     public PowerUpManager powerUpManager;
     public ScoreManager scoreManager;
 
+    public ScoreData scoreData;
+
     void Awake()
     {
         if(instance == null)
