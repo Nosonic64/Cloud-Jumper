@@ -15,7 +15,7 @@ public class LevelChunk : MonoBehaviour
 
     void Start()
     {
-        SpawnRandomPowerUp();
+        SpawnRandomPowerUp(3);
     }
 
     private void Update()
@@ -52,32 +52,35 @@ public class LevelChunk : MonoBehaviour
         }
     }
 
-    private void SpawnRandomPowerUp()
+    private void SpawnRandomPowerUp(int times)
     {
-        var randomNumber = Random.Range(0, 100);
-        if (randomNumber <= GameManager.instance.powerUpManager.ChanceToSpawnPowerUp)
+        for (var i = 0; i < times; i++)
         {
-        retrySpawn:
-            var powerUpToSpawn = Random.Range(0, GameManager.instance.powerUpManager.PowerUps.Length);
-            var powerUpXSpawn = Random.Range(2, 14);
-            var powerUpYSpawn = Random.Range(9,22);
-            var powerUpSpawned = Instantiate(GameManager.instance.powerUpManager.PowerUps[powerUpToSpawn], transform.position + new Vector3(powerUpXSpawn, powerUpYSpawn, 0), transform.rotation);
-            //This code below is meant to check everything around where the power up has spawned, and if it colliding with something (Hazard, platform) its meant to retry spawning it in. 
-            //it doesnt seem to work though. 
-            RaycastHit hit;
-            if (Physics.SphereCast(powerUpSpawned.transform.position, 1f, Vector3.down, out hit, 0.01f))
+            var randomNumber = Random.Range(0, 100);
+            if (randomNumber <= GameManager.instance.powerUpManager.ChanceToSpawnPowerUp)
             {
-                Destroy(powerUpSpawned);
-                goto retrySpawn;
+            retrySpawn:
+                var powerUpToSpawn = Random.Range(0, GameManager.instance.powerUpManager.PowerUps.Length);
+                var powerUpXSpawn = Random.Range(2, 14);
+                var powerUpYSpawn = Random.Range(46, 92);
+                var powerUpSpawned = Instantiate(GameManager.instance.powerUpManager.PowerUps[powerUpToSpawn], transform.position + new Vector3(powerUpXSpawn, powerUpYSpawn, 0), transform.rotation);
+                //This code below is meant to check everything around where the power up has spawned, and if it colliding with something (Hazard, platform) its meant to retry spawning it in. 
+                //it doesnt seem to work though. 
+                RaycastHit hit;
+                if (Physics.SphereCast(powerUpSpawned.transform.position + new Vector3(0,1,0), 0.5f, Vector3.down, out hit, 2f))
+                {
+                    Destroy(powerUpSpawned);
+                    goto retrySpawn;
+                }
+                powerUpSpawned.transform.parent = transform;
+                GameManager.instance.powerUpManager.ChanceToSpawnPowerUp = GameManager.instance.powerUpManager.ChanceToSpawnPowerUpSet;
             }
-            powerUpSpawned.transform.parent = transform;
-            GameManager.instance.powerUpManager.ChanceToSpawnPowerUp = GameManager.instance.powerUpManager.ChanceToSpawnPowerUpSet;
-        }
-        else
-        {
-            //For each time we dont spawn a powerup, we up the chance one can spawn next time.
-            //Once we do spawn a powerup, we reset the chance to its base value
-            GameManager.instance.powerUpManager.ChanceToSpawnPowerUp += GameManager.instance.powerUpManager.AddToChance;
+            else
+            {
+                //For each time we dont spawn a powerup, we up the chance one can spawn next time.
+                //Once we do spawn a powerup, we reset the chance to its base value
+                GameManager.instance.powerUpManager.ChanceToSpawnPowerUp += GameManager.instance.powerUpManager.AddToChance;
+            }
         }
 
     }
