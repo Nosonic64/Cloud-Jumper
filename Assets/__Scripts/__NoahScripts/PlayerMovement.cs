@@ -140,7 +140,7 @@ public class PlayerMovement : MonoBehaviour
         else
         {
             coyoteTimeCounter -= Time.deltaTime;
-            if (Input.GetButtonDown("Jump") && hasDoubleJump)
+            if (Input.GetButtonDown("Jump") && hasDoubleJump && !hasBell)
             {
                 playerParticles.ParticleObjects[2].Stop();
                 coyoteTimeCounter = coyoteTime;
