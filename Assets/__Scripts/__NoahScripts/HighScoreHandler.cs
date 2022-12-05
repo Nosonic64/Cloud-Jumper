@@ -1,12 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using System.IO;
-using System.Linq;
-
+using System.IO; 
 public class HighScoreHandler : MonoBehaviour
 {
-    public Score[] scores = new Score[10];
+    public int[] scores = new int[10];
 
     string currentDirectory;
 
@@ -44,7 +42,7 @@ public class HighScoreHandler : MonoBehaviour
         // Make a new array of default values. This ensures that
         // no old values stick around if we've loaded a scores file
         // in the past.
-        scores = new Score[scores.Length];
+        scores = new int[scores.Length];
         // Now we read the file in. We do this using a "StreamReader",
         // which we give our full file path to. Don't forget the directory
         // separator between the directory and the filename!
@@ -60,10 +58,9 @@ public class HighScoreHandler : MonoBehaviour
             string fileLine = fileReader.ReadLine();
             // Try to parse that variable into an int
             // First, make a variable to put it in
-            Score readScore = new Score("", 0);
+            int readScore = -1;
             // Try to parse it
-            //bool didParse = int.TryParse(fileLine, out readScore);
-            bool didParse = true;
+            bool didParse = int.TryParse(fileLine, out readScore);
             if (didParse)
             {
                 // If we successfully read a number, put it in the array.
@@ -76,7 +73,7 @@ public class HighScoreHandler : MonoBehaviour
                 // a default value.
                 Debug.Log("Invalid line in scores file at " + scoreCount +
                 ", using default value.", this);
-                scores[scoreCount] = new Score("", 0);
+                scores[scoreCount] = 0;
             }
             // Don't forget to incrememt the counter!
             scoreCount++;
@@ -100,7 +97,7 @@ public class HighScoreHandler : MonoBehaviour
         // Write a log message.
         Debug.Log("High scores written to " + scoreFileName);
     }
-    public void AddScore(Score newScore)
+    public void AddScore(int newScore)
     {
         // First up we find out what index it belongs at.
         // This will be the first index with a score lower than
@@ -110,7 +107,7 @@ public class HighScoreHandler : MonoBehaviour
         {
             // Instead of checking the value of desiredIndex
             // we could also use 'break' to stop the loop.
-            if (scores[i].score > newScore.score || scores[i].score == 0)
+            if (scores[i] > newScore || scores[i] == 0)
             {
                 desiredIndex = i;
                 break;
@@ -138,5 +135,4 @@ public class HighScoreHandler : MonoBehaviour
         " entered into high scores at position " + desiredIndex, this);
     }
 }
-
 

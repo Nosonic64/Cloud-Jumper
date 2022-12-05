@@ -13,6 +13,8 @@ public class GameManager : MonoBehaviour
     public ScoreManager scoreManager;
     public HighScoreHandler highScoreHandler;
 
+    public ScoreData scoreData;
+
     void Awake()
     {
         if(instance == null)

@@ -26,9 +26,9 @@ public class ScoreFlag : MonoBehaviour
         {
             slider.maxValue = GameManager.instance.scoreManager.CurrentPlayerTopDistance;
         }
-        else if (highScoreToBeat != ScoreData.scores.Count)
+        else if (highScoreToBeat != GameManager.instance.scoreData.scores.Length)
         {
-            slider.maxValue = ScoreData.scores[highScoreToBeat].score;
+            slider.maxValue = GameManager.instance.scoreData.scores[highScoreToBeat].score;
         }
         else
         {
@@ -46,11 +46,11 @@ public class ScoreFlag : MonoBehaviour
                     usePlayerScore = false;
                     if (highScoreToBeat != 0)
                     {
-                        slider.minValue = ScoreData.scores[highScoreToBeat - 1].score;
+                        slider.minValue = GameManager.instance.scoreData.scores[highScoreToBeat - 1].score;
                     }
                     return;
                 }
-                slider.minValue = ScoreData.scores[highScoreToBeat].score;
+                slider.minValue = GameManager.instance.scoreData.scores[highScoreToBeat].score;
                 highScoreToBeat++;
             }
 
