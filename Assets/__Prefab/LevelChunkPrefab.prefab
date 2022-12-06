@@ -255,6 +255,7 @@ Transform:
   - {fileID: 4126286800374110448}
   - {fileID: 8798868626629015270}
   - {fileID: 373549385465672382}
+  - {fileID: 4612404210677775711}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -270,6 +271,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: acaa7bad190f40e4d8969afbbb94b4a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  chunkDifficulty: 0
 --- !u!1 &6266744439459855910
 GameObject:
   m_ObjectHideFlags: 0
@@ -526,3 +528,21 @@ Transform:
   m_Father: {fileID: 2379139407094387596}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &4361508005436538280
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 2379139407094387596}
+    m_Modifications:
+    - target: {fileID: 8972786040220139767, guid: 42aa5f1cd609fdf4fb8a34568b4befd4, type: 3}
+      propertyPath: m_RootOrder
+      value: 5
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 42aa5f1cd609fdf4fb8a34568b4befd4, type: 3}
+--- !u!4 &4612404210677775711 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 8972786040220139767, guid: 42aa5f1cd609fdf4fb8a34568b4befd4, type: 3}
+  m_PrefabInstance: {fileID: 4361508005436538280}
+  m_PrefabAsset: {fileID: 0}
