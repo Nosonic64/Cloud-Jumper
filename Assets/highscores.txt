@@ -1,3 +1,9 @@
+BDB
+1
+ABB
+2
+BBB
+2
 HWS
 3
 ABC
@@ -12,9 +18,3 @@ BBB
 43
 CBA
 55
-AAA
-0
-AAA
-1
-
-0

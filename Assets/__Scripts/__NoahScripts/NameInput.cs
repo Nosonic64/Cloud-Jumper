@@ -12,7 +12,8 @@ public class NameInput : MonoBehaviour
     private string letters = " ABCDEFGHIJKLMNOPQRSTUVWXYZ ";
     private int selectedLetter;
     private Switcher thingsToSwitch;
-    private float inputDelay = 0.2f;
+    private AudioSource audioSource;
+    private float inputDelay = 0.12f;
     private float inputDelayCounter;
     #endregion
 
@@ -24,6 +25,7 @@ public class NameInput : MonoBehaviour
     void Start()
     {
         thingsToSwitch = GetComponent<Switcher>();
+        audioSource = GetComponent<AudioSource>();  
         selectedLetter = 1;
         if (GameManager.instance.scoreManager.CurrentPlayerTopDistance < GameManager.instance.scoreData.scores[9].score)
         {
@@ -43,6 +45,8 @@ public class NameInput : MonoBehaviour
         {
             selectedLetter -= 1;
             inputDelayCounter = inputDelay;
+            audioSource.pitch = 1f;
+            audioSource.Play();
             UpdateLetterDisplay();
         }
 
@@ -50,20 +54,22 @@ public class NameInput : MonoBehaviour
         {
             selectedLetter += 1;
             inputDelayCounter = inputDelay;
+            audioSource.pitch = 1f;
+            audioSource.Play();
             UpdateLetterDisplay();
         }
 
         if (Input.GetButtonDown("Jump"))
         {
             texts[3].text += letters[selectedLetter];
+            audioSource.pitch = 2f;
+            audioSource.Play();
         }
 
         if (texts[3].text.ToCharArray().Length == 3)
         {
-            //ScoreData.scores[0] = new Score(texts[3].text, Mathf.Floor(GameManager.instance.scoreManager.CurrentPlayerTopDistance));
             GameManager.instance.scoreData.AddScore(texts[3].text, (int)Mathf.Floor(GameManager.instance.scoreManager.CurrentPlayerTopDistance));
             scoreUi.UpdateScores();
-            //highScoreManager.SaveScore();
             GameManager.instance.scoreData.SaveScoresToFile();
             ResetStuff();
         }

@@ -16,7 +16,7 @@ public class ScrollAnim : MonoBehaviour
 
     private void Update()
     {
-        if (GameManager.instance.player.TouchingYClamp)
+        if (GameManager.instance.player.TouchingYClamp || GameManager.instance.levelChunkManager.ResetTimerCounter > 0)
         {
             anim.speed = animSpeed;
         }
