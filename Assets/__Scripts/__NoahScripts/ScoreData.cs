@@ -76,7 +76,7 @@ public class ScoreData : MonoBehaviour
                 // a default value.
                 Debug.Log("Invalid line in scores file at " + scoreCount +
                 ", using default value.");
-                scores[scoreCount] = new Score("AAA", 0);
+                scores[scoreCount] = new Score("BAD", 0);
             }
             // Don't forget to incrememt the counter!
             scoreCount++;
@@ -111,7 +111,10 @@ public class ScoreData : MonoBehaviour
         {
             // Instead of checking the value of desiredIndex
             // we could also use 'break' to stop the loop.
-            if (scores[i].score > newScore || scores[i].score == 0)
+            // use (>) for scores in ascending order:
+            //   if (scores[i].score > newScore || scores[i].score == 0)
+            // reversed conditional (<) to put scores in descending order.
+            if (scores[i].score < newScore || scores[i].score == 0)
             {
                 desiredIndex = i;
                 break;
