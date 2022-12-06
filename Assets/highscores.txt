@@ -1,3 +1,5 @@
+AAA
+67
 AAZ
 42
 III
@@ -15,6 +17,4 @@ DDD
 FFF
 11
 HHH
-10
-AZZ
 10
