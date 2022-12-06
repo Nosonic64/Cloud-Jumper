@@ -1,7 +1,7 @@
 AAA
 24
-BAD
-0
+BBB
+6
 BAD
 0
 BAD
