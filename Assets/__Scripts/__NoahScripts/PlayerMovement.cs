@@ -77,6 +77,7 @@ public class PlayerMovement : MonoBehaviour
     public bool Grounded { get => grounded;}
     public float HorizontalInput { get => horizontalInput;}
     public float LastInputDir { get => lastInputDir;}
+    public bool BeforeStart { get => beforeStart;}
     #endregion
 
     void Start()
@@ -125,7 +126,6 @@ public class PlayerMovement : MonoBehaviour
             if (Input.GetButton("Jump"))
             {
                 jumpBufferCounter = jumpBufferTime;
-
             }
             if (Input.GetButtonUp("Jump"))
             {

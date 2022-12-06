@@ -1251,6 +1251,22 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5615297096937419362, guid: 3c36ea9ce4ff4b746a7ef4629a6cb0df, type: 3}
+      propertyPath: dontBreakPlats
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5615297096937419362, guid: 3c36ea9ce4ff4b746a7ef4629a6cb0df, type: 3}
+      propertyPath: difficultyThresholds.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 5615297096937419362, guid: 3c36ea9ce4ff4b746a7ef4629a6cb0df, type: 3}
+      propertyPath: difficultyThresholds.Array.data[1]
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 5615297096937419362, guid: 3c36ea9ce4ff4b746a7ef4629a6cb0df, type: 3}
+      propertyPath: difficultyThresholds.Array.data[3]
+      value: 100
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3c36ea9ce4ff4b746a7ef4629a6cb0df, type: 3}
 --- !u!1001 &6021657377855070841

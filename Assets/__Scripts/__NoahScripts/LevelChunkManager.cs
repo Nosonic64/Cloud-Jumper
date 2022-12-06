@@ -7,6 +7,7 @@ public class LevelChunkManager : MonoBehaviour
     #region private variables
     private float resetTimer = 10f;
     private float resetTimerCounter;
+    private float passiveScrollMultiple = 0f;
     private int currentDifficulty = 0;
     private int currentLevelZero = 0;
     private int currentLevelOne = 0;
@@ -27,6 +28,7 @@ public class LevelChunkManager : MonoBehaviour
     public int CurrentDifficulty { get => currentDifficulty; set => currentDifficulty = value; }
     public int[] DifficultyThresholds { get => difficultyThresholds;}
     public Dictionary<int, List<GameObject>> LevelChunkDictionary { get => levelChunkDictionary;}
+    public float PassiveScrollMultiple { get => passiveScrollMultiple; set => passiveScrollMultiple = value; }
     #endregion
 
     private void Start()
@@ -39,6 +41,11 @@ public class LevelChunkManager : MonoBehaviour
         if(resetTimerCounter > 0)
         {
             resetTimerCounter -= Time.deltaTime;    
+        }
+
+        if(passiveScrollMultiple < 1f && !GameManager.instance.player.BeforeStart)
+        {
+            passiveScrollMultiple += Time.deltaTime / 240f;
         }
     }
 
