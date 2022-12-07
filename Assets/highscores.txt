@@ -4,6 +4,8 @@ XXX
 70
 XXX
 69
+KKK
+56
 ZZZ
 51
 EEE
@@ -16,5 +18,3 @@ JJJ
 23
 HHH
 21
-III
-19
