@@ -16,13 +16,13 @@ public class ScrollAnim : MonoBehaviour
 
     private void Update()
     {
-        if (GameManager.instance.player.TouchingYClamp || GameManager.instance.levelChunkManager.ResetTimerCounter > 0)
+        if (GameManager.instance.player.TouchingYClamp || GameManager.instance.levelChunkManager.ResetTimerCounter > 0 || GameManager.instance.bellSprite.SpriteCarryingPlayer || GameManager.instance.levelChunkManager.PassiveScrollMultiple > animSpeed)
         {
             anim.speed = animSpeed;
         }
-        else
+        else if(GameManager.instance.levelChunkManager.CurrentDifficulty > 0) //Moves the scroll as fast as the passive scroll is.
         {
-            anim.speed = 0;
+            anim.speed = GameManager.instance.levelChunkManager.PassiveScrollMultiple;
         }
     }
 }

@@ -9,8 +9,8 @@ public class Platform : MonoBehaviour
     private AudioSource audioSource;
     private LandingParticle landingParticle;
     private bool playerTouched;
-    private float disableTimer;
-    private float deleteThreshold = -4f;
+    private float disableTimerCounter;
+    private float deleteThreshold = -2.8f;
     #endregion
 
     #region serialized variables
@@ -22,23 +22,29 @@ public class Platform : MonoBehaviour
         platCollider = GetComponent<BoxCollider>();
         audioSource = GetComponent<AudioSource>();
         landingParticle = FindObjectOfType<LandingParticle>();
+        transform.position = new Vector3(transform.position.x, transform.position.y, 0.5f);
     }
 
     private void Update()
     {
-        if(GameManager.instance.player.transform.position.y - 1.5f > transform.position.y) 
+        if(GameManager.instance.player.transform.position.y - 0.5f > transform.position.y) //If the player Y + an offset is over the platform, we make it solid. We need an offset otherwise the player could get stuck in the platform immediately.
         {
             platCollider.enabled = true;
         }
-        else if(GameManager.instance.player.transform.position.y < transform.position.y)
+        else if(GameManager.instance.player.transform.position.y + 0.5f < transform.position.y)
         {
             platCollider.enabled = false;
         }
-        if (!GameManager.instance.levelChunkManager.DontBreakPlats)
+        if (!GameManager.instance.levelChunkManager.DontBreakPlats) //Debug: if this bool is on the platforms wont break
         {
-            if (transform.position.y < deleteThreshold || disableTimer <= 0f && playerTouched)
+            //TODO: Change the timer to go up instead of down as its better practice (and it should eliminate the need for the "playerTouched" boolean)
+            if (transform.position.y < deleteThreshold || disableTimerCounter <= 0f && playerTouched) //Start of deletion code, we want to delete the platform if its under Y a certain amount or its timer is 0;
             {
-                if (landingParticle != null)
+                //TODO: Make it so that we instantiate LandingParticle from platforms instead of having one object handling it in the scene
+                //This would probably be the better way to do it and would eliminate all these checks, as we wouldnt have to 
+                //care if that object was deleted or not.
+
+                if (landingParticle != null) //We have to make sure that the LandingParticle object is unparented before we delete ourselves, to make sure we dont delete the LandingParticle with it.
                 {
                     if (landingParticle.transform.parent != null)
                     {
@@ -49,20 +55,20 @@ public class Platform : MonoBehaviour
             }
         }
 
-        if(disableTimer > 0f)
+        if(disableTimerCounter > 0f)
         {
-            disableTimer -= Time.deltaTime;
+            disableTimerCounter -= Time.deltaTime;
         }
     }
 
     private void OnCollisionEnter(Collision collision)
     {
-        if(collision.gameObject.CompareTag("Player"))
+        if(collision.gameObject.CompareTag("Player")) //On collision with the player, we play a sound and set a timer.
         {
             audioSource.Play();
-            if (disableTimer <= 0)
+            if (disableTimerCounter <= 0)
             {
-                disableTimer = disableTimerSet;
+                disableTimerCounter = disableTimerSet;
                 playerTouched = true;
             }
         }

@@ -9,8 +9,6 @@ public class LevelChunkManager : MonoBehaviour
     private float resetTimerCounter;
     private float passiveScrollMultiple = 0f;
     private int currentDifficulty = 0;
-    private int currentLevelZero = 0;
-    private int currentLevelOne = 0;
     private Dictionary<int, List<GameObject>> levelChunkDictionary = new Dictionary<int, List<GameObject>>();
     #endregion
 
@@ -18,7 +16,7 @@ public class LevelChunkManager : MonoBehaviour
     [SerializeField] List<GameObject> levelChunks;
     [SerializeField] private int[] difficultyThresholds;
     [Header("Debug")]
-    [SerializeField] private bool dontBreakPlats;
+    [SerializeField] private bool dontBreakPlats; //Turn this on in the inspector to stop platforms from breaking at all
     #endregion
 
     #region getters and setters
@@ -38,19 +36,21 @@ public class LevelChunkManager : MonoBehaviour
 
     private void Update()
     {
-        if(resetTimerCounter > 0)
+        if(resetTimerCounter > 0) //resetTimerCounter being over 0 means we are scrolling the screen down due to player death or game over.
         {
             resetTimerCounter -= Time.deltaTime;    
         }
 
-        if(passiveScrollMultiple < 1f && !GameManager.instance.player.BeforeStart)
+        if(passiveScrollMultiple < 1f && !GameManager.instance.player.BeforeStart) //This code scrolls the screen down passively, outside of the player hitting the top of the screen. 
         {
             passiveScrollMultiple += Time.deltaTime / 240f;
         }
     }
 
-    private void SortLevelChunks()
+    private void SortLevelChunks() 
     {
+        //Sorts GameObjects from levelChunks into appropriate lists based on difficultys (an int) they have on them.
+        //E.g. We go through levelChunks and find 5 GameObjects with difficulty 2, we put them into l2
         List<GameObject> l0 = new List<GameObject>();
         List<GameObject> l1 = new List<GameObject>();
         List<GameObject> l2 = new List<GameObject>();

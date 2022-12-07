@@ -17,9 +17,9 @@ public class ScoreUi : MonoBehaviour
         UpdateScores();
     }
 
-    public void UpdateScores()
+    public void UpdateScores() //Updates the score on screen by creating gameobjects with text that contain Name and Score values from scoreData
     {
-        foreach(RowUi uniqueRow in rows.ToList())
+        foreach(RowUi uniqueRow in rows.ToList()) //We have to destroy all the objects occupying the scoreboard before making new ones
         {
             Destroy(uniqueRow.gameObject);
             rows.Remove(uniqueRow); 
