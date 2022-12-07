@@ -12,6 +12,7 @@ public class GameManager : MonoBehaviour
     public PowerUpManager powerUpManager;
     public ScoreManager scoreManager;
     public ScoreData scoreData;
+    public SplashScreen splashScreen;
 
     void Awake()
     {

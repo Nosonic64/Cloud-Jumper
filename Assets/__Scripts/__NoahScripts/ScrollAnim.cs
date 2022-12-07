@@ -22,7 +22,11 @@ public class ScrollAnim : MonoBehaviour
         }
         else if(GameManager.instance.levelChunkManager.CurrentDifficulty > 0) //Moves the scroll as fast as the passive scroll is.
         {
-            anim.speed = GameManager.instance.levelChunkManager.PassiveScrollMultiple;
+           anim.speed = GameManager.instance.levelChunkManager.PassiveScrollMultiple;
+        }
+        else
+        {
+            anim.speed = 0;
         }
     }
 }
