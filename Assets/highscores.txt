@@ -1,7 +1,13 @@
+ZZZ
+51
 EEE
 39
 JJJ
+34
+JJJ
 29
+JJJ
+23
 HHH
 21
 III
@@ -12,9 +18,3 @@ AAA
 13
 GGG
 9
-BBB
-7
-FFF
-7
-CCC
-6
