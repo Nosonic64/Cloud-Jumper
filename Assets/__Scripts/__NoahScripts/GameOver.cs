@@ -32,6 +32,7 @@ public class GameOver : MonoBehaviour
             if (seconds <= 0)
             {
                 GameManager.instance.levelChunkManager.ResetTimerCounter = 0f;
+                GameManager.instance.levelChunkManager.PassiveScrollMultiple = 0f;
                 GameManager.instance.player.GoBackToInitial();
                 thingsToSwitch.SwitchStuff();
                 timerUp = true;

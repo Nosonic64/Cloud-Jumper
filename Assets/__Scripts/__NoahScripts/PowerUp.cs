@@ -7,6 +7,7 @@ public class PowerUp : MonoBehaviour
 {
     #region private variables
     private AudioSource audioSource;
+    private ParticleSystem myParticle;
     private MeshRenderer mesh;
     #endregion
 
@@ -21,6 +22,7 @@ public class PowerUp : MonoBehaviour
     private void Start()
     {
         audioSource = GetComponent<AudioSource>();
+        myParticle = GetComponentInChildren<ParticleSystem>();
         mesh = GetComponentInChildren<MeshRenderer>();    
     }
 
@@ -28,7 +30,8 @@ public class PowerUp : MonoBehaviour
     {
         audioSource.Play();
         mesh.enabled = false;
-        Invoke("DestroyPowerUp", 2f);
+        myParticle.Stop();
+        Invoke("DestroyPowerUp", 2.4f);
     }
 
     private void DestroyPowerUp()
