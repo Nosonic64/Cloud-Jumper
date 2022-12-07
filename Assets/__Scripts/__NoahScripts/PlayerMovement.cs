@@ -77,6 +77,7 @@ public class PlayerMovement : MonoBehaviour
     public bool Grounded { get => grounded;}
     public float HorizontalInput { get => horizontalInput;}
     public float LastInputDir { get => lastInputDir;}
+    public bool BeforeStart { get => beforeStart;}
     #endregion
 
     void Start()
@@ -122,10 +123,9 @@ public class PlayerMovement : MonoBehaviour
                 touchingYClamp = false;
             }
 
-            if (Input.GetButtonDown("Jump"))
+            if (Input.GetButton("Jump"))
             {
                 jumpBufferCounter = jumpBufferTime;
-
             }
             if (Input.GetButtonUp("Jump"))
             {
@@ -350,7 +350,7 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    public void PlayParticle(int particleToPlay) // 0 == Pain particle (Player has been hit) | 1 == Invulnerability particle
+    public void PlayParticle(int particleToPlay) // 0 == Pain particle (Player has been hit) | 1 == Invulnerability particle | 2 == Double Jump particle (Player currently has double jump)
     {
         switch (particleToPlay) 
         {
@@ -364,6 +364,7 @@ public class PlayerMovement : MonoBehaviour
                 var main = playerParticles.ParticleObjects[1].main;
                 main.duration = hasInvulnerable;
                 playerParticles.ParticleObjects[1].Play();
+                PlayAudio(playerSounds.Sounds[2], 0.8f);
                 break;
             case 2:
                 playerParticles.ParticleObjects[2].Play();

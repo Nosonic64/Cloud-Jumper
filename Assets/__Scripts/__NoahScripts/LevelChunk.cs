@@ -13,6 +13,16 @@ public class LevelChunk : MonoBehaviour
     private float placeNewOffset = 92f;
     #endregion
 
+    #region serialized variables
+    [Header("0 is Easiest, 4 is Hardest")]
+    [Range(0,4)]
+    [SerializeField] private int chunkDifficulty;
+    #endregion
+
+    #region getters and setters
+    public int ChunkDifficulty { get => chunkDifficulty; }
+    #endregion
+
     void Start()
     {
         SpawnRandomPowerUp(3);
@@ -20,13 +30,18 @@ public class LevelChunk : MonoBehaviour
 
     private void Update()
     {
-        if(GameManager.instance.player.TouchingYClamp && GameManager.instance.player.PlayerLives > 0)
+
+        if (GameManager.instance.player.TouchingYClamp && GameManager.instance.player.PlayerLives > 0)
         {
            if (GameManager.instance.player.GetRigidbody.velocity.y > 0)
            {
                 transform.position -= transform.up * GameManager.instance.player.GetRigidbody.velocity.y * Time.deltaTime;
                 GameManager.instance.scoreManager.Distance += Time.deltaTime;
            }
+        }
+        else if (!GameManager.instance.player.TouchingYClamp)
+        {
+            transform.position -= (transform.up * GameManager.instance.levelChunkManager.CurrentDifficulty * GameManager.instance.levelChunkManager.PassiveScrollMultiple) * Time.deltaTime;
         }
 
         if(GameManager.instance.bellSprite.SpriteCarryingPlayer)
@@ -43,7 +58,6 @@ public class LevelChunk : MonoBehaviour
         if (transform.position.y <= createNewChunkThreshold & !spawnedNewLevelChunk)
         {
             SpawnRandomLevelChunk();
-            
         }
 
        if(transform.position.y <= deleteThisChunkThreshold)
@@ -85,10 +99,21 @@ public class LevelChunk : MonoBehaviour
 
     }
 
-    private void SpawnRandomLevelChunk()
+    // Spawn a level chunk corresponding to current difficulty
+    // From an array of arrays, seperated by arrays that have corresponding level chunk difficultys in them (E.g. difficultyLevelZeroChunks has all the difficulty 0 level chunks within it)
+    private void SpawnRandomLevelChunk() 
     {
-        var levelChunkToSpawnFromArray = Random.Range(0, GameManager.instance.levelChunkManager.LevelChunks.Length);
-        Instantiate(GameManager.instance.levelChunkManager.LevelChunks[levelChunkToSpawnFromArray], transform.position + new Vector3(0, placeNewOffset, 0), transform.rotation);
-        spawnedNewLevelChunk = true;
+        var currentDifficulty = GameManager.instance.levelChunkManager.CurrentDifficulty;
+        List<GameObject> currentDifficultyList;
+        if (GameManager.instance.levelChunkManager.LevelChunkDictionary.TryGetValue(currentDifficulty, out currentDifficultyList))
+        {
+            var levelChunkToSpawnFromArray = Random.Range(0, currentDifficultyList.Count);
+            Instantiate(currentDifficultyList[levelChunkToSpawnFromArray], transform.position + new Vector3(0, placeNewOffset, 0), transform.rotation);
+            spawnedNewLevelChunk = true;
+        }
+        else
+        {
+            Debug.Log("No list could be found at this difficulty level, Check Level Chunk Manager");
+        }
     }
 }

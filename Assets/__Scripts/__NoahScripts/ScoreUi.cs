@@ -13,6 +13,7 @@ public class ScoreUi : MonoBehaviour
 
     void Start()
     {
+        GameManager.instance.scoreData.LoadScoresFromFile();
         UpdateScores();
     }
 

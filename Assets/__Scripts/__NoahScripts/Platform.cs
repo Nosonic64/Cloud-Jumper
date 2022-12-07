@@ -26,7 +26,7 @@ public class Platform : MonoBehaviour
 
     private void Update()
     {
-        if(GameManager.instance.player.transform.position.y - 1.5f > transform.position.y)
+        if(GameManager.instance.player.transform.position.y - 1.5f > transform.position.y) 
         {
             platCollider.enabled = true;
         }
