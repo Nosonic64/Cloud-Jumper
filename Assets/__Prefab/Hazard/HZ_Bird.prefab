@@ -1,5 +1,24 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!95 &76111134492429497
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5141779186583131397}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: cc8e17c38d2f171418d53b218740cbd8, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 1
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &5186024889924942128
 GameObject:
   m_ObjectHideFlags: 0
@@ -12,7 +31,7 @@ GameObject:
   - component: {fileID: 5186024889924942141}
   - component: {fileID: 5186024889924942130}
   - component: {fileID: 5186024889924942131}
-  - component: {fileID: 5186024889924942143}
+  - component: {fileID: 3348387086370650782}
   m_Layer: 0
   m_Name: HZ_Bird
   m_TagString: Hazard
@@ -29,7 +48,7 @@ Transform:
   m_GameObject: {fileID: 5186024889924942128}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 2, y: 2, z: 2}
   m_Children:
   - {fileID: 5481043753730346943}
   m_Father: {fileID: 0}
@@ -97,25 +116,24 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!95 &5186024889924942143
-Animator:
-  serializedVersion: 3
+--- !u!114 &3348387086370650782
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5186024889924942128}
   m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 7bdaba291445db244b5ef44399b1a301, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 1
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0eb2a632891c4e647a31c6f59a76934a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveDistance: 0
+  moveSpeed: 0
+  dropletPrefab: {fileID: 6256330818734050454, guid: 264de0fc3c90ae948adb20adea0a8236, type: 3}
+  directionOfObject: {x: 0, y: 0, z: 0}
+  spawnTime: 200
+  destroyPos: -5
 --- !u!1001 &5447716436821010516
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -173,6 +191,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 49f27fb4e97d87b41b59018c6f4b488b, type: 3}
+--- !u!1 &5141779186583131397 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 49f27fb4e97d87b41b59018c6f4b488b, type: 3}
+  m_PrefabInstance: {fileID: 5447716436821010516}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &5481043753730346943 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 49f27fb4e97d87b41b59018c6f4b488b, type: 3}
