@@ -7,6 +7,7 @@ public class PowerUp : MonoBehaviour
 {
     #region private variables
     private AudioSource audioSource;
+    private AudioClip clip;
     private ParticleSystem myParticle;
     private MeshRenderer mesh;
     #endregion
@@ -17,18 +18,24 @@ public class PowerUp : MonoBehaviour
 
     #region getters and setters
     public int Id { get => id;}
+    public AudioClip Clip { get => clip;}
     #endregion
 
     private void Start()
     {
         audioSource = GetComponent<AudioSource>();
         myParticle = GetComponentInChildren<ParticleSystem>();
-        mesh = GetComponentInChildren<MeshRenderer>();    
+        mesh = GetComponentInChildren<MeshRenderer>();
+        clip = audioSource.clip;
     }
 
     public void PowerUpObtained()
     {
-        audioSource.Play();
+        if (GameManager.instance.powerUpManager.CurrentPlayingPowerUpClip != clip) 
+        {
+            GameManager.instance.powerUpManager.CurrentPlayingPowerUpClip = clip;
+            audioSource.Play();
+        }
         mesh.enabled = false;
         myParticle.Stop();
         Invoke("DestroyPowerUp", 2.4f);
