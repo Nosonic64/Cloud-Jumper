@@ -4,20 +4,11 @@ using UnityEngine;
 
 public class Switcher : MonoBehaviour
 {
-    #region private variables
-    private int i = 0;
-    #endregion
-
     #region serialized variables
     [SerializeField] private GameObject[] thingsToSwitch =  new GameObject[0];
     [SerializeField]private KeyCode key;
     #endregion
 
-
-    private void OnEnable()
-    {
-        i = 0;
-    }
     void Update()
     {
             if(Input.GetKeyDown(key))
@@ -26,19 +17,18 @@ public class Switcher : MonoBehaviour
             }
     }
 
-    public void SwitchStuff()
+    public void SwitchStuff() //Switches things from enabled to disables, or disabled to enabled depending on its current status.
     {
-        foreach (GameObject objects in thingsToSwitch)
+        foreach (GameObject go in thingsToSwitch)
         {
-            if (thingsToSwitch[i].activeSelf == true)
+            if (go.activeSelf == true)
             {
-                thingsToSwitch[i].SetActive(false);
+                go.SetActive(false);
             }
             else
             {
-                thingsToSwitch[i].SetActive(true);
+                go.SetActive(true);
             }
-            i++;
         }
     }
 }

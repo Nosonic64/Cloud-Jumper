@@ -99,8 +99,8 @@ public class LevelChunk : MonoBehaviour
 
     }
 
-    // Spawn a level chunk corresponding to current difficulty
-    // From an array of arrays, seperated by arrays that have corresponding level chunk difficultys in them (E.g. difficultyLevelZeroChunks has all the difficulty 0 level chunks within it)
+    // Spawn a random level chunk corresponding to current difficulty
+    // E.g. We are on currentDifficulty 2, so we look into the l2 list of level chunks and randomly select one from that list to spawn
     private void SpawnRandomLevelChunk() 
     {
         var currentDifficulty = GameManager.instance.levelChunkManager.CurrentDifficulty;

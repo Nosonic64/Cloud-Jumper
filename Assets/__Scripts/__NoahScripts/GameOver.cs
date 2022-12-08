@@ -29,13 +29,9 @@ public class GameOver : MonoBehaviour
 
         if (miliseconds <= 0)
         {
-            if (seconds <= 0)
+            if (seconds <= 0) //If the timers up, we transition to either NameInput, or if the player doesnt have a high enough score, we reset the values of all objects
             {
-                GameManager.instance.levelChunkManager.ResetTimerCounter = 0f;
-                GameManager.instance.levelChunkManager.PassiveScrollMultiple = 0f;
-                GameManager.instance.player.GoBackToInitial();
-                thingsToSwitch.SwitchStuff();
-                timerUp = true;
+                PlayerDoesNotContinue();
             }
             else if (seconds >= 0)
             {
@@ -47,20 +43,19 @@ public class GameOver : MonoBehaviour
 
         if(seconds > 0f || miliseconds > 0f) 
         {
-            if (GameManager.instance.player.RetryCount > 0)
+            if (GameManager.instance.player.RetryCount > 0) //If the player has a retry left, we countdown the timer
             {
                 miliseconds -= Time.deltaTime * 100;
             }
-            else
+            else //If the player does not have a retry left, we immediately reset everything
             {
-                seconds = 0f;
-                miliseconds = 0f;
+                PlayerDoesNotContinue();
             }
         }
 
         timer.text = string.Format("{0}:{1}", seconds, (int)miliseconds);
 
-        if (GameManager.instance.scoreManager.Distance > 0f)
+        if (GameManager.instance.scoreManager.Distance > 0f) //We lower the players current score over time until they insert another coin to respawn / continue
         {
             GameManager.instance.scoreManager.Distance -= Time.deltaTime * GameManager.instance.scoreManager.Distance / 12f;
         }
@@ -69,13 +64,22 @@ public class GameOver : MonoBehaviour
             GameManager.instance.scoreManager.Distance = 0f;
         }
 
-        if(Input.GetKeyDown(KeyCode.I) && !timerUp)
+        if(Input.GetKeyDown(KeyCode.I) && !timerUp) //If the player inserts a coin to respawn, we disable this script, reset some values and respawn the player
         {
             GameManager.instance.levelChunkManager.ResetTimerCounter = 0f;
             GameManager.instance.player.RetryCount--;
             GameManager.instance.player.GameOverRespawn();
             gameObject.SetActive(false);
         }
+    }
+
+    private void PlayerDoesNotContinue()
+    {
+        GameManager.instance.levelChunkManager.ResetTimerCounter = 0f;
+        GameManager.instance.levelChunkManager.PassiveScrollMultiple = 0f;
+        GameManager.instance.player.GoBackToInitial();
+        thingsToSwitch.SwitchStuff();
+        timerUp = true;
     }
 }
 

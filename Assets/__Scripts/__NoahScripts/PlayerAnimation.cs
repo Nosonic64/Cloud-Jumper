@@ -17,7 +17,7 @@ public class PlayerAnimation : MonoBehaviour
     {
         //checkWorking = GameManager.instance.player.Grounded;
         DirectionFacing(GameManager.instance.player.LastInputDir);
-        anim.SetInteger("horizontalAnim", (int)Math.Sign(GameManager.instance.player.HorizontalInput));
+        anim.SetInteger("horizontalAnim", Math.Sign(GameManager.instance.player.HorizontalInput));
         anim.SetBool("grounded", GameManager.instance.player.Grounded);
     }
 

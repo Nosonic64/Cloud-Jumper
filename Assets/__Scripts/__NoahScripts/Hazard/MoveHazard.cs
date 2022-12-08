@@ -10,6 +10,7 @@ public class MoveHazard : Hazard
     [SerializeField] bool lockToVertical;
     [SerializeField] bool lockToHorizontal;
     private Vector3 chestnutSpawnPos;
+    private Vector3 moveDirection;
     
     private float timer;
     
@@ -27,6 +28,8 @@ public class MoveHazard : Hazard
         {
             chestnutMoveLocation.y = transform.position.y;
         }
+        moveDirection = chestnutMoveLocation - chestnutSpawnPos;
+        moveDirection.Normalize();
     }
 
 
@@ -41,14 +44,16 @@ public class MoveHazard : Hazard
         isReversing = !isReversing;
         }
 
+        //transform.position -= new Vector3(moveDistance, 0, 0) * Time.deltaTime * moveSpeed;
+
         if (isReversing)
         {
-            transform.position = Vector3.Lerp(chestnutMoveLocation, chestnutSpawnPos, timer); // lerp 1 pos to other
+            transform.position -= moveDirection * Time.deltaTime * moveSpeed;
         }
 
         else
         {
-            transform.position = Vector3.Lerp(chestnutSpawnPos, chestnutMoveLocation, timer); // lerp 1 pos to other
+            transform.position += moveDirection * Time.deltaTime * moveSpeed;
         }
     }
 
