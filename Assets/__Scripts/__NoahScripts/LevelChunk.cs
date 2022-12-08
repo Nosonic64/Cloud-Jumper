@@ -7,7 +7,7 @@ public class LevelChunk : MonoBehaviour
     #region private variables
     private bool spawnedNewLevelChunk;
     private float bellScrollSpeedMultiple = 60f;
-    private float resetScrollMultiple = 15f;
+    private float resetScrollMultiple = 60f;
     private float createNewChunkThreshold = -46f; 
     private float deleteThisChunkThreshold = -92f;
     private float placeNewOffset = 92f;
@@ -31,7 +31,7 @@ public class LevelChunk : MonoBehaviour
     private void Update()
     {
 
-        if (GameManager.instance.player.TouchingYClamp && GameManager.instance.player.PlayerLives > 0)
+        if (GameManager.instance.player.TouchingYClamp)
         {
            if (GameManager.instance.player.GetRigidbody.velocity.y > 0)
            {
@@ -41,7 +41,7 @@ public class LevelChunk : MonoBehaviour
         }
         else if (!GameManager.instance.player.TouchingYClamp)
         {
-            transform.position -= (transform.up * GameManager.instance.levelChunkManager.CurrentDifficulty * GameManager.instance.levelChunkManager.PassiveScrollMultiple) * Time.deltaTime;
+            transform.position -= (transform.up * (GameManager.instance.levelChunkManager.CurrentDifficulty + 1) * GameManager.instance.levelChunkManager.PassiveScrollMultiple) * Time.deltaTime;
         }
 
         if(GameManager.instance.bellSprite.SpriteCarryingPlayer)

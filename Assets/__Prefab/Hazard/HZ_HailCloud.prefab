@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 2861513933442665866}
   - component: {fileID: 6748389125693660964}
   m_Layer: 3
-  m_Name: HZ_LightningCloud
+  m_Name: HZ_HailCloud
   m_TagString: Platform
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -216,7 +216,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 82c4e3e686206ca46a7cb3ed3352a1a9, type: 2}
+  - {fileID: 2100000, guid: 23ba1cd7903f53c428192af76cdc909b, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

@@ -87,6 +87,8 @@ public class NameInput : MonoBehaviour
         GameManager.instance.player.GameOver = false;
         GameManager.instance.scoreManager.Distance = 0;
         GameManager.instance.scoreManager.CurrentPlayerTopDistance = 0;
+        GameManager.instance.levelChunkManager.PassiveScrollMultiple = 0;
+        GameManager.instance.levelChunkManager.CurrentDifficulty = 0;
         texts[3].text = "";
         selectedLetter = 1;
         GameManager.instance.player.GoBackToInitial();
