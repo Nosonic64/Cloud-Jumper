@@ -237,7 +237,7 @@ public class PlayerMovement : MonoBehaviour
         {  
             PlayerHit();
             Destroy(other.gameObject);
-            if (playerLives <= 0)
+            if (playerLives <= 1)
             { 
                 GameOverSetup();
             }

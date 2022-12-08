@@ -60,7 +60,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 652da3c63cd776a489f7ee3f1d9c6aae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  disableTimerSet: 2
+  disableTimerSet: 1.5
 --- !u!82 &4805494487329645596
 AudioSource:
   m_ObjectHideFlags: 0
@@ -5012,6 +5012,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.y
       value: 180
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: 1912b1ee7ccbcdb42a871efc235ce1d5, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 23ba1cd7903f53c428192af76cdc909b, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1912b1ee7ccbcdb42a871efc235ce1d5, type: 3}
 --- !u!4 &1790513768827468101 stripped

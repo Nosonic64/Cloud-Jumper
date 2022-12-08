@@ -59,7 +59,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 652da3c63cd776a489f7ee3f1d9c6aae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  disableTimerSet: 4
+  disableTimerSet: 2.75
 --- !u!82 &2193901293776684734
 AudioSource:
   m_ObjectHideFlags: 0
@@ -169,7 +169,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 2309db5f5e86e2b4c9617703626219c6, type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.75
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 2309db5f5e86e2b4c9617703626219c6, type: 3}
       propertyPath: m_LocalScale.y
@@ -219,6 +219,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -5754084199372789682, guid: 2309db5f5e86e2b4c9617703626219c6, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: -5280144838575310505, guid: 2309db5f5e86e2b4c9617703626219c6, type: 3}
     - target: {fileID: 919132149155446097, guid: 2309db5f5e86e2b4c9617703626219c6, type: 3}
       propertyPath: m_Name
       value: Cloud_Low_2m

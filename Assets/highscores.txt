@@ -1,8 +1,14 @@
+DCC
+76
 AAA
 67
+DDD
+44
 AAZ
 42
 III
+22
+AAA
 22
 FFF
 21
@@ -12,9 +18,3 @@ EEE
 16
 ADD
 12
-DDD
-12
-FFF
-11
-HHH
-10
