@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 161388533507012689}
   - component: {fileID: 3688511800472149848}
   m_Layer: 0
-  m_Name: Teapot
+  m_Name: HZ_Teapot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -114,3 +114,5 @@ MonoBehaviour:
   directionOfObject: {x: 0, y: 0, z: 0}
   spawnTime: 0
   destroyPos: -5
+  isSticky: 1
+  released: 0
