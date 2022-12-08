@@ -152,7 +152,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 659305920782764793, guid: d6f72c31b696d7f43b50268292f0c567, type: 3}
       propertyPath: m_RootOrder
-      value: 13
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 659305920782764793, guid: d6f72c31b696d7f43b50268292f0c567, type: 3}
       propertyPath: m_AnchorMax.x
@@ -947,6 +947,11 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 6021657378589251696, guid: 0f6a785349c2d0446bbb25aae360b01c, type: 3}
   m_PrefabInstance: {fileID: 6021657377855070841}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &2068072926 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6698918737637624135, guid: cf5c535ef3827de40b7bed5325dd8656, type: 3}
+  m_PrefabInstance: {fileID: 6873983876745348941}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2075448411
 GameObject:
   m_ObjectHideFlags: 0
@@ -1011,7 +1016,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 12
+  m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &432705616482651417
 PrefabInstance:
@@ -1362,7 +1367,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5615297096937419362, guid: 3c36ea9ce4ff4b746a7ef4629a6cb0df, type: 3}
       propertyPath: dontBreakPlats
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5615297096937419362, guid: 3c36ea9ce4ff4b746a7ef4629a6cb0df, type: 3}
       propertyPath: levelChunks.Array.size
@@ -1599,6 +1604,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6873983875910749243, guid: cf5c535ef3827de40b7bed5325dd8656, type: 3}
+      propertyPath: mesh
+      value: 
+      objectReference: {fileID: 2068072926}
     - target: {fileID: 6873983875910749243, guid: cf5c535ef3827de40b7bed5325dd8656, type: 3}
       propertyPath: yClamp
       value: 
