@@ -43,7 +43,7 @@ public class SpriteSequence : MonoBehaviour
     public void UnparentPlayer()
     {
         GameManager.instance.player.transform.parent = null;
-        GameManager.instance.player.BellPower(false,false,true);
+        GameManager.instance.player.ResetFromBell();
     }
 
     public void GoBackToIdle()

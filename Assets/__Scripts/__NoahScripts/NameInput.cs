@@ -11,24 +11,23 @@ public class NameInput : MonoBehaviour
     #region private variables
     private string letters = " ABCDEFGHIJKLMNOPQRSTUVWXYZ ";
     private int selectedLetter;
-    private StartGameHandler thingsToSwitch;
-    private float inputDelay = 0.2f;
+    private Switcher thingsToSwitch;
+    private AudioSource audioSource;
+    private float inputDelay = 0.12f;
     private float inputDelayCounter;
     #endregion
 
     #region serialized variables
-    [SerializeField] private GameOver gameOverUi;
-    [SerializeField] private HighScoreManager highScoreManager;
     [SerializeField] private ScoreUi scoreUi;
-    [SerializeField] private ScoreFlag scoreFlag;
     [SerializeField] private Text[] texts = new Text[0];
     #endregion
 
     void Start()
     {
-        thingsToSwitch = GetComponent<StartGameHandler>();
+        thingsToSwitch = GetComponent<Switcher>();
+        audioSource = GetComponent<AudioSource>();  
         selectedLetter = 1;
-        if (GameManager.instance.scoreManager.CurrentPlayerTopDistance < ScoreData.scores[0].score)
+        if (GameManager.instance.scoreManager.CurrentPlayerTopDistance < GameManager.instance.scoreData.scores[9].score)
         {
             ResetStuff();
         }
@@ -46,6 +45,8 @@ public class NameInput : MonoBehaviour
         {
             selectedLetter -= 1;
             inputDelayCounter = inputDelay;
+            audioSource.pitch = 1f;
+            audioSource.Play();
             UpdateLetterDisplay();
         }
 
@@ -53,19 +54,23 @@ public class NameInput : MonoBehaviour
         {
             selectedLetter += 1;
             inputDelayCounter = inputDelay;
+            audioSource.pitch = 1f;
+            audioSource.Play();
             UpdateLetterDisplay();
         }
 
         if (Input.GetButtonDown("Jump"))
         {
             texts[3].text += letters[selectedLetter];
+            audioSource.pitch = 2f;
+            audioSource.Play();
         }
 
         if (texts[3].text.ToCharArray().Length == 3)
         {
-            ScoreData.scores[0] = new Score(texts[3].text, Mathf.Floor(GameManager.instance.scoreManager.CurrentPlayerTopDistance));
+            GameManager.instance.scoreData.AddScore(texts[3].text, (int)Mathf.Floor(GameManager.instance.scoreManager.CurrentPlayerTopDistance));
             scoreUi.UpdateScores();
-            highScoreManager.SaveScore();
+            GameManager.instance.scoreData.SaveScoresToFile();
             ResetStuff();
         }
     }
@@ -84,9 +89,6 @@ public class NameInput : MonoBehaviour
         GameManager.instance.scoreManager.CurrentPlayerTopDistance = 0;
         texts[3].text = "";
         selectedLetter = 1;
-        gameOverUi.seconds = 10;
-        gameOverUi.miliseconds = 0;
-        gameOverUi.timerUp = false;
         GameManager.instance.player.GoBackToInitial();
         thingsToSwitch.SwitchStuff();
     }

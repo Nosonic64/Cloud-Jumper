@@ -6,16 +6,22 @@ using UnityEngine.UI;
 
 public class GameOver : MonoBehaviour
 {
-    public Text timer;
-    public float seconds = 10;
-    public float miliseconds = 0;
-    private StartGameHandler thingsToSwitch;
-    public bool timerUp = false;
-    public GameObject player;
+    [SerializeField] private Text timer;
+    private float seconds = 10;
+    private float miliseconds = 0;
+    private Switcher thingsToSwitch;
+    private bool timerUp = false;
 
     private void Start()
     {
-        thingsToSwitch = GetComponent<StartGameHandler>();
+        thingsToSwitch = GetComponent<Switcher>();
+    }
+
+    private void OnEnable()
+    {
+        seconds = 10;
+        miliseconds = 0;
+        timerUp = false;
     }
 
     void Update()
@@ -23,10 +29,9 @@ public class GameOver : MonoBehaviour
 
         if (miliseconds <= 0)
         {
-            if (seconds <= 0)
+            if (seconds <= 0) //If the timers up, we transition to either NameInput, or if the player doesnt have a high enough score, we reset the values of all objects
             {
-                thingsToSwitch.SwitchStuff();
-                timerUp = true;
+                PlayerDoesNotContinue();
             }
             else if (seconds >= 0)
             {
@@ -38,18 +43,19 @@ public class GameOver : MonoBehaviour
 
         if(seconds > 0f || miliseconds > 0f) 
         {
-            if (GameManager.instance.player.RetryCount > 0)
+            if (GameManager.instance.player.RetryCount > 0) //If the player has a retry left, we countdown the timer
             {
                 miliseconds -= Time.deltaTime * 100;
             }
-            else
+            else //If the player does not have a retry left, we immediately reset everything
             {
-                seconds = 0f;
-                miliseconds = 0f;
+                PlayerDoesNotContinue();
             }
         }
 
-        if(GameManager.instance.scoreManager.Distance > 0f)
+        timer.text = string.Format("{0}:{1}", seconds, (int)miliseconds);
+
+        if (GameManager.instance.scoreManager.Distance > 0f) //We lower the players current score over time until they insert another coin to respawn / continue
         {
             GameManager.instance.scoreManager.Distance -= Time.deltaTime * GameManager.instance.scoreManager.Distance / 12f;
         }
@@ -58,17 +64,22 @@ public class GameOver : MonoBehaviour
             GameManager.instance.scoreManager.Distance = 0f;
         }
 
-        timer.text = string.Format("{0}:{1}", seconds, (int)miliseconds);
-
-        if(Input.GetKeyDown(KeyCode.I) && !timerUp)
+        if(Input.GetKeyDown(KeyCode.I) && !timerUp) //If the player inserts a coin to respawn, we disable this script, reset some values and respawn the player
         {
-            seconds = 10;
-            miliseconds = 0;
+            GameManager.instance.levelChunkManager.ResetTimerCounter = 0f;
             GameManager.instance.player.RetryCount--;
-            player.SetActive(true);
             GameManager.instance.player.GameOverRespawn();
             gameObject.SetActive(false);
         }
+    }
+
+    private void PlayerDoesNotContinue()
+    {
+        GameManager.instance.levelChunkManager.ResetTimerCounter = 0f;
+        GameManager.instance.levelChunkManager.PassiveScrollMultiple = 0f;
+        GameManager.instance.player.GoBackToInitial();
+        thingsToSwitch.SwitchStuff();
+        timerUp = true;
     }
 }
 

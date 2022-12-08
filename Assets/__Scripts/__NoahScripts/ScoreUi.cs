@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ScoreUi : MonoBehaviour
 {
@@ -12,33 +13,20 @@ public class ScoreUi : MonoBehaviour
 
     void Start()
     {
-        for (int i = 0; i < 10; i++)
-        {
-            var score = 10;
-            highScoreManager.AddScore(new Score("NOA", score * i));
-        }
-
-
-        var scores = highScoreManager.GetHighScores().ToArray();
-        for (int i = 0; i < scores.Length; i++)
-        {    
-            var row = Instantiate(rowUi, transform).GetComponent<RowUi>();
-            row.name.text = scores[i].name;
-            row.score.text = scores[i].score.ToString();
-            rows.Add(row);
-        }
+        GameManager.instance.scoreData.LoadScoresFromFile();
+        UpdateScores();
     }
 
-    public void UpdateScores()
+    public void UpdateScores() //Updates the score on screen by creating gameobjects with text that contain Name and Score values from scoreData
     {
-        foreach(RowUi uniqueRow in rows.ToList())
+        foreach(RowUi uniqueRow in rows.ToList()) //We have to destroy all the objects occupying the scoreboard before making new ones
         {
             Destroy(uniqueRow.gameObject);
             rows.Remove(uniqueRow); 
         }
         if (rows.Count == 0)
         {
-            var scores = highScoreManager.GetHighScores().ToArray();
+            var scores = GameManager.instance.scoreData.scores;
             for (int i = 0; i < scores.Length; i++)
             {
                 var row = Instantiate(rowUi, transform).GetComponent<RowUi>();
