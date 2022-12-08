@@ -9,6 +9,7 @@ public class HazardLightningCloud : MonoBehaviour
     private BoxCollider boxCollider;
     private ParticleSystem particle;
     private AudioSource audioSource;
+    private float particleStartPlayOffset = 0.1f;
     #endregion
 
     #region serialized variables
@@ -22,30 +23,36 @@ public class HazardLightningCloud : MonoBehaviour
     { 
        boxCollider = GetComponent<BoxCollider>();
        particle = GetComponent<ParticleSystem>();
-       audioSource = GetComponent<AudioSource>();  
+       audioSource = GetComponent<AudioSource>();
+       lightningTimer = lightningTimer - lightningAttackTime + particleStartPlayOffset;
     }
 
     void Update()
     {
         //Causes lightning to strike on a timer
-        if(lightningTimerCounter < lightningTimer)
+        if(lightningTimerCounter < (lightningTimer + lightningAttackTime + particleStartPlayOffset))
         {
             lightningTimerCounter += Time.deltaTime;
         }
         else
         {
-            boxCollider.enabled = true;  
             particle.Play();
             audioSource.Play();
+            Invoke("TurnOnCollisionBox", particleStartPlayOffset);
             Invoke("StopLightning", lightningAttackTime); //This invoke with a delay of lightningAttackTime determines how long the lightning hitbox / particle stays on
             lightningTimerCounter = 0;
         }  
     }
 
+    private void TurnOnCollisionBox()
+    {
+        boxCollider.enabled = true;
+    }
+
     private void StopLightning()
     {
         particle.Stop();
-        particle.Clear();
         boxCollider.enabled = false;
     }
+
 }

@@ -12,7 +12,7 @@ public class PlayerMovement : MonoBehaviour
     private PlayerSounds playerSounds;
     private AudioSource[] audioSources = new AudioSource[0];
     private PlayerParticles playerParticles;
-    private Vector3 fallPlatSpawnOffset = new Vector3(2,4,0);
+    private Vector3 fallPlatSpawnOffset = new Vector3(2,6,0);
     private IEnumerator blinkCoroutine;
     private bool hasBell;
     private bool gameOver;
@@ -237,7 +237,7 @@ public class PlayerMovement : MonoBehaviour
         {  
             PlayerHit();
             Destroy(other.gameObject);
-            if (playerLives <= 1)
+            if (playerLives <= 0)
             { 
                 GameOverSetup();
             }
@@ -286,11 +286,14 @@ public class PlayerMovement : MonoBehaviour
     #region state change functions
     public void PlayerGameStart()
     {
+        playerLives = maxPlayerLives;
+        retryCount = maxRetrys;
         transform.position = startPoint;
         mesh.SetActive(true);
         rb.useGravity = true;
         colliderPlayer.enabled = true;
         beforeStart = false;
+        hasInvulnerable = 5f;
         var startingPlatform = Instantiate(startPlat, transform.position - new Vector3(0,1,0), transform.rotation);
         startingPlatform.transform.parent = FindObjectOfType<LevelChunk>().transform;  
 
@@ -335,6 +338,8 @@ public class PlayerMovement : MonoBehaviour
         colliderPlayer.enabled = false;
         gameOver = true;
         rb.useGravity = false;
+        rb.velocity = Vector3.zero;
+        transform.position = new Vector3(0,10,0);
         playerLives = -1;
     }
     #endregion
@@ -429,7 +434,7 @@ public class PlayerMovement : MonoBehaviour
     {
         PlayParticle(0);
         PlayAudio(playerSounds.Sounds[1], 0.5f);
-        playerLives--;
+        playerLives -= 1;
         hasInvulnerable = 1f;
         HitStop(hitStopAmountSet);
         CheckBlinkRoutine();
