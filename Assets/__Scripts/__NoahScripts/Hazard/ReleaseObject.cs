@@ -10,13 +10,18 @@ public class ReleaseObject : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player"))
         {
-            var temp = releaseObject.GetComponent<Lantern>();
-            //var temp = releaseObject.GetComponent<TeapotHazard>(); What do I use other than temp?
+            Lantern lantern = releaseObject.GetComponent<Lantern>();
+            TeapotHazard teapot = releaseObject.GetComponent<TeapotHazard>();
 
-            if (temp != null)
+            if (lantern != null)
             {
                 releaseObject.SetActive(true);
-                temp.released = true;
+                lantern.released = true;
+            }
+            if (teapot != null)
+            {
+                releaseObject.SetActive(true);
+                teapot.released = true;
             }
         }
     }

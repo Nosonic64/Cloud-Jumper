@@ -18,7 +18,7 @@ public class Lantern : Hazard
     bool isReversing;
     public bool released = false;
 
-    public override void HazardAwake() // NOTE - does this need to be in the TeapotHazard?
+    public override void HazardAwake() 
     {
             lanternSpawnPos = transform.position;
 

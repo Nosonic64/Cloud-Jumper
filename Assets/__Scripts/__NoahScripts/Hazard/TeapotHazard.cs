@@ -10,53 +10,41 @@ public class TeapotHazard : Hazard
     public float spawnTime;
     float spawnTimer;
     public float destroyPos = -5;
-    //
-    public bool released = false; // taken from Lantern 
-    //
+    protected Transform spawnChunk;
+    public bool isSticky = false;
+    public bool released = false;
+    
     public void SpawnTears()
     {
         spawnTimer += Time.deltaTime;
-        if (spawnTimer >= spawnTime)
+        if (spawnTimer >= spawnTime && spawnChunk != null)
         {
 
-            Droplet drop = Instantiate(dropletPrefab, transform.position, Quaternion.identity);
-            drop.Init(directionOfObject);
+            Droplet drop = Instantiate(dropletPrefab, spawnChunk);
+            drop.transform.position = transform.position;
+            drop.Init(-transform.up);
             spawnTimer = 0f;
         }
     }
 
-    //NOTES - Droplet spawnPos weird. Need to make it seperate to teapot movePos
-    //      - starts off and not turning on once player goes through trigger box
-    //
-    //public override void HazardAwake() 
-    //{
-        //lanternSpawnPos = transform.position;
+    public override void HazardAwake()
+    {
+        spawnChunk = transform.parent;
 
-        //if (lockToVertical)
-        //{
-        //    moveLocation.x = transform.position.x;
-        //}
-        //if (lockToHorizontal)
-        //{
-        //    moveLocation.y = transform.position.y;
-        //}
-        //moveDirection = moveLocation - lanternSpawnPos;
-        //moveDirection.Normalize();
-    //}
+        if (isSticky)
+        {
+            transform.parent = null;
+        }
+    }
 
-    //
-
-    //
-    public override void Move() // taken from Lantern
+    public override void Move() 
     {
         transform.position -= directionOfObject * Time.deltaTime * moveSpeed;
     }
-    //
-
 
     private void Update()
     {
-        if (released) // just the - if (released) taken from Lantern
+        if (released)
         {
             SpawnTears();
             Move();

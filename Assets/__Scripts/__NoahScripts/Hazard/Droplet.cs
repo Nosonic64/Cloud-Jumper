@@ -13,7 +13,7 @@ public class Droplet : MonoBehaviour
         direction = dir;
         direction.Normalize();
     }
-
+    
     void Update()
     {
         transform.position += direction * dropSpeed * Time.deltaTime;
