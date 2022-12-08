@@ -17,6 +17,14 @@ public class Hazard : MonoBehaviour
     public void Awake()
     {
         transform.position = new Vector3(transform.position.x, transform.position.y, 0);
+        
+        HazardAwake();
+    }
+
+
+    public virtual void HazardAwake()
+    {
+
     }
 
 

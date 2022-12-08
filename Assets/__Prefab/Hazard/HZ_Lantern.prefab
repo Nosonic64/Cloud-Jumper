@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 7467449216175735983}
   - component: {fileID: 7467449216175735976}
   m_Layer: 0
-  m_Name: Lantern
+  m_Name: HZ_Lantern
   m_TagString: Hazard
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -91,7 +91,7 @@ CapsuleCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7467449216175735977}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   m_Radius: 0.5
   m_Height: 2
@@ -111,8 +111,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveDistance: 0.1
   moveSpeed: 0.1
-  chestnutMoveLocation: {x: 0, y: 51, z: 0}
+  moveLocation: {x: 0, y: 0, z: 0}
   lockToVertical: 1
   lockToHorizontal: 0
   destroyPos: 50
   goingUp: 1
+  released: 0

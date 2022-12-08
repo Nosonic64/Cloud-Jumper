@@ -1,78 +1,65 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class Lantern : Hazard
 {
-    [SerializeField] protected Vector3 chestnutMoveLocation;
+    [SerializeField] protected Vector3 moveLocation;
     [SerializeField] bool lockToVertical;
     [SerializeField] bool lockToHorizontal;
     private Vector3 lanternSpawnPos;
     public float destroyPos = 50;
+    private Vector3 moveDirection;
 
-    private float timer;
+    //private float timer;
 
     public bool goingUp;
     bool isReversing;
+    public bool released = false;
 
-    private void Start()
+    public override void HazardAwake() // NOTE - does this need to be in the TeapotHazard?
     {
-        lanternSpawnPos = transform.position;
+            lanternSpawnPos = transform.position;
 
-        if (lockToVertical)
-        {
-            chestnutMoveLocation.x = transform.position.x;
-        }
-        if (lockToHorizontal)
-        {
-            chestnutMoveLocation.y = transform.position.y;
-        }
+            if (lockToVertical)
+            {
+                moveLocation.x = transform.position.x;
+            }
+            if (lockToHorizontal)
+            {
+                moveLocation.y = transform.position.y;
+            }
+            moveDirection = moveLocation - lanternSpawnPos;
+            moveDirection.Normalize();
     }
-
-    
 
     public override void Move()
     {
-        timer += Time.deltaTime * moveSpeed;
-
-        if (timer > 1)
-        {
-            timer = 0;
-            isReversing = !isReversing;
-        }
-
-        if (isReversing)
-        {
-            transform.position = Vector3.Lerp(chestnutMoveLocation, lanternSpawnPos, timer); // lerp 1 pos to other
-        }
-
-        else
-        {
-            transform.position = Vector3.Lerp(lanternSpawnPos, chestnutMoveLocation, timer); // lerp 1 pos to other
-        }
+            transform.position -= moveDirection * Time.deltaTime * moveSpeed;   
     }
-
-    
-    
-    // check if can go in movehazard script instead
 
 
     private void Update()
     {
-        Move();
-        
-        if (goingUp) 
+        if (released)
         {
-            if (transform.position.y > destroyPos)
+
+            Move();
+
+            if (goingUp)
             {
-                Destroy(gameObject);
+                if (transform.position.y > destroyPos)
+                {
+                    Destroy(gameObject);
+                }
             }
-        }
-        else
-        {
-            if (transform.position.y < destroyPos)
+            else
             {
-                Destroy(gameObject);
+                if (transform.position.y < destroyPos)
+                {
+                    Destroy(gameObject);
+                }
             }
         }
     }

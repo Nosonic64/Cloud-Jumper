@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class TeapotHazard : Hazard
 {
@@ -9,7 +10,9 @@ public class TeapotHazard : Hazard
     public float spawnTime;
     float spawnTimer;
     public float destroyPos = -5;
-
+    //
+    public bool released = false; // taken from Lantern 
+    //
     public void SpawnTears()
     {
         spawnTimer += Time.deltaTime;
@@ -22,16 +25,49 @@ public class TeapotHazard : Hazard
         }
     }
 
+    //NOTES - Droplet spawnPos weird. Need to make it seperate to teapot movePos
+    //      - starts off and not turning on once player goes through trigger box
+    //
+    //public override void HazardAwake() 
+    //{
+        //lanternSpawnPos = transform.position;
+
+        //if (lockToVertical)
+        //{
+        //    moveLocation.x = transform.position.x;
+        //}
+        //if (lockToHorizontal)
+        //{
+        //    moveLocation.y = transform.position.y;
+        //}
+        //moveDirection = moveLocation - lanternSpawnPos;
+        //moveDirection.Normalize();
+    //}
+
+    //
+
+    //
+    public override void Move() // taken from Lantern
+    {
+        transform.position -= directionOfObject * Time.deltaTime * moveSpeed;
+    }
+    //
+
+
     private void Update()
     {
-        SpawnTears();
-        Move();
-
-        if (transform.position.x < destroyPos)
+        if (released) // just the - if (released) taken from Lantern
         {
-            Destroy(gameObject);
+            SpawnTears();
+            Move();
+
+            if (transform.position.x < destroyPos)
+            {
+                Destroy(gameObject);
+            }
         }
     }
+
 
 
 }
