@@ -31,6 +31,14 @@ public class PowerUp : MonoBehaviour
         clip = audioSource.clip;
     }
 
+    private void Update()
+    {
+        if(transform.position.y <= -2.8f)
+        {
+            DestroyPowerUp();
+        }
+    }
+
     public void PowerUpObtained()
     {
         if (GameManager.instance.powerUpManager.CurrentPlayingPowerUpClip != clip) 

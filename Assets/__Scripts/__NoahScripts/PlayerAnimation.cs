@@ -26,6 +26,7 @@ public class PlayerAnimation : MonoBehaviour
         DirectionFacing(animLastInputDir);
         anim.SetInteger("horizontalAnim", Math.Sign(animHorizontal));
         anim.SetBool("grounded", GameManager.instance.player.Grounded);
+        anim.SetFloat("playerVelocityY", GameManager.instance.player.GetRigidbody.velocity.y);
     }
 
     private void DirectionFacing(float lastInputdir)

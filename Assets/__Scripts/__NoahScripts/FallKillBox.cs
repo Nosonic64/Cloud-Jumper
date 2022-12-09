@@ -15,7 +15,7 @@ public class FallKillBox : MonoBehaviour
     }
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("Player"))
+        if (other.gameObject.CompareTag("Player") && !GameManager.instance.player.HasBell)
         {
             if(GameManager.instance.player.PlayerLives > 1) //If the player falls off the bottom of the screen but still has a life, we respawn them 
             {

@@ -12,6 +12,7 @@ public class PlayerMovement : MonoBehaviour
     private PlayerSounds playerSounds;
     private AudioSource[] audioSources = new AudioSource[0];
     private PlayerParticles playerParticles;
+    private PlayerAnimation playerAnimation;
     private Vector3 fallPlatSpawnOffset = new Vector3(2,6,0);
     private IEnumerator blinkCoroutine;
     private bool hasBell;
@@ -29,6 +30,7 @@ public class PlayerMovement : MonoBehaviour
     private float jumpBufferCounter;
     private float hitStopAmountCounter;
     private float jumpSoundDelay;
+    private float newPowerUpDelay;
     private float rightWrapAroundThreshold = 17f;
     private float leftWrapAroundThreshold = -1f;
     private int playerLives;
@@ -81,10 +83,12 @@ public class PlayerMovement : MonoBehaviour
     public float HorizontalInput { get => horizontalInput;}
     public float LastInputDir { get => lastInputDir;}
     public bool BeforeStart { get => beforeStart;}
+    public bool HasBell { get => hasBell;}
     #endregion
 
     void Start()
     {
+        playerAnimation = GetComponentInChildren<PlayerAnimation>();
         playerParticles = GetComponent<PlayerParticles>();
         playerSounds = GetComponent<PlayerSounds>();
         audioSources = GetComponents<AudioSource>();
@@ -107,7 +111,7 @@ public class PlayerMovement : MonoBehaviour
             horizontalInput = Input.GetAxisRaw("Horizontal"); 
 
             //TODO: Do we need to check if the players speed is under maxSpeed if we are already clamping their speed to maxSpeed?
-            if(horizontalInput != 0 && movementSpeed < maxSpeed) //If the player is hitting the left or right movement buttons, we add to their speed by an amount over time.
+            if(horizontalInput != 0) //If the player is hitting the left or right movement buttons, we add to their speed by an amount over time.
             {
                 movementSpeed += acceleration * Time.deltaTime;
                 lastInputDir = horizontalInput;
@@ -135,17 +139,17 @@ public class PlayerMovement : MonoBehaviour
             }
             if (Input.GetButtonUp("Jump"))
             {
-                coyoteTimeCounter = 0f; //Set coyoteTimeCounter to 0 so the player can press the jump button a bunch of times while coyoteTimeCounter is still counting down.
+                coyoteTimeCounter = 0f; //Set coyoteTimeCounter to 0 so the player cant press the jump button a bunch of times while coyoteTimeCounter is still counting down.
             }
         }
 
         if (GroundCheck())
         {
-            coyoteTimeCounter = coyoteTime; //If the players grounded, we keep coyoteTimeCounter at a value. 
+            coyoteTimeCounter = coyoteTime; //If the players grounded, we keep coyoteTimeCounter at a value greater than 0. 
         }
         else
         {
-            coyoteTimeCounter -= Time.deltaTime; //If the player leaves the ground, we start decreasing coyoteTimeCounter. Player can still jump while this countsdown and is not 0 or below.
+            coyoteTimeCounter -= Time.deltaTime; //If the player leaves the ground, we start decreasing coyoteTimeCounter. Player can still jump while this counts down and is not 0 or below.
             if (Input.GetButtonDown("Jump") && hasDoubleJump && !hasBell)
             {
                 playerParticles.ParticleObjects[2].Stop();
@@ -172,7 +176,7 @@ public class PlayerMovement : MonoBehaviour
              hasInvulnerable -= Time.deltaTime;
         }
 
-        if (hitStopAmountCounter > 0) //Hit stop counter, if we are in hitstop, Time.deltaTime is disabled, so we subtract by unscaledDeltaTime.
+        if(hitStopAmountCounter > 0) //Hit stop counter, if we are in hitstop, Time.deltaTime is disabled, so we subtract by unscaledDeltaTime.
         {
             hitStopAmountCounter -= Time.unscaledDeltaTime;
         }
@@ -184,6 +188,11 @@ public class PlayerMovement : MonoBehaviour
         if(jumpSoundDelay > 0f)
         {
             jumpSoundDelay -= Time.deltaTime;
+        }
+
+        if(newPowerUpDelay > 0f)
+        {
+            newPowerUpDelay -= Time.deltaTime;  
         }
     }
 
@@ -223,7 +232,7 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    void OnCollisionEnter(Collision other)
+    private void OnCollisionEnter(Collision other)
     {
         if (other.gameObject.CompareTag("Platform"))
         {
@@ -236,7 +245,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.gameObject.CompareTag("PowerUp")) //When we collide with a powerup, look at its tag and pass it in to the PowerUp() function
+        if(other.gameObject.CompareTag("PowerUp") && newPowerUpDelay <= 0f) //When we collide with a powerup, look at its id and pass it in to the PowerUp() function
         {
             var powerUp = other.GetComponent<PowerUp>();
             PowerUp(powerUp.Id);
@@ -255,7 +264,7 @@ public class PlayerMovement : MonoBehaviour
     }
 
     #region ground check function
-    public bool GroundCheck() //Spherecast down, if we hit something, the player is grounded.
+    public bool GroundCheck() //Spherecast down, if we hit something in the layermask weve specified, the player is grounded.
     {
         Ray ray = new Ray(groundedChecker.transform.position, Vector3.down);
         return grounded = (Physics.SphereCast(ray, sphereCastRadius, sphereCastMaxDistance, groundMask)); 
@@ -324,17 +333,18 @@ public class PlayerMovement : MonoBehaviour
     }
     public void ResetFromBell()
     {
+        newPowerUpDelay = 1f;
         kitFollower.SetActive(true);
-        hasBell = false;
         colliderPlayer.enabled = true;
         rb.useGravity = true;
         hasInvulnerable = 2f;
         Ray ray = new Ray(transform.position + new Vector3(0,1,0), Vector3.down);
         if (Physics.SphereCast(ray, 0.5f, 0.5f, groundMask))
         {
-            transform.position += new Vector3(0, 3, 0);
+            transform.position -= new Vector3(0, 3, 0);
         }
         Instantiate(fallPlat, transform.position - fallPlatSpawnOffset, transform.rotation);
+        hasBell = false;
     }
     public void GameOverSetup()
     {
@@ -391,7 +401,6 @@ public class PlayerMovement : MonoBehaviour
                 var main = playerParticles.ParticleObjects[1].main;
                 main.duration = hasInvulnerable;
                 playerParticles.ParticleObjects[1].Play();
-                PlayAudio(playerSounds.Sounds[2], 0.7f);
                 break;
             case 2:
                 playerParticles.ParticleObjects[2].Play();
@@ -410,16 +419,17 @@ public class PlayerMovement : MonoBehaviour
 
             case 1:
                 hasInvulnerable = 5f;
+                PlayAudio(playerSounds.Sounds[2], 0.7f);
                 PlayParticle(1);
                 break;
 
             case 2:
+                GameManager.instance.bellSprite.StartSpriteSequence();
                 kitFollower.SetActive(false);
-                hasBell = true;
                 rb.velocity = Vector3.zero;
                 colliderPlayer.enabled = false;
                 rb.useGravity = false;
-                GameManager.instance.bellSprite.StartAnim();
+                hasBell = true;
                 break;
         }
     }
@@ -445,7 +455,7 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    private void PlayerHit()
+    private void PlayerHit() //All the stuff that we have to do when the players hit in a function.
     {
         PlayParticle(0);
         PlayAudio(playerSounds.Sounds[1], 0.5f);
@@ -453,17 +463,15 @@ public class PlayerMovement : MonoBehaviour
         hasInvulnerable = 1f;
         HitStop(hitStopAmountSet);
         CheckBlinkRoutine();
-
     }
 
-    private void CheckBlinkRoutine()
+    private void CheckBlinkRoutine() //Make sure the Blink Coroutine is stopped before starting it again.
     {
-        //HitStop(hitStopAmountSet);
         if (blinkCoroutine != null)
         {
             StopCoroutine(blinkCoroutine);
         }
-        blinkCoroutine = Blink(hasInvulnerable);
+        blinkCoroutine = Blink(hasInvulnerable); //Coroutines are technically new created objects, so we have to have get a reference to it when its instantied in order to stop it later.
         StartCoroutine(blinkCoroutine);
     }
     #endregion

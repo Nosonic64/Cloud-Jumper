@@ -9,6 +9,7 @@ public class SpriteSequence : MonoBehaviour
 
     #region getters and setters
     public bool SpriteCarryingPlayer { get => spriteCarryingPlayer; }
+    public Animator Anim { get => anim; set => anim = value; }
     #endregion
 
     private void Start()
@@ -16,7 +17,7 @@ public class SpriteSequence : MonoBehaviour
         anim = GetComponent<Animator>();
     }
 
-    public void StartAnim()
+    public void StartSpriteSequence()
     {
         anim.Play("Sprite_Sequence");
     }
@@ -46,7 +47,7 @@ public class SpriteSequence : MonoBehaviour
         GameManager.instance.player.ResetFromBell();
     }
 
-    public void GoBackToIdle()
+    private void StopSpriteSequence()
     {
         anim.Play("Sprite_Idle");
     }
