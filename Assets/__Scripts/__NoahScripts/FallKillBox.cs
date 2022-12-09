@@ -17,14 +17,14 @@ public class FallKillBox : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player"))
         {
-            if(GameManager.instance.player.PlayerLives > 1)
+            if(GameManager.instance.player.PlayerLives > 1) //If the player falls off the bottom of the screen but still has a life, we respawn them 
             {
                 audioSource.Play();
                 GameManager.instance.levelChunkManager.ResetTimerCounter = respawnTimerWait;
                 GameManager.instance.player.Invoke("NormalRespawn", respawnTimerWait);
             }
 
-            if(GameManager.instance.player.PlayerLives <= 1)
+            if(GameManager.instance.player.PlayerLives <= 1) //If the player falls off the bottom of the screen and it takes their last life, we setup the game over screen
             {
                 audioSource.Play();
                 GameManager.instance.levelChunkManager.ResetTimerCounter = GameManager.instance.levelChunkManager.ResetTimer;

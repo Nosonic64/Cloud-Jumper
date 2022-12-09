@@ -11,6 +11,7 @@ public class StartGameManager : MonoBehaviour
         if (Input.GetButtonDown("Jump"))
         {
             startButton.SetActive(false);
+            GameManager.instance.splashScreen.SwitchSplashOn();
             GameStart();
         }
     }
@@ -18,5 +19,6 @@ public class StartGameManager : MonoBehaviour
     {
         GameManager.instance.levelChunkManager.ResetTimerCounter = resetScreenScrollAmount;
         GameManager.instance.player.Invoke("PlayerGameStart", resetScreenScrollAmount);
+        GameManager.instance.splashScreen.Invoke("SwitchSplashOff", resetScreenScrollAmount);
     }
 }

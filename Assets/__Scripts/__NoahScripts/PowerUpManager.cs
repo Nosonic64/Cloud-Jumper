@@ -6,6 +6,7 @@ public class PowerUpManager : MonoBehaviour
 {
     #region private variables
     private int chanceToSpawnPowerUp;
+    private AudioClip currentPlayingPowerUpClip;
     #endregion
 
     #region serialized variables
@@ -19,6 +20,7 @@ public class PowerUpManager : MonoBehaviour
     public GameObject[] PowerUps { get => powerUps;}
     public int AddToChance { get => addToChance;}
     public int ChanceToSpawnPowerUpSet { get => chanceToSpawnPowerUpSet;}
+    public AudioClip CurrentPlayingPowerUpClip { get => currentPlayingPowerUpClip; set => currentPlayingPowerUpClip = value; }
     #endregion
 
     private void Start()
