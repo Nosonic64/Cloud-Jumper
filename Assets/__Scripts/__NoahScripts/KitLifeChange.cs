@@ -9,15 +9,14 @@ public class KitLifeChange : MonoBehaviour
 
     private void Start()
     {
-        mesh = GetComponents<SkinnedMeshRenderer>();
         mesh = GetComponentsInChildren<SkinnedMeshRenderer>();
     }
 
     public void ChangeMat(int materialToChangeTo)
     {
-        foreach (SkinnedMeshRenderer go in mesh)
+        foreach (SkinnedMeshRenderer skin in mesh)
         {
-           go.material = materials[materialToChangeTo];
+           skin.material = materials[materialToChangeTo];
         }
     }
 }

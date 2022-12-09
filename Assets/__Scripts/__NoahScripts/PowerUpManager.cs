@@ -11,21 +11,11 @@ public class PowerUpManager : MonoBehaviour
 
     #region serialized variables
     [SerializeField] private GameObject[] powerUps = new GameObject[0];
-    [SerializeField] private int chanceToSpawnPowerUpSet;
-    [SerializeField] private int addToChance;
     #endregion
 
     #region getters and setters
     public int ChanceToSpawnPowerUp { get => chanceToSpawnPowerUp; set => chanceToSpawnPowerUp = value; }
     public GameObject[] PowerUps { get => powerUps;}
-    public int AddToChance { get => addToChance;}
-    public int ChanceToSpawnPowerUpSet { get => chanceToSpawnPowerUpSet;}
     public AudioClip CurrentPlayingPowerUpClip { get => currentPlayingPowerUpClip; set => currentPlayingPowerUpClip = value; }
     #endregion
-
-    private void Start()
-    {
-        chanceToSpawnPowerUp = chanceToSpawnPowerUpSet;
-    }
-
 }

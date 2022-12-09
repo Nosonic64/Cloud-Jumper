@@ -5,7 +5,6 @@ using System;
 
 public class PlayerAnimation : MonoBehaviour
 {
-    //[SerializeField] bool checkWorking;
     private Animator anim;
     private float animLastInputDir;
     private float animHorizontal;
@@ -18,11 +17,12 @@ public class PlayerAnimation : MonoBehaviour
     void Update()
     {
         animHorizontal = Input.GetAxisRaw("Horizontal");
+
         if (animHorizontal != 0)
         {
             animLastInputDir = animHorizontal;
         }
-        //checkWorking = GameManager.instance.player.Grounded;
+
         DirectionFacing(animLastInputDir);
         anim.SetInteger("horizontalAnim", Math.Sign(animHorizontal));
         anim.SetBool("grounded", GameManager.instance.player.Grounded);

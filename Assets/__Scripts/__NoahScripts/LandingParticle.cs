@@ -15,6 +15,6 @@ public class LandingParticle : MonoBehaviour
 
     void OnParticleSystemStopped()
     {
-        transform.SetParent(null);
+        Destroy(gameObject);
     }
 }

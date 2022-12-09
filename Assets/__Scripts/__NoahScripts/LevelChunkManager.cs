@@ -13,8 +13,14 @@ public class LevelChunkManager : MonoBehaviour
     #endregion
 
     #region serialized variables
+    [Header("Place all level chunks in here")]
     [SerializeField] List<GameObject> levelChunks;
+    [Header("Level Chunk Stats")]
     [SerializeField] private int[] difficultyThresholds;
+    [Header("Done in percentages, dont go over 100 or under 0")]
+    [SerializeField] private int[] powerUpSpawnChancePerDifficulty = new int[0];
+    [Header("The amount of times we try and spawn a powerup")]
+    [SerializeField] private int[] powerUpAmountToTryAndSpawnPerDifficulty = new int[0];
     [Header("Debug")]
     [SerializeField] private bool dontBreakPlats; //Turn this on in the inspector to stop platforms from breaking at all
     #endregion
@@ -27,6 +33,8 @@ public class LevelChunkManager : MonoBehaviour
     public int[] DifficultyThresholds { get => difficultyThresholds;}
     public Dictionary<int, List<GameObject>> LevelChunkDictionary { get => levelChunkDictionary;}
     public float PassiveScrollMultiple { get => passiveScrollMultiple; set => passiveScrollMultiple = value; }
+    public int[] PowerUpSpawnChancePerDifficulty { get => powerUpSpawnChancePerDifficulty;}
+    public int[] PowerUpAmountToTryAndSpawnPerDifficulty { get => powerUpAmountToTryAndSpawnPerDifficulty;}
     #endregion
 
     private void Start()

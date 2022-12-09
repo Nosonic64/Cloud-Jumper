@@ -28,6 +28,7 @@ public class PlayerMovement : MonoBehaviour
     private float coyoteTimeCounter;
     private float jumpBufferCounter;
     private float hitStopAmountCounter;
+    private float jumpSoundDelay;
     private float rightWrapAroundThreshold = 17f;
     private float leftWrapAroundThreshold = -1f;
     private int playerLives;
@@ -179,6 +180,11 @@ public class PlayerMovement : MonoBehaviour
         {
             Time.timeScale = 1;
         }
+
+        if(jumpSoundDelay > 0f)
+        {
+            jumpSoundDelay -= Time.deltaTime;
+        }
     }
 
     private void FixedUpdate()
@@ -187,10 +193,14 @@ public class PlayerMovement : MonoBehaviour
         //Jump Code
         if (jumpBufferCounter > 0f && coyoteTimeCounter > 0f) //When the player hits the jump button, we set jumpBufferCounter and coyoteTimeCounter above 0, we use this as the signifier that the player has decided to jump.
         {
-            PlayAudio(playerSounds.Sounds[0], 1f);
             rb.velocity = new Vector3(rb.velocity.x, 0, rb.velocity.z);
             rb.AddForce(transform.up * jumpSpeed, ForceMode.VelocityChange);
             jumpBufferCounter = 0f;
+            if (jumpSoundDelay <= 0f)
+            {
+                PlayAudio(playerSounds.Sounds[0], 1f);
+                jumpSoundDelay = 0.2f;
+            }
         }
         else
         {
@@ -215,13 +225,11 @@ public class PlayerMovement : MonoBehaviour
 
     void OnCollisionEnter(Collision other)
     {
-        //TODO: Just instantiate a platLandParticleSystem object and parent it to the platform we landed on
-        // Currently, we grab one object in the scene and place it into a platform (the wrong way to be doing things)
         if (other.gameObject.CompareTag("Platform"))
         {
-            platLandParticleSystem.transform.SetParent(other.gameObject.transform);
-            platLandParticleSystem.transform.position = transform.position;
-            var particlePlay = platLandParticleSystem.GetComponent<ParticleSystem>();
+            var cloudParticle = Instantiate(platLandParticleSystem, new Vector3(transform.position.x, transform.position.y, 0), Quaternion.identity);
+            cloudParticle.transform.SetParent(other.gameObject.transform);
+            var particlePlay = cloudParticle.GetComponent<ParticleSystem>();
             particlePlay.Play();
         }
     }
@@ -383,7 +391,7 @@ public class PlayerMovement : MonoBehaviour
                 var main = playerParticles.ParticleObjects[1].main;
                 main.duration = hasInvulnerable;
                 playerParticles.ParticleObjects[1].Play();
-                PlayAudio(playerSounds.Sounds[2], 0.8f);
+                PlayAudio(playerSounds.Sounds[2], 0.7f);
                 break;
             case 2:
                 playerParticles.ParticleObjects[2].Play();
