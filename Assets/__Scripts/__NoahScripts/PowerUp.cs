@@ -10,6 +10,7 @@ public class PowerUp : MonoBehaviour
     private AudioClip clip;
     private ParticleSystem myParticle;
     private MeshRenderer mesh;
+    private Animator anim;
     #endregion
 
     #region serialized variables
@@ -26,6 +27,7 @@ public class PowerUp : MonoBehaviour
         audioSource = GetComponent<AudioSource>();
         myParticle = GetComponentInChildren<ParticleSystem>();
         mesh = GetComponentInChildren<MeshRenderer>();
+        anim = GetComponent<Animator>();
         clip = audioSource.clip;
     }
 
@@ -36,7 +38,7 @@ public class PowerUp : MonoBehaviour
             GameManager.instance.powerUpManager.CurrentPlayingPowerUpClip = clip;
             audioSource.Play();
         }
-        mesh.enabled = false;
+        anim.SetBool("collected", true);
         myParticle.Stop();
         Invoke("DestroyPowerUp", 2.4f);
     }
@@ -44,5 +46,10 @@ public class PowerUp : MonoBehaviour
     private void DestroyPowerUp()
     {
         Destroy(gameObject);
+    }
+
+    private void TurnOffMesh()
+    {
+        mesh.enabled = false;
     }
 }

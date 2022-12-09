@@ -363,6 +363,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: LevelChunkNew_1
       objectReference: {fileID: 0}
+    - target: {fileID: 4841402922169486973, guid: 1234f83b17bf451449671ac5821afa4c, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6012853862509848316, guid: 1234f83b17bf451449671ac5821afa4c, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6157437019632658621, guid: 1234f83b17bf451449671ac5821afa4c, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1234f83b17bf451449671ac5821afa4c, type: 3}
 --- !u!1 &963194225
@@ -1503,56 +1515,56 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5615297096937419362, guid: 3c36ea9ce4ff4b746a7ef4629a6cb0df, type: 3}
       propertyPath: levelChunks.Array.size
-      value: 13
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 5615297096937419362, guid: 3c36ea9ce4ff4b746a7ef4629a6cb0df, type: 3}
       propertyPath: levelChunks.Array.data[0]
       value: 
-      objectReference: {fileID: 4556189965577016995, guid: 1234f83b17bf451449671ac5821afa4c, type: 3}
+      objectReference: {fileID: 4556189965577016995, guid: 1187cba30aed8f84fbf4b0e9e023ce68, type: 3}
     - target: {fileID: 5615297096937419362, guid: 3c36ea9ce4ff4b746a7ef4629a6cb0df, type: 3}
       propertyPath: levelChunks.Array.data[1]
       value: 
-      objectReference: {fileID: 4556189965577016995, guid: 25cccc3d84a7237469a8a9a59e3bb796, type: 3}
+      objectReference: {fileID: 4556189965577016995, guid: 2f15e7605ee13b741bc610d9488ff876, type: 3}
     - target: {fileID: 5615297096937419362, guid: 3c36ea9ce4ff4b746a7ef4629a6cb0df, type: 3}
       propertyPath: levelChunks.Array.data[2]
       value: 
-      objectReference: {fileID: 4556189965577016995, guid: 7796f97b2d3b66e4aa12f4cff4d86f49, type: 3}
+      objectReference: {fileID: 4556189965577016995, guid: 5cc2af6a46a87154b90c861861bcf16b, type: 3}
     - target: {fileID: 5615297096937419362, guid: 3c36ea9ce4ff4b746a7ef4629a6cb0df, type: 3}
       propertyPath: levelChunks.Array.data[3]
       value: 
-      objectReference: {fileID: 4556189965577016995, guid: 399c9aa25c464a44cb474875980a0962, type: 3}
+      objectReference: {fileID: 4556189965577016995, guid: dbd510efe0b6ded4c8bd3b9dcd8c12b4, type: 3}
     - target: {fileID: 5615297096937419362, guid: 3c36ea9ce4ff4b746a7ef4629a6cb0df, type: 3}
       propertyPath: levelChunks.Array.data[4]
       value: 
-      objectReference: {fileID: 4556189965577016995, guid: 1187cba30aed8f84fbf4b0e9e023ce68, type: 3}
+      objectReference: {fileID: 5636969262218006609, guid: aff5bab52eea4c54bbec077296db998d, type: 3}
     - target: {fileID: 5615297096937419362, guid: 3c36ea9ce4ff4b746a7ef4629a6cb0df, type: 3}
       propertyPath: levelChunks.Array.data[5]
       value: 
-      objectReference: {fileID: 4556189965577016995, guid: 2f15e7605ee13b741bc610d9488ff876, type: 3}
+      objectReference: {fileID: 3496419566287425378, guid: 906f6710e87d1d143a6b063fc93a751e, type: 3}
     - target: {fileID: 5615297096937419362, guid: 3c36ea9ce4ff4b746a7ef4629a6cb0df, type: 3}
       propertyPath: levelChunks.Array.data[6]
       value: 
-      objectReference: {fileID: 4556189965577016995, guid: 5cc2af6a46a87154b90c861861bcf16b, type: 3}
+      objectReference: {fileID: 3714779738582554145, guid: 6d6c685118f5c754cade9a633c351a15, type: 3}
     - target: {fileID: 5615297096937419362, guid: 3c36ea9ce4ff4b746a7ef4629a6cb0df, type: 3}
       propertyPath: levelChunks.Array.data[7]
       value: 
-      objectReference: {fileID: 4556189965577016995, guid: dbd510efe0b6ded4c8bd3b9dcd8c12b4, type: 3}
+      objectReference: {fileID: 3758388759426506788, guid: 00af5bf6f76d3a94cab591a605c93b7c, type: 3}
     - target: {fileID: 5615297096937419362, guid: 3c36ea9ce4ff4b746a7ef4629a6cb0df, type: 3}
       propertyPath: levelChunks.Array.data[8]
       value: 
-      objectReference: {fileID: 5636969262218006609, guid: aff5bab52eea4c54bbec077296db998d, type: 3}
+      objectReference: {fileID: 7063638600026016669, guid: 630108232cce2364a8702747a87a1b12, type: 3}
     - target: {fileID: 5615297096937419362, guid: 3c36ea9ce4ff4b746a7ef4629a6cb0df, type: 3}
       propertyPath: levelChunks.Array.data[9]
       value: 
-      objectReference: {fileID: 3496419566287425378, guid: 906f6710e87d1d143a6b063fc93a751e, type: 3}
+      objectReference: {fileID: 7063638600026016669, guid: 630108232cce2364a8702747a87a1b12, type: 3}
     - target: {fileID: 5615297096937419362, guid: 3c36ea9ce4ff4b746a7ef4629a6cb0df, type: 3}
       propertyPath: levelChunks.Array.data[10]
       value: 
-      objectReference: {fileID: 3714779738582554145, guid: 6d6c685118f5c754cade9a633c351a15, type: 3}
+      objectReference: {fileID: 7063638600026016669, guid: 630108232cce2364a8702747a87a1b12, type: 3}
     - target: {fileID: 5615297096937419362, guid: 3c36ea9ce4ff4b746a7ef4629a6cb0df, type: 3}
       propertyPath: levelChunks.Array.data[11]
       value: 
-      objectReference: {fileID: 3758388759426506788, guid: 00af5bf6f76d3a94cab591a605c93b7c, type: 3}
+      objectReference: {fileID: 7063638600026016669, guid: 630108232cce2364a8702747a87a1b12, type: 3}
     - target: {fileID: 5615297096937419362, guid: 3c36ea9ce4ff4b746a7ef4629a6cb0df, type: 3}
       propertyPath: levelChunks.Array.data[12]
       value: 
@@ -1815,6 +1827,10 @@ PrefabInstance:
     - target: {fileID: 6873983875910749245, guid: cf5c535ef3827de40b7bed5325dd8656, type: 3}
       propertyPath: m_Name
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 8644087053445289407, guid: cf5c535ef3827de40b7bed5325dd8656, type: 3}
+      propertyPath: m_ApplyRootMotion
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cf5c535ef3827de40b7bed5325dd8656, type: 3}
