@@ -76,7 +76,7 @@ public class ScoreData : MonoBehaviour
                 // a default value.
                 Debug.Log("Invalid line in scores file at " + scoreCount +
                 ", using default value.");
-                scores[scoreCount] = new Score("BAD", 0);
+                scores[scoreCount] = new Score("LOW", 0);
             }
             // Don't forget to incrememt the counter!
             scoreCount++;
