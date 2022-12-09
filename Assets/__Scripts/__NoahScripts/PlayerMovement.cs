@@ -64,6 +64,8 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private GameObject groundedChecker;
     [SerializeField] private GameObject mesh;
     [SerializeField] private GameObject doubleJumpDrum;
+    [SerializeField] private GameObject kitFollower;
+    [SerializeField] private KitLifeChange kitLifeChange;
     [SerializeField] private LayerMask groundMask;
     #endregion
 
@@ -267,6 +269,7 @@ public class PlayerMovement : MonoBehaviour
         rb.useGravity = true;
         colliderPlayer.enabled = true;
         Instantiate(fallPlat, transform.position - fallPlatSpawnOffset, transform.rotation); //We offset the platform otherwise it would spawn to the left of the player
+        kitLifeChange.ChangeMat(0);
     }
 
     public void NormalRespawn()
@@ -279,6 +282,7 @@ public class PlayerMovement : MonoBehaviour
         transform.position = respawnPoint;
         rb.velocity = Vector3.zero; //Reset the players velocity to zero 
         Instantiate(fallPlat, transform.position - fallPlatSpawnOffset, transform.rotation);
+        kitLifeChange.ChangeMat(1);
     }
     #endregion 
 
@@ -312,6 +316,7 @@ public class PlayerMovement : MonoBehaviour
     }
     public void ResetFromBell()
     {
+        kitFollower.SetActive(true);
         hasBell = false;
         colliderPlayer.enabled = true;
         rb.useGravity = true;
@@ -339,8 +344,9 @@ public class PlayerMovement : MonoBehaviour
         gameOver = true;
         rb.useGravity = false;
         rb.velocity = Vector3.zero;
-        transform.position = new Vector3(0,10,0);
         playerLives = -1;
+        kitFollower.SetActive(false);
+        transform.position = new Vector3(transform.position.x, 10, 0);
     }
     #endregion
 
@@ -372,8 +378,8 @@ public class PlayerMovement : MonoBehaviour
                 break;
 
             case 1:
-                playerParticles.ParticleObjects[1].Stop();
-                playerParticles.ParticleObjects[1].Clear();
+                playerParticles.ParticleObjects[1].Stop(); //We wanna set the duration of the invulnerability particle to however long we gave the palyer invulnerability
+                playerParticles.ParticleObjects[1].Clear(); //To do this, we must make sure to stop and clear all invulnerability particles, only then can we set the duration and play
                 var main = playerParticles.ParticleObjects[1].main;
                 main.duration = hasInvulnerable;
                 playerParticles.ParticleObjects[1].Play();
@@ -400,6 +406,7 @@ public class PlayerMovement : MonoBehaviour
                 break;
 
             case 2:
+                kitFollower.SetActive(false);
                 hasBell = true;
                 rb.velocity = Vector3.zero;
                 colliderPlayer.enabled = false;
@@ -412,13 +419,13 @@ public class PlayerMovement : MonoBehaviour
 
     //Functions to do with when the player is hit
     #region playerhit functions
-    private void HitStop(float amount)
+    private void HitStop(float amount) //We stop the flow of time for a few milliseconds, adds gravitas to the hit.
     {
         hitStopAmountCounter = amount;
         Time.timeScale = 0;
     }
 
-    private IEnumerator Blink(float waitTime)
+    private IEnumerator Blink(float waitTime) //After the player is hit, we "blink" (Turn model off and on) their characte model for a short period. Indicator that player has just been hit.
     {
         while(waitTime > 0f)
         {
@@ -434,7 +441,7 @@ public class PlayerMovement : MonoBehaviour
     {
         PlayParticle(0);
         PlayAudio(playerSounds.Sounds[1], 0.5f);
-        playerLives -= 1;
+        playerLives--;
         hasInvulnerable = 1f;
         HitStop(hitStopAmountSet);
         CheckBlinkRoutine();
@@ -443,7 +450,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void CheckBlinkRoutine()
     {
-        HitStop(hitStopAmountSet);
+        //HitStop(hitStopAmountSet);
         if (blinkCoroutine != null)
         {
             StopCoroutine(blinkCoroutine);
