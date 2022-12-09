@@ -1,6 +1,8 @@
 TOP
 48
 BIG
+47
+FUN
 46
 HWS
 45
@@ -14,8 +16,5 @@ ADD
 25
 ADM
 22
-HWS
-21
-ABC
-6
-
+BOT
+10
