@@ -515,18 +515,18 @@ AnimationClip:
     intParameter: 0
     messageOptions: 0
   - time: 3.5
-    functionName: UnparentPlayer
+    functionName: ParentPlayer
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
-    intParameter: 0
+    intParameter: 1
     messageOptions: 0
   - time: 3.6666667
-    functionName: SetSpriteCarryFalse
+    functionName: SetSpriteCarry
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
-    intParameter: 0
+    intParameter: 1
     messageOptions: 0
   - time: 3.8333333
     functionName: StopSpriteSequence

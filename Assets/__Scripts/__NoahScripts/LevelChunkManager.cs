@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class LevelChunkManager : MonoBehaviour
 {
+    // This script holds variables that all level chunks need to function.
+    // It also contains a list of level chunks that it sorts into different difficultys
+    // on start.
     #region private variables
     private float resetTimer = 10f;
     private float resetTimerCounter;

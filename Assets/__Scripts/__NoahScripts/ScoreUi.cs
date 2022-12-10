@@ -7,6 +7,9 @@ using UnityEngine.UI;
 
 public class ScoreUi : MonoBehaviour
 {
+    // This script controls the High-Score UI display
+    // We load scores from highscores.txt from here
+    // and we also update the High-Score display from here.
     public RowUi rowUi;
     public HighScoreManager highScoreManager;
     public List<RowUi> rows;
@@ -27,8 +30,10 @@ public class ScoreUi : MonoBehaviour
         if (rows.Count == 0)
         {
             var scores = GameManager.instance.scoreData.scores;
+            //TODO: I think this can be changed to a foreach
             for (int i = 0; i < scores.Length; i++)
             {
+                // Instantiate score entrys with Name and Score being taken from ScoreData
                 var row = Instantiate(rowUi, transform).GetComponent<RowUi>();
                 row.name.text = scores[i].name;
                 row.score.text = scores[i].score.ToString();

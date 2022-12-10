@@ -7,6 +7,7 @@ using UnityEngine;
 [Serializable]
 public class Score 
 {
+    // This script is a container for player name and score.
     public string name;
     public float score;
 

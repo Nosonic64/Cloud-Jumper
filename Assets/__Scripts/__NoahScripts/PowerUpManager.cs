@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class PowerUpManager : MonoBehaviour
 {
+    // This script contains a list of power-ups that are spawned by level chunks
+    // Also holds the last powerup sfx that was played.
     #region private variables
     private int chanceToSpawnPowerUp;
     private AudioClip currentPlayingPowerUpClip;

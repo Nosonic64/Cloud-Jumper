@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class FallPlat : MonoBehaviour
 {
+    // This script controls the platform that appears when players respawn
     #region private variables
     private BoxCollider platCollider;
-    private LandingParticle landingParticle;
     private bool playerTouched;
     #endregion
 
@@ -18,7 +18,6 @@ public class FallPlat : MonoBehaviour
     void Start()
     {
         disableTimer = disableTimerSet;
-        landingParticle = FindObjectOfType<LandingParticle>();
     }
 
 
@@ -29,15 +28,11 @@ public class FallPlat : MonoBehaviour
             disableTimer -= Time.deltaTime;
         }
 
+        // We destroy the platform if the timers up, the player has touched 
+        // the platform and then jumped from it, or if the player has fallen onto
+        // another platform.
         if(disableTimer <= 0f || GameManager.instance.player.transform.position.y > transform.position.y + 3f && playerTouched || GameManager.instance.player.Grounded && !playerTouched && disableTimer <= 5f)
         {
-            if (landingParticle != null)
-            {
-                if (landingParticle.transform.parent != null)
-                {
-                    landingParticle.transform.parent = null;
-                }
-            }
             Destroy(gameObject);
         }
     }

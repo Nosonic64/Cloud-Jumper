@@ -6,6 +6,16 @@ using UnityEngine.SceneManagement;
 
 public class PlayerMovement : MonoBehaviour
 {
+    // This script handles player movement and many other facets of the player.
+    // Things in this script include
+    // Player control;
+    // What Hazards do to the Player;
+    // What Power-Ups do to the Player;
+    // What Sounds the play from the Player;
+    // What particles play from the Player;
+    // Setting Player state;
+    // Respawning the Player;
+
     #region private variables
     private Rigidbody rb;
     private BoxCollider colliderPlayer;
@@ -35,7 +45,6 @@ public class PlayerMovement : MonoBehaviour
     private float leftWrapAroundThreshold = -1f;
     private int playerLives;
     private int retryCount;
-
     #endregion
 
     #region serialized fields
@@ -110,7 +119,6 @@ public class PlayerMovement : MonoBehaviour
             //Currently this is set to A for left, D for right | Left is reported as -1, Right is reported as 1, 0 for no buttons being held.
             horizontalInput = Input.GetAxisRaw("Horizontal"); 
 
-            //TODO: Do we need to check if the players speed is under maxSpeed if we are already clamping their speed to maxSpeed?
             if(horizontalInput != 0) //If the player is hitting the left or right movement buttons, we add to their speed by an amount over time.
             {
                 movementSpeed += acceleration * Time.deltaTime;
@@ -185,7 +193,7 @@ public class PlayerMovement : MonoBehaviour
             Time.timeScale = 1;
         }
 
-        if(jumpSoundDelay > 0f)
+        if(jumpSoundDelay > 0f) // We have to delay the jump sound otherwise it constantly plays while the player holds jump.
         {
             jumpSoundDelay -= Time.deltaTime;
         }
@@ -234,7 +242,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnCollisionEnter(Collision other)
     {
-        if (other.gameObject.CompareTag("Platform"))
+        if (other.gameObject.CompareTag("Platform")) // This is where we instantiate a landing on platform particle
         {
             var cloudParticle = Instantiate(platLandParticleSystem, new Vector3(transform.position.x, transform.position.y, 0), Quaternion.identity);
             cloudParticle.transform.SetParent(other.gameObject.transform);

@@ -5,6 +5,8 @@ using UnityEngine;
 [RequireComponent(typeof(AudioSource))]
 public class PowerUp : MonoBehaviour
 {
+    // This script goes on powerups and handles what happens
+    // when the player collects them.
     #region private variables
     private AudioSource audioSource;
     private AudioClip clip;
@@ -41,6 +43,10 @@ public class PowerUp : MonoBehaviour
 
     public void PowerUpObtained()
     {
+        // If the player collects two of the same power-up in a row, we dont
+        // want to overlay the same sound ontop of itself.
+        // This code makes sure that the currently playing power-up sound isnt the same
+        // Clip as the one thats just been collected.
         if (GameManager.instance.powerUpManager.CurrentPlayingPowerUpClip != clip) 
         {
             GameManager.instance.powerUpManager.CurrentPlayingPowerUpClip = clip;
@@ -53,6 +59,7 @@ public class PowerUp : MonoBehaviour
 
     private void DestroyPowerUp()
     {
+        GameManager.instance.powerUpManager.CurrentPlayingPowerUpClip = null;
         Destroy(gameObject);
     }
 

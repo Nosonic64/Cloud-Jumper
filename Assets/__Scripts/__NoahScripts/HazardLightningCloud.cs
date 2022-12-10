@@ -4,12 +4,14 @@ using UnityEngine;
 
 public class HazardLightningCloud : MonoBehaviour
 {
+    // This script handles the Lightning Cloud hazard
+    // We strike the lightning on a timer
     #region private variables
     private float lightningTimerCounter;
     private BoxCollider boxCollider;
     private ParticleSystem particle;
     private AudioSource audioSource;
-    private float particleStartPlayOffset = 0.1f;
+    private float colliderEnableOffset = 0.1f;
     #endregion
 
     #region serialized variables
@@ -24,13 +26,15 @@ public class HazardLightningCloud : MonoBehaviour
        boxCollider = GetComponent<BoxCollider>();
        particle = GetComponent<ParticleSystem>();
        audioSource = GetComponent<AudioSource>();
-       lightningTimer = lightningTimer - lightningAttackTime + particleStartPlayOffset;
+       // We have to subtract offsets for how long the lightning stays on screen 
+       // and the time before we turn on the hitbox for the hazard to cycle correctly.
+       lightningTimer = lightningTimer - lightningAttackTime + colliderEnableOffset;
     }
 
     void Update()
     {
         //Causes lightning to strike on a timer
-        if(lightningTimerCounter < (lightningTimer + lightningAttackTime + particleStartPlayOffset))
+        if(lightningTimerCounter < (lightningTimer + lightningAttackTime + colliderEnableOffset))
         {
             lightningTimerCounter += Time.deltaTime;
         }
@@ -38,8 +42,8 @@ public class HazardLightningCloud : MonoBehaviour
         {
             particle.Play();
             audioSource.Play();
-            Invoke("TurnOnCollisionBox", particleStartPlayOffset);
-            Invoke("StopLightning", lightningAttackTime); //This invoke with a delay of lightningAttackTime determines how long the lightning hitbox / particle stays on
+            Invoke("TurnOnCollisionBox", colliderEnableOffset); // The lightning strike visual is slower to appear than the hitbox turning on, so we delay turning on the hitbox
+            Invoke("TurnOffCollisionBox", lightningAttackTime); // The delay of this invoke determines how long the lightning hitbox / particle stays on
             lightningTimerCounter = 0;
         }  
     }
@@ -49,7 +53,7 @@ public class HazardLightningCloud : MonoBehaviour
         boxCollider.enabled = true;
     }
 
-    private void StopLightning()
+    private void TurnOffCollisionBox()
     {
         particle.Stop();
         boxCollider.enabled = false;

@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class PlayerParticles : MonoBehaviour
 {
+    // This script holds an array of particles.
+    // We play these particles from PlayerMovement under different circumstances.
     #region serialized variables
     [SerializeField] private ParticleSystem[] particleObjects = new ParticleSystem[0];
     #endregion

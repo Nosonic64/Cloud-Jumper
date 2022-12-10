@@ -1,10 +1,9 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class ScoreDisplay : MonoBehaviour
 {
+    // Displays score to the Ui.
     private Text text;
 
     private void Start()
@@ -14,6 +13,7 @@ public class ScoreDisplay : MonoBehaviour
 
     private void LateUpdate()
     {
+        // Players score is rounded down when we display it by using .ToString("F0")
         text.text = ("Distance: " + GameManager.instance.scoreManager.Distance.ToString("F0") + " | Your Top Score: " + GameManager.instance.scoreManager.CurrentPlayerTopDistance.ToString("F0"));
     }
 }

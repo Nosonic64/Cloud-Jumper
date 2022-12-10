@@ -5,9 +5,15 @@ using System;
 
 public class PlayerAnimation : MonoBehaviour
 {
+    // This script handles player animation.
+    // This is seperate from PlayerMovement to keep things tidier.
+    // Script heavily uses Unitys inbuilt Animator component and systems.
+
+    #region private variables
     private Animator anim;
     private float animLastInputDir;
     private float animHorizontal;
+    #endregion
 
     void Start()
     {
@@ -29,7 +35,7 @@ public class PlayerAnimation : MonoBehaviour
         anim.SetFloat("playerVelocityY", GameManager.instance.player.GetRigidbody.velocity.y);
     }
 
-    private void DirectionFacing(float lastInputdir)
+    private void DirectionFacing(float lastInputdir) //Changes the facing direction of the fox mesh dependent on what direction the player last pressed.
     {
         if(lastInputdir < 0)
         {
