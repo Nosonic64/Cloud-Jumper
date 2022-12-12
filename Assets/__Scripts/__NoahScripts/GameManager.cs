@@ -12,6 +12,7 @@ public class GameManager : MonoBehaviour
     static public GameManager instance;
     public PlayerMovement player;
     public GameObject gameOverUI;
+    public GameObject musicManager;
     public SpriteSequence bellSprite;
     public LevelChunkManager levelChunkManager;
     public PowerUpManager powerUpManager;

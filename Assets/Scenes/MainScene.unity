@@ -123,6 +123,11 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &100408443 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5615297095768216662, guid: 3c36ea9ce4ff4b746a7ef4629a6cb0df, type: 3}
+  m_PrefabInstance: {fileID: 5615297096402408846}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &312614318
 GameObject:
   m_ObjectHideFlags: 0
@@ -983,6 +988,18 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1380814542, guid: d6f72c31b696d7f43b50268292f0c567, type: 3}
+      propertyPath: clips.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1380814542, guid: d6f72c31b696d7f43b50268292f0c567, type: 3}
+      propertyPath: clips.Array.data[0]
+      value: 
+      objectReference: {fileID: 8300000, guid: 03c5b38be0dd4e14397c641ba65d1328, type: 3}
+    - target: {fileID: 1380814542, guid: d6f72c31b696d7f43b50268292f0c567, type: 3}
+      propertyPath: clips.Array.data[1]
+      value: 
+      objectReference: {fileID: 8300000, guid: c13d3badde974aa498e3f74fb9535e7e, type: 3}
     - target: {fileID: 659305920782764773, guid: d6f72c31b696d7f43b50268292f0c567, type: 3}
       propertyPath: m_Name
       value: Canvas
@@ -1153,6 +1170,10 @@ PrefabInstance:
       propertyPath: gameOverUI
       value: 
       objectReference: {fileID: 1418927939}
+    - target: {fileID: 5615297096114849406, guid: 3c36ea9ce4ff4b746a7ef4629a6cb0df, type: 3}
+      propertyPath: musicManager
+      value: 
+      objectReference: {fileID: 100408443}
     - target: {fileID: 5615297096114849406, guid: 3c36ea9ce4ff4b746a7ef4629a6cb0df, type: 3}
       propertyPath: splashScreen
       value: 
