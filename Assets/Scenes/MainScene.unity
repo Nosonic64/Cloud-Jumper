@@ -993,6 +993,10 @@ PrefabInstance:
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1380814542, guid: d6f72c31b696d7f43b50268292f0c567, type: 3}
+      propertyPath: sprites.Array.size
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1380814542, guid: d6f72c31b696d7f43b50268292f0c567, type: 3}
       propertyPath: clips.Array.data[0]
       value: 
       objectReference: {fileID: 8300000, guid: 03c5b38be0dd4e14397c641ba65d1328, type: 3}
@@ -1000,6 +1004,22 @@ PrefabInstance:
       propertyPath: clips.Array.data[1]
       value: 
       objectReference: {fileID: 8300000, guid: c13d3badde974aa498e3f74fb9535e7e, type: 3}
+    - target: {fileID: 1380814542, guid: d6f72c31b696d7f43b50268292f0c567, type: 3}
+      propertyPath: sprites.Array.data[1]
+      value: 
+      objectReference: {fileID: 21300000, guid: cb3a6d316b7ac0a43865ae3aff58c83f, type: 3}
+    - target: {fileID: 1380814542, guid: d6f72c31b696d7f43b50268292f0c567, type: 3}
+      propertyPath: sprites.Array.data[2]
+      value: 
+      objectReference: {fileID: 21300000, guid: c4c7abb62d6af2547a94f148e48dc8b8, type: 3}
+    - target: {fileID: 1380814542, guid: d6f72c31b696d7f43b50268292f0c567, type: 3}
+      propertyPath: sprites.Array.data[3]
+      value: 
+      objectReference: {fileID: 21300000, guid: 2821a360289d8144b96f57411a1de949, type: 3}
+    - target: {fileID: 1380814542, guid: d6f72c31b696d7f43b50268292f0c567, type: 3}
+      propertyPath: sprites.Array.data[4]
+      value: 
+      objectReference: {fileID: 21300000, guid: 2821a360289d8144b96f57411a1de949, type: 3}
     - target: {fileID: 659305920782764773, guid: d6f72c31b696d7f43b50268292f0c567, type: 3}
       propertyPath: m_Name
       value: Canvas
