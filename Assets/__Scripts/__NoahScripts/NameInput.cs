@@ -16,6 +16,7 @@ public class NameInput : MonoBehaviour
     private AudioSource audioSource;
     private float inputDelay = 0.12f;
     private float inputDelayCounter;
+    private bool startedReset;
     #endregion
 
     #region serialized variables
@@ -26,8 +27,9 @@ public class NameInput : MonoBehaviour
     void Start()
     {
         thingsToSwitch = GetComponent<Switcher>();
-        audioSource = GetComponent<AudioSource>();  
+        audioSource = GetComponent<AudioSource>();
         selectedLetter = 1;
+        inputDelayCounter = 0;
         // If the players score is lower than the lowest score on the High-Score table, 
         // we go back to attract mode instantly, skipping name input.
         if (GameManager.instance.scoreManager.CurrentPlayerTopDistance < GameManager.instance.scoreData.scores[9].score)
@@ -62,7 +64,7 @@ public class NameInput : MonoBehaviour
             UpdateLetterDisplay();
         }
 
-        if (Input.GetButtonDown("Jump")) // We use the jump button as the letter select button.
+        if (Input.GetButtonDown("Jump") && inputDelayCounter <= 0f) // We use the jump button as the letter select button.
         {
             // When the player selects a letter, we add it to texts[3] (The name display on screen)
             texts[3].text += letters[selectedLetter];
@@ -71,14 +73,13 @@ public class NameInput : MonoBehaviour
         }
 
         //TODO: you could probably put this if statement into where we get the input
-        if (texts[3].text.ToCharArray().Length == 3)
+        if (texts[3].text.ToCharArray().Length == 3 && !startedReset)
         {
+            inputDelayCounter = 5f;
+            startedReset = true;
             // Once the name display hits 3 letters, we save the inputted name and player score to scoreData.
             // We do all the things needed to update the score display and save it to highscores.txt.
-            GameManager.instance.scoreData.AddScore(texts[3].text, (int)Mathf.Floor(GameManager.instance.scoreManager.CurrentPlayerTopDistance));
-            scoreUi.UpdateScores();
-            GameManager.instance.scoreData.SaveScoresToFile();
-            ResetStuff();
+            Invoke("ResetStuff", 1f);
         }
     }
 
@@ -96,6 +97,9 @@ public class NameInput : MonoBehaviour
 
     private void ResetStuff() // When we finish name input, we reset a bunch of stuff and go back to Attract Mode.
     {
+        GameManager.instance.scoreData.AddScore(texts[3].text, (int)Mathf.Floor(GameManager.instance.scoreManager.CurrentPlayerTopDistance));
+        scoreUi.UpdateScores();
+        GameManager.instance.scoreData.SaveScoresToFile();
         GameManager.instance.player.GameOver = false;
         GameManager.instance.scoreManager.Distance = 0;
         GameManager.instance.scoreManager.CurrentPlayerTopDistance = 0;
@@ -103,6 +107,8 @@ public class NameInput : MonoBehaviour
         GameManager.instance.levelChunkManager.CurrentDifficulty = 0;
         texts[3].text = "";
         selectedLetter = 1;
+        inputDelayCounter = 0;
+        startedReset = false;
         GameManager.instance.player.GoBackToInitial();
         thingsToSwitch.SwitchStuff();
     }

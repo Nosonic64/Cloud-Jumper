@@ -263,6 +263,7 @@ public class PlayerMovement : MonoBehaviour
         if (other.gameObject.CompareTag("Hazard") && hasInvulnerable <= 0f)
         {  
             PlayerHit();
+            kitLifeChange.ChangeMat(1);
             Destroy(other.gameObject);
             if (playerLives <= 0)
             { 
