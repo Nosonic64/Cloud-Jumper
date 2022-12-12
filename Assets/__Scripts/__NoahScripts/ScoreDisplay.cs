@@ -14,6 +14,6 @@ public class ScoreDisplay : MonoBehaviour
     private void LateUpdate()
     {
         // Players score is rounded down when we display it by using .ToString("F0")
-        text.text = ("Distance: " + GameManager.instance.scoreManager.Distance.ToString("F0") + " | Your Top Score: " + GameManager.instance.scoreManager.CurrentPlayerTopDistance.ToString("F0"));
+        text.text = ("Distance: " + GameManager.instance.scoreManager.Distance.ToString("F0") + "M | Your Top Score: " + GameManager.instance.scoreManager.CurrentPlayerTopDistance.ToString("F0")) + "M";
     }
 }
