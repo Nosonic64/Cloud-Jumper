@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &7012340779262219160
+--- !u!1 &7491098749163962503
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,53 +8,85 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 7012340779262218855}
-  - component: {fileID: 7012340779262219162}
+  - component: {fileID: 7491098749163962744}
+  - component: {fileID: 7491098749163962501}
+  - component: {fileID: 478908053461373697}
   m_Layer: 2
-  m_Name: HZ_Chestnut
+  m_Name: HZ_CircularMovingChestnut
   m_TagString: Hazard
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &7012340779262218855
+--- !u!4 &7491098749163962744
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7012340779262219160}
+  m_GameObject: {fileID: 7491098749163962503}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 8510640576871697641}
+  - {fileID: 6403270733949209251}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!135 &7012340779262219162
+--- !u!135 &7491098749163962501
 SphereCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7012340779262219160}
+  m_GameObject: {fileID: 7491098749163962503}
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 0.3
   m_Center: {x: 0, y: 0, z: 0}
---- !u!1001 &8183436338893941506
+--- !u!95 &478908053461373697
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7491098749163962503}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 0431544d446196e49819f0570de9f351, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 1
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!1001 &6869754916820217160
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    m_TransformParent: {fileID: 7012340779262218855}
+    m_TransformParent: {fileID: 7491098749163962744}
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 5f4b2f1f2dd7dcc4ba30fef695e36aa6, type: 3}
       propertyPath: m_RootOrder
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 5f4b2f1f2dd7dcc4ba30fef695e36aa6, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1.35
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 5f4b2f1f2dd7dcc4ba30fef695e36aa6, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1.35
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 5f4b2f1f2dd7dcc4ba30fef695e36aa6, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1.35
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 5f4b2f1f2dd7dcc4ba30fef695e36aa6, type: 3}
       propertyPath: m_LocalPosition.x
@@ -106,8 +138,8 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5f4b2f1f2dd7dcc4ba30fef695e36aa6, type: 3}
---- !u!4 &8510640576871697641 stripped
+--- !u!4 &6403270733949209251 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 5f4b2f1f2dd7dcc4ba30fef695e36aa6, type: 3}
-  m_PrefabInstance: {fileID: 8183436338893941506}
+  m_PrefabInstance: {fileID: 6869754916820217160}
   m_PrefabAsset: {fileID: 0}

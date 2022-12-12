@@ -4875,7 +4875,7 @@ GameObject:
   - component: {fileID: 2861513933442665866}
   - component: {fileID: 6748389125693660964}
   m_Layer: 3
-  m_Name: Plat_LightningCloud
+  m_Name: HZ_LightningCloud
   m_TagString: Platform
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

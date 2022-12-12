@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class LevelChunk : MonoBehaviour
 {
+    // This script is placed on and controls individual level chunk objects.
     #region private variables
     private bool spawnedNewLevelChunk;
     private float bellScrollSpeedMultiple = 60f;
@@ -25,37 +26,43 @@ public class LevelChunk : MonoBehaviour
 
     void Start()
     {
-        SpawnRandomPowerUp(3);
+        // When the level chunk is created, we try to spawn powerups into it
+        // The amount we try to spawn is governed by an array in LevelChunkManager, and we select what number to use from
+        // That array by the difficulty set for this level chunk.
+        SpawnRandomPowerUp(GameManager.instance.levelChunkManager.PowerUpAmountToTryAndSpawnPerDifficulty[chunkDifficulty]);
     }
 
     private void Update()
     {
+        // Situations that cause the level chunk to scroll down the screen
+        #region scrollers
 
-        if (GameManager.instance.player.TouchingYClamp)
+        // Scroll the level chunk down if the player is hitting the YClamp (Ceiling Clamp we set for player Y movement)
+        if (GameManager.instance.player.TouchingYClamp && GameManager.instance.player.GetRigidbody.velocity.y > 0)
         {
-           if (GameManager.instance.player.GetRigidbody.velocity.y > 0)
-           {
                 transform.position -= transform.up * GameManager.instance.player.GetRigidbody.velocity.y * Time.deltaTime;
                 GameManager.instance.scoreManager.Distance += Time.deltaTime;
-           }
         }
-        else if (!GameManager.instance.player.TouchingYClamp)
+        else if (!GameManager.instance.player.TouchingYClamp) // Scroll the level chunk down by a passive amount, called up if nothing else is happening to scroll the level chunk down
         {
             transform.position -= (transform.up * (GameManager.instance.levelChunkManager.CurrentDifficulty + 1) * GameManager.instance.levelChunkManager.PassiveScrollMultiple) * Time.deltaTime;
         }
 
+        // Scroll the level chunk down if the player has the bell powerup and is being carried by Kit
         if(GameManager.instance.bellSprite.SpriteCarryingPlayer)
         {
             transform.position -= transform.up * bellScrollSpeedMultiple * Time.deltaTime;
             GameManager.instance.scoreManager.Distance += Time.deltaTime;
         }
 
+        // Scroll the level chunk down if reset time is over 0 (Usually when we are about to respawn the player or resetting the play space)
         if(GameManager.instance.levelChunkManager.ResetTimerCounter > 0f)
         {
             transform.position -= transform.up * resetScrollMultiple * Time.deltaTime;
         }
+        #endregion
 
-        if (transform.position.y <= createNewChunkThreshold & !spawnedNewLevelChunk)
+        if (transform.position.y <= createNewChunkThreshold & !spawnedNewLevelChunk) // If we are far enough down the screen, spawn a new level chunk above this one
         {
             SpawnRandomLevelChunk();
         }
@@ -66,41 +73,35 @@ public class LevelChunk : MonoBehaviour
         }
     }
 
-    private void SpawnRandomPowerUp(int times)
+    private void SpawnRandomPowerUp(int times) //Trys to spawn a powerups within the level chunk a certain amount of times
     {
         for (var i = 0; i < times; i++)
         {
             var randomNumber = Random.Range(0, 100);
-            if (randomNumber <= GameManager.instance.powerUpManager.ChanceToSpawnPowerUp)
+            if (randomNumber <= GameManager.instance.levelChunkManager.PowerUpSpawnChancePerDifficulty[chunkDifficulty])
             {
             retrySpawn:
                 var powerUpToSpawn = Random.Range(0, GameManager.instance.powerUpManager.PowerUps.Length);
                 var powerUpXSpawn = Random.Range(2, 14);
-                var powerUpYSpawn = Random.Range(46, 92);
+                var powerUpYSpawn = Random.Range(0, 92);
                 var powerUpSpawned = Instantiate(GameManager.instance.powerUpManager.PowerUps[powerUpToSpawn], transform.position + new Vector3(powerUpXSpawn, powerUpYSpawn, 0), transform.rotation);
-                //This code below is meant to check everything around where the power up has spawned, and if it colliding with something (Hazard, platform) its meant to retry spawning it in. 
-                //it doesnt seem to work though. 
+                // This code below is meant to check everything around where the power up has spawned, and if it colliding with something (Hazard, platform) its meant to retry spawning it in. 
+                // it doesnt seem to work though. 
+                // TODO: make powerup spawning spherecast work.
                 RaycastHit hit;
-                if (Physics.SphereCast(powerUpSpawned.transform.position + new Vector3(0,1,0), 0.5f, Vector3.down, out hit, 2f))
+                if (Physics.SphereCast(powerUpSpawned.transform.position + new Vector3(0, 1, 0), 0.5f, Vector3.down, out hit, 2f))
                 {
                     Destroy(powerUpSpawned);
                     goto retrySpawn;
                 }
                 powerUpSpawned.transform.parent = transform;
-                GameManager.instance.powerUpManager.ChanceToSpawnPowerUp = GameManager.instance.powerUpManager.ChanceToSpawnPowerUpSet;
-            }
-            else
-            {
-                //For each time we dont spawn a powerup, we up the chance one can spawn next time.
-                //Once we do spawn a powerup, we reset the chance to its base value
-                GameManager.instance.powerUpManager.ChanceToSpawnPowerUp += GameManager.instance.powerUpManager.AddToChance;
             }
         }
-
     }
 
     // Spawn a random level chunk corresponding to current difficulty
     // E.g. We are on currentDifficulty 2, so we look into the l2 list of level chunks and randomly select one from that list to spawn
+    // Level chunk lists are in the level chunk manager.
     private void SpawnRandomLevelChunk() 
     {
         var currentDifficulty = GameManager.instance.levelChunkManager.CurrentDifficulty;

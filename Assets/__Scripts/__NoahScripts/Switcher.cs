@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class Switcher : MonoBehaviour
 {
+    // This script acts like a switch for objects placed in the array.
+    // If they are active, we disable them.
+    // If they are disabled, we activate them.
     #region serialized variables
     [SerializeField] private GameObject[] thingsToSwitch =  new GameObject[0];
     [SerializeField]private KeyCode key;
@@ -17,7 +20,7 @@ public class Switcher : MonoBehaviour
             }
     }
 
-    public void SwitchStuff() //Switches things from enabled to disables, or disabled to enabled depending on its current status.
+    public void SwitchStuff() //For each object in the array, we switch them.
     {
         foreach (GameObject go in thingsToSwitch)
         {

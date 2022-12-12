@@ -6,11 +6,17 @@ using UnityEngine.UI;
 
 public class GameOver : MonoBehaviour
 {
-    [SerializeField] private Text timer;
+    // This script controls the game over screen and timer.
+    #region private variables
     private float seconds = 10;
     private float miliseconds = 0;
     private Switcher thingsToSwitch;
     private bool timerUp = false;
+    #endregion
+
+    #region serialized variables
+    [SerializeField] private Text timer;
+    #endregion
 
     private void Start()
     {
@@ -29,7 +35,7 @@ public class GameOver : MonoBehaviour
 
         if (miliseconds <= 0)
         {
-            if (seconds <= 0) //If the timers up, we transition to either NameInput, or if the player doesnt have a high enough score, we reset the values of all objects
+            if (seconds <= 0) //If the timers up, we transition to either NameInput, or if the player doesnt have a high enough score, we reset objects back to their inital state
             {
                 PlayerDoesNotContinue();
             }

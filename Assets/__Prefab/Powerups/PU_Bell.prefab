@@ -4816,6 +4816,7 @@ GameObject:
   - component: {fileID: 4818468558592154359}
   - component: {fileID: 4214761493805915889}
   - component: {fileID: 5359164269397231820}
+  - component: {fileID: 6207669859098496200}
   m_Layer: 2
   m_Name: PU_Bell
   m_TagString: PowerUp
@@ -4961,6 +4962,25 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!95 &6207669859098496200
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4818468558592154352}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 41e690d31d803d242ba2e2186c6fe2be, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 1
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1001 &3315423634002953422
 PrefabInstance:
   m_ObjectHideFlags: 0

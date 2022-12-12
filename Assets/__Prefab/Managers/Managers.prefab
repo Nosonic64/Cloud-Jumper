@@ -279,6 +279,7 @@ MonoBehaviour:
   powerUpManager: {fileID: 5615297096765607806}
   scoreManager: {fileID: 5615297096217491218}
   scoreData: {fileID: 5615297097208972570}
+  splashScreen: {fileID: 0}
 --- !u!1 &5615297096217491220
 GameObject:
   m_ObjectHideFlags: 0
@@ -415,11 +416,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   levelChunks:
-  - {fileID: 4556189965577016995, guid: 1234f83b17bf451449671ac5821afa4c, type: 3}
-  - {fileID: 4556189965577016995, guid: 25cccc3d84a7237469a8a9a59e3bb796, type: 3}
-  - {fileID: 4556189965577016995, guid: 7796f97b2d3b66e4aa12f4cff4d86f49, type: 3}
-  difficultyThresholds: 000000000a0000003c000000
-  dontBreakPlats: 1
+  - {fileID: 4556189965577016995, guid: 1187cba30aed8f84fbf4b0e9e023ce68, type: 3}
+  - {fileID: 4556189965577016995, guid: 2f15e7605ee13b741bc610d9488ff876, type: 3}
+  - {fileID: 4556189965577016995, guid: 5cc2af6a46a87154b90c861861bcf16b, type: 3}
+  - {fileID: 4556189965577016995, guid: dbd510efe0b6ded4c8bd3b9dcd8c12b4, type: 3}
+  - {fileID: 5636969262218006609, guid: aff5bab52eea4c54bbec077296db998d, type: 3}
+  - {fileID: 3496419566287425378, guid: 906f6710e87d1d143a6b063fc93a751e, type: 3}
+  - {fileID: 3714779738582554145, guid: 6d6c685118f5c754cade9a633c351a15, type: 3}
+  - {fileID: 3758388759426506788, guid: 00af5bf6f76d3a94cab591a605c93b7c, type: 3}
+  - {fileID: 7063638600026016669, guid: 630108232cce2364a8702747a87a1b12, type: 3}
+  difficultyThresholds: 05000000140000002300000032000000
+  dontBreakPlats: 0
 --- !u!1 &5615297097208972573
 GameObject:
   m_ObjectHideFlags: 0
