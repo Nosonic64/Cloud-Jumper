@@ -27,7 +27,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 105403578925488148}
   m_LocalRotation: {x: -0.70710707, y: -0, z: -0, w: 0.70710653}
-  m_LocalPosition: {x: 8, y: 77.88, z: 0.33}
+  m_LocalPosition: {x: 8, y: 77.88, z: 10}
   m_LocalScale: {x: 1.4, y: 1, z: 3.1999998}
   m_Children: []
   m_Father: {fileID: 8088162482829254965}
@@ -469,7 +469,7 @@ GameObject:
   - component: {fileID: 6058915365938544647}
   - component: {fileID: 1328001612353272393}
   m_Layer: 0
-  m_Name: LevelChunkPrefab_MM_1_1
+  m_Name: LevelChunkPrefab_MM_0_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -727,7 +727,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7231062439885739190}
   m_LocalRotation: {x: -0.70710707, y: -0, z: -0, w: 0.70710653}
-  m_LocalPosition: {x: 8, y: 13.880007, z: 0.33}
+  m_LocalPosition: {x: 8, y: 13.880007, z: 10}
   m_LocalScale: {x: 1.4, y: 1, z: 3.1999998}
   m_Children: []
   m_Father: {fileID: 8088162482829254965}
@@ -823,7 +823,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7779223766079445604}
   m_LocalRotation: {x: -0.70710707, y: -0, z: -0, w: 0.70710653}
-  m_LocalPosition: {x: 8, y: 45.880005, z: 0.3299999}
+  m_LocalPosition: {x: 8, y: 45.880005, z: 10}
   m_LocalScale: {x: 1.4, y: 1, z: 3.1999998}
   m_Children: []
   m_Father: {fileID: 8088162482829254965}
