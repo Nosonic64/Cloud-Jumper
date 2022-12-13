@@ -158,13 +158,18 @@ public class PlayerMovement : MonoBehaviour
         else
         {
             coyoteTimeCounter -= Time.deltaTime; //If the player leaves the ground, we start decreasing coyoteTimeCounter. Player can still jump while this counts down and is not 0 or below.
-            if (Input.GetButtonDown("Jump") && hasDoubleJump && !hasBell)
+            if (Input.GetButtonDown("Jump") && hasDoubleJump && !hasBell && coyoteTimeCounter <= 0f)
             {
+                hasDoubleJump = false;
                 playerParticles.ParticleObjects[2].Stop();
                 coyoteTimeCounter = coyoteTime;
                 jumpBufferCounter = jumpBufferTime;
                 Instantiate(doubleJumpDrum, transform.position, Quaternion.identity);
-                hasDoubleJump = false;
+            }
+
+            if(!HasBell)
+            {
+                gameObject.transform.parent = null;
             }
         }
 
@@ -201,6 +206,11 @@ public class PlayerMovement : MonoBehaviour
         if(newPowerUpDelay > 0f)
         {
             newPowerUpDelay -= Time.deltaTime;  
+        }
+
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            Application.Quit();
         }
     }
 
@@ -248,6 +258,7 @@ public class PlayerMovement : MonoBehaviour
             cloudParticle.transform.SetParent(other.gameObject.transform);
             var particlePlay = cloudParticle.GetComponent<ParticleSystem>();
             particlePlay.Play();
+            gameObject.transform.parent = other.gameObject.transform;
         }
     }
 
@@ -321,6 +332,7 @@ public class PlayerMovement : MonoBehaviour
         retryCount = maxRetrys;
         transform.position = startPoint;
         mesh.SetActive(true);
+        kitFollower.SetActive(true);
         rb.useGravity = true;
         colliderPlayer.enabled = true;
         beforeStart = false;
@@ -420,6 +432,7 @@ public class PlayerMovement : MonoBehaviour
 
     public void PowerUp(int id) // 0 == DoubleJump | 1 == MoonCake(Invulnerable) | 2 == Bell(Sprite comes down and flys player up) |
     {
+        hasInvulnerable = 1f;
         switch (id)
         {
             case 0:

@@ -10,7 +10,7 @@ public class LevelChunkDifficultyChecker : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player"))
         {
-            if (GameManager.instance.levelChunkManager.CurrentDifficulty != GameManager.instance.levelChunkManager.LevelChunkDictionary.Count)
+            if (GameManager.instance.levelChunkManager.CurrentDifficulty != 4)
             {
                 if ((int)Mathf.Floor(GameManager.instance.scoreManager.Distance) >= GameManager.instance.levelChunkManager.DifficultyThresholds[GameManager.instance.levelChunkManager.CurrentDifficulty])
                 {

@@ -7,10 +7,12 @@ public class AttractMode : MonoBehaviour
 {
     // This script controls the cycling image display at the start of the game
     #region serialized variables
+    [SerializeField] private float timeBetweenImages;
     [SerializeField] private Sprite[] sprites = new Sprite[0];
     [SerializeField] private AudioClip[] clips = new AudioClip[0];
-    [SerializeField] private float timeBetweenImages;
     [SerializeField] private GameObject scoreTable;
+    [SerializeField] private GameObject insertCoin;
+    [SerializeField] private GameObject highestScoreDisplay;
     #endregion
 
     #region private variables
@@ -36,6 +38,8 @@ public class AttractMode : MonoBehaviour
         var music = GameManager.instance.musicManager.GetComponent<AudioSource>();
         music.clip = clips[0];
         music.Play();
+        SetInsertCoin(5, 1);
+        highestScoreDisplay.SetActive(false);
     }
 
     void Update()
@@ -46,6 +50,7 @@ public class AttractMode : MonoBehaviour
             coroutineRunning = false;
             image.enabled = true;
             SetScreenTo(4);
+            SetInsertCoin(6, 2);
         }
 
         if (Input.GetButtonDown("Jump") && !coroutineRunning) // If the player has put in a coin and then hits jump, we start the game.
@@ -54,6 +59,7 @@ public class AttractMode : MonoBehaviour
             music.clip = clips[1];
             music.Play();
             GameStart();
+            highestScoreDisplay.SetActive(true);
             gameObject.SetActive(false);
         }
 
@@ -63,8 +69,10 @@ public class AttractMode : MonoBehaviour
     {
         while (true)
         {
-            image.enabled = true;
+            image.enabled = false;
+            yield return new WaitForSeconds(timeBetweenImages);
             image.sprite = sprites[0];
+            image.enabled = true;
             yield return new WaitForSeconds(timeBetweenImages);
             image.sprite = sprites[1];
             yield return new WaitForSeconds(timeBetweenImages);
@@ -72,14 +80,21 @@ public class AttractMode : MonoBehaviour
             yield return new WaitForSeconds(timeBetweenImages);
             image.sprite = sprites[3];
             yield return new WaitForSeconds(timeBetweenImages);
-            image.enabled = false;
-            yield return new WaitForSeconds(timeBetweenImages);
         }
     }
 
     private void SetScreenTo(int i) // This function sets the image to a specific one from the array.
     {
         image.sprite = sprites[i];
+    }
+
+    private void SetInsertCoin(int sprite, int animSpeed)
+    {
+        var iImage = insertCoin.GetComponent<Image>();
+        iImage.sprite = sprites[sprite];
+        var iAnim = insertCoin.GetComponent<Animator>();
+        iAnim.speed = animSpeed;
+
     }
 
     public void GameStart() // This function controls the thing we need to do when starting the game.
