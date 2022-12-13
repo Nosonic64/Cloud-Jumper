@@ -540,7 +540,7 @@ GameObject:
   - component: {fileID: 3732594175765224545}
   - component: {fileID: 8324230619260811531}
   m_Layer: 0
-  m_Name: Trigger
+  m_Name: TeapotTrigger
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
