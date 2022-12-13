@@ -295,6 +295,7 @@ public class PlayerMovement : MonoBehaviour
         rb.useGravity = true;
         colliderPlayer.enabled = true;
         Instantiate(fallPlat, transform.position - fallPlatSpawnOffset, transform.rotation); //We offset the platform otherwise it would spawn to the left of the player
+        kitFollower.SetActive(true);
         kitLifeChange.ChangeMat(0);
     }
 

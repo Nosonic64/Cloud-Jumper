@@ -169,7 +169,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 1912b1ee7ccbcdb42a871efc235ce1d5, type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.19
+      value: 0.17
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 1912b1ee7ccbcdb42a871efc235ce1d5, type: 3}
       propertyPath: m_LocalScale.y
@@ -181,7 +181,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 1912b1ee7ccbcdb42a871efc235ce1d5, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.1
+      value: -0.05
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 1912b1ee7ccbcdb42a871efc235ce1d5, type: 3}
       propertyPath: m_LocalPosition.y
@@ -219,6 +219,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -5754084199372789682, guid: 1912b1ee7ccbcdb42a871efc235ce1d5, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 8313087309680424158, guid: bfb45e45ae787c249b5af052374f73b4, type: 3}
     - target: {fileID: 919132149155446097, guid: 1912b1ee7ccbcdb42a871efc235ce1d5, type: 3}
       propertyPath: m_Name
       value: Cloud_Low_3m

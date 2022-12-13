@@ -23,6 +23,7 @@ public class ReleaseObject : MonoBehaviour
                 releaseObject.SetActive(true);
                 teapot.released = true;
             }
+            Destroy(gameObject);
         }
     }
 

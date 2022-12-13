@@ -1161,6 +1161,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5272022362285667529, guid: 9007e2b2feaa83c448f71f4a250b8ce5, type: 3}
+      propertyPath: m_ApplyRootMotion
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5272022362285667531, guid: 9007e2b2feaa83c448f71f4a250b8ce5, type: 3}
       propertyPath: m_Name
       value: SpriteCompanionBellPower
@@ -1241,6 +1245,26 @@ PrefabInstance:
     - target: {fileID: 5615297096114849407, guid: 3c36ea9ce4ff4b746a7ef4629a6cb0df, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5615297096937419362, guid: 3c36ea9ce4ff4b746a7ef4629a6cb0df, type: 3}
+      propertyPath: levelChunks.Array.size
+      value: 17
+      objectReference: {fileID: 0}
+    - target: {fileID: 5615297096937419362, guid: 3c36ea9ce4ff4b746a7ef4629a6cb0df, type: 3}
+      propertyPath: levelChunks.Array.data[17]
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5615297096937419362, guid: 3c36ea9ce4ff4b746a7ef4629a6cb0df, type: 3}
+      propertyPath: levelChunks.Array.data[18]
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5615297096937419362, guid: 3c36ea9ce4ff4b746a7ef4629a6cb0df, type: 3}
+      propertyPath: levelChunks.Array.data[19]
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5615297096937419362, guid: 3c36ea9ce4ff4b746a7ef4629a6cb0df, type: 3}
+      propertyPath: levelChunks.Array.data[20]
+      value: 
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3c36ea9ce4ff4b746a7ef4629a6cb0df, type: 3}

@@ -46,13 +46,14 @@ public class LevelChunk : MonoBehaviour
         else if (!GameManager.instance.player.TouchingYClamp) // Scroll the level chunk down by a passive amount, called up if nothing else is happening to scroll the level chunk down
         {
             transform.position -= (transform.up * (GameManager.instance.levelChunkManager.CurrentDifficulty + 1) * GameManager.instance.levelChunkManager.PassiveScrollMultiple) * Time.deltaTime;
+            GameManager.instance.scoreManager.Distance += GameManager.instance.levelChunkManager.PassiveScrollMultiple * (Time.deltaTime / 2);
         }
 
         // Scroll the level chunk down if the player has the bell powerup and is being carried by Kit
         if(GameManager.instance.bellSprite.SpriteCarryingPlayer)
         {
             transform.position -= transform.up * bellScrollSpeedMultiple * Time.deltaTime;
-            GameManager.instance.scoreManager.Distance += Time.deltaTime;
+            GameManager.instance.scoreManager.Distance += (Time.deltaTime * 2.2f);
         }
 
         // Scroll the level chunk down if reset time is over 0 (Usually when we are about to respawn the player or resetting the play space)
