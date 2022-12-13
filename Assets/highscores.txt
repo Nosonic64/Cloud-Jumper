@@ -5,6 +5,8 @@ DCC
 ABB
 76
 AAA
+76
+AAA
 68
 AAA
 67
@@ -16,5 +18,3 @@ BBB
 57
 BAD
 57
-AAA
-55
