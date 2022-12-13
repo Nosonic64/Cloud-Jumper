@@ -202,6 +202,11 @@ public class PlayerMovement : MonoBehaviour
         {
             newPowerUpDelay -= Time.deltaTime;  
         }
+
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            Application.Quit();
+        }
     }
 
     private void FixedUpdate()

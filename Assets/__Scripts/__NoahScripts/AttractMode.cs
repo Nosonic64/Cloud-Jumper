@@ -7,10 +7,11 @@ public class AttractMode : MonoBehaviour
 {
     // This script controls the cycling image display at the start of the game
     #region serialized variables
+    [SerializeField] private float timeBetweenImages;
     [SerializeField] private Sprite[] sprites = new Sprite[0];
     [SerializeField] private AudioClip[] clips = new AudioClip[0];
-    [SerializeField] private float timeBetweenImages;
     [SerializeField] private GameObject scoreTable;
+    [SerializeField] private GameObject insertCoin;
     #endregion
 
     #region private variables
@@ -36,6 +37,7 @@ public class AttractMode : MonoBehaviour
         var music = GameManager.instance.musicManager.GetComponent<AudioSource>();
         music.clip = clips[0];
         music.Play();
+        SetInsertCoin(5, 1);
     }
 
     void Update()
@@ -46,6 +48,7 @@ public class AttractMode : MonoBehaviour
             coroutineRunning = false;
             image.enabled = true;
             SetScreenTo(4);
+            SetInsertCoin(6, 2);
         }
 
         if (Input.GetButtonDown("Jump") && !coroutineRunning) // If the player has put in a coin and then hits jump, we start the game.
@@ -80,6 +83,15 @@ public class AttractMode : MonoBehaviour
     private void SetScreenTo(int i) // This function sets the image to a specific one from the array.
     {
         image.sprite = sprites[i];
+    }
+
+    private void SetInsertCoin(int sprite, int animSpeed)
+    {
+        var iImage = insertCoin.GetComponent<Image>();
+        iImage.sprite = sprites[sprite];
+        var iAnim = insertCoin.GetComponent<Animator>();
+        iAnim.speed = animSpeed;
+
     }
 
     public void GameStart() // This function controls the thing we need to do when starting the game.

@@ -41,7 +41,6 @@ GameObject:
   - component: {fileID: 1031380615822454338}
   - component: {fileID: 8350244270636405634}
   - component: {fileID: 4341557200961095345}
-  - component: {fileID: 7810900716922106076}
   m_Layer: 0
   m_Name: ScrollPaper
   m_TagString: Untagged
@@ -112,20 +111,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &7810900716922106076
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1245268632298964797}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!1 &2226092199247071727
 GameObject:
   m_ObjectHideFlags: 0
@@ -137,7 +122,6 @@ GameObject:
   - component: {fileID: 6288910104409001822}
   - component: {fileID: 5093200880653118140}
   - component: {fileID: 3404189827311002906}
-  - component: {fileID: 3439121331304703264}
   m_Layer: 0
   m_Name: ScrollPaper (1)
   m_TagString: Untagged
@@ -208,20 +192,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &3439121331304703264
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2226092199247071727}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!1 &2569558427338879719
 GameObject:
   m_ObjectHideFlags: 0
@@ -700,7 +670,6 @@ GameObject:
   - component: {fileID: 6992816986304416603}
   - component: {fileID: 1720411334468380462}
   - component: {fileID: 6986605853432218263}
-  - component: {fileID: 6417396743427506702}
   m_Layer: 0
   m_Name: ScrollPaper (2)
   m_TagString: Untagged
@@ -771,20 +740,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &6417396743427506702
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8387820423793494943}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!1 &9201813172721057437
 GameObject:
   m_ObjectHideFlags: 0
