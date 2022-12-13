@@ -8,6 +8,7 @@ public class Platform : MonoBehaviour
     #region private variables
     private BoxCollider platCollider;
     private AudioSource audioSource;
+    private GameObject player;
     private bool playerTouched;
     private float disableTimerCounter;
     private float deleteThreshold = -2.8f;
@@ -42,6 +43,10 @@ public class Platform : MonoBehaviour
             //TODO: Change the timer to go up instead of down as its better practice (and it should eliminate the need for the "playerTouched" boolean)
             if (transform.position.y < deleteThreshold || disableTimerCounter <= 0f && playerTouched) //Start of deletion code, we want to delete the platform if its under Y a certain amount or its timer is 0;
             {
+                if(player != null)
+                {
+                    player.transform.SetParent(null);
+                }
                 Destroy(gameObject);
             }
         }
@@ -56,6 +61,7 @@ public class Platform : MonoBehaviour
     {
         if(collision.gameObject.CompareTag("Player")) //On collision with the player, we play a sound and set a timer.
         {
+            player = collision.gameObject;
             audioSource.Play();
             if (disableTimerCounter <= 0)
             {
@@ -63,6 +69,11 @@ public class Platform : MonoBehaviour
                 playerTouched = true;
             }
         }
+    }
+
+    private void OnCollisionExit()
+    {
+        player = null;
     }
 
 }

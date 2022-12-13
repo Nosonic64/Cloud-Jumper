@@ -12,6 +12,7 @@ public class AttractMode : MonoBehaviour
     [SerializeField] private AudioClip[] clips = new AudioClip[0];
     [SerializeField] private GameObject scoreTable;
     [SerializeField] private GameObject insertCoin;
+    [SerializeField] private GameObject highestScoreDisplay;
     #endregion
 
     #region private variables
@@ -38,6 +39,7 @@ public class AttractMode : MonoBehaviour
         music.clip = clips[0];
         music.Play();
         SetInsertCoin(5, 1);
+        highestScoreDisplay.SetActive(false);
     }
 
     void Update()
@@ -57,6 +59,7 @@ public class AttractMode : MonoBehaviour
             music.clip = clips[1];
             music.Play();
             GameStart();
+            highestScoreDisplay.SetActive(true);
             gameObject.SetActive(false);
         }
 
@@ -66,16 +69,16 @@ public class AttractMode : MonoBehaviour
     {
         while (true)
         {
-            image.enabled = true;
+            image.enabled = false;
+            yield return new WaitForSeconds(timeBetweenImages);
             image.sprite = sprites[0];
+            image.enabled = true;
             yield return new WaitForSeconds(timeBetweenImages);
             image.sprite = sprites[1];
             yield return new WaitForSeconds(timeBetweenImages);
             image.sprite = sprites[2];
             yield return new WaitForSeconds(timeBetweenImages);
             image.sprite = sprites[3];
-            yield return new WaitForSeconds(timeBetweenImages);
-            image.enabled = false;
             yield return new WaitForSeconds(timeBetweenImages);
         }
     }

@@ -17,12 +17,12 @@ public class ChangeTransparency : MonoBehaviour
 
     void Update()
     {
-        if ()
-        {
-            // enter start trigger increase alpha value by XYZ
+        //if ()
+        //{
+        //    // enter start trigger increase alpha value by XYZ
 
-            if ()
-                // enter end trigger decrease alpha value by XYZ
-        }
+        //    if ()
+        //        // enter end trigger decrease alpha value by XYZ
+        //}
     }
 }
