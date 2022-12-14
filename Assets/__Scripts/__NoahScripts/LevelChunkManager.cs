@@ -52,7 +52,7 @@ public class LevelChunkManager : MonoBehaviour
             resetTimerCounter -= Time.deltaTime;    
         }
 
-        if(passiveScrollMultiple < 0.75f && !GameManager.instance.player.BeforeStart) //This code scrolls the screen down passively, outside of the player hitting the top of the screen. 
+        if(passiveScrollMultiple < 0.90f && !GameManager.instance.player.BeforeStart) //This code scrolls the screen down passively, outside of the player hitting the top of the screen. 
         {
             passiveScrollMultiple += Time.deltaTime / 120f;
         }

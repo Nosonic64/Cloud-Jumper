@@ -51,7 +51,8 @@ public class Platform : MonoBehaviour
                 {
                     player.transform.SetParent(null);
                 }
-                Destroy(gameObject);
+                platCollider.enabled = false;
+                mesh.transform.localScale -= new Vector3(0.4f, 0.4f, 0.4f) * Time.deltaTime;
             }
         }
 
@@ -60,7 +61,12 @@ public class Platform : MonoBehaviour
             disableTimerCounter -= Time.deltaTime;
             angleLimitAdd += disappearingEffectRate * Time.deltaTime;
             mesh.material.SetFloat("_angleLimit", angleLimitAdd);
-            mesh.transform.localScale -= new Vector3();
+            mesh.transform.localScale -= new Vector3(0.005f, 0.005f, 0.005f) * Time.deltaTime;
+        }
+
+        if(mesh.transform.localScale.y <= 0 || mesh.transform.localScale.x <= 0)
+        {
+            Destroy(gameObject);
         }
     }
 

@@ -118,6 +118,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: d91d119d2e079b94bbc56263725ae422, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 8e01f00630d6fc14590654a1f4d0b90b, type: 2}
     - target: {fileID: 919132149155446097, guid: d91d119d2e079b94bbc56263725ae422, type: 3}
       propertyPath: m_Name
       value: Japanese_Lantern

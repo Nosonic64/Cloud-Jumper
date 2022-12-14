@@ -61,6 +61,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   disableTimerSet: 2.75
   disappearingEffectRate: 0.09
+  material:
+  - {fileID: 2100000, guid: 82c4e3e686206ca46a7cb3ed3352a1a9, type: 2}
+  - {fileID: 2100000, guid: b88d22d80f806384c9166fe1ae785861, type: 2}
 --- !u!82 &6748389125693660964
 AudioSource:
   m_ObjectHideFlags: 0

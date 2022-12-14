@@ -487,9 +487,9 @@ public class PlayerMovement : MonoBehaviour
 
     private void PlayerHit() //All the stuff that we have to do when the players hit in a function.
     {
+        playerLives--;
         PlayParticle(0);
         PlayAudio(playerSounds.Sounds[1], 0.5f);
-        playerLives--;
         hasInvulnerable = 1f;
         HitStop(hitStopAmountSet);
         CheckBlinkRoutine();

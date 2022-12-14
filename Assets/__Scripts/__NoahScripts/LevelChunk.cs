@@ -46,7 +46,10 @@ public class LevelChunk : MonoBehaviour
         else if (!GameManager.instance.player.TouchingYClamp) // Scroll the level chunk down by a passive amount, called up if nothing else is happening to scroll the level chunk down
         {
             transform.position -= (transform.up * (GameManager.instance.levelChunkManager.CurrentDifficulty + 1) * GameManager.instance.levelChunkManager.PassiveScrollMultiple) * Time.deltaTime;
-            GameManager.instance.scoreManager.Distance += GameManager.instance.levelChunkManager.PassiveScrollMultiple * (Time.deltaTime / 2);
+            if(!GameManager.instance.player.GameOver)
+            {
+                GameManager.instance.scoreManager.Distance += GameManager.instance.levelChunkManager.PassiveScrollMultiple * (Time.deltaTime / 2);
+            }
         }
 
         // Scroll the level chunk down if the player has the bell powerup and is being carried by Kit

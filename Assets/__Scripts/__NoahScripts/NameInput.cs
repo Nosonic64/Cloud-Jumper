@@ -24,10 +24,14 @@ public class NameInput : MonoBehaviour
     [SerializeField] private Text[] texts = new Text[0];
     #endregion
 
-    void Start()
+    void Awake()
     {
         thingsToSwitch = GetComponent<Switcher>();
         audioSource = GetComponent<AudioSource>();
+    }
+
+    private void OnEnable()
+    {
         selectedLetter = 1;
         inputDelayCounter = 0;
         // If the players score is lower than the lowest score on the High-Score table, 
@@ -106,8 +110,6 @@ public class NameInput : MonoBehaviour
         GameManager.instance.levelChunkManager.PassiveScrollMultiple = 0;
         GameManager.instance.levelChunkManager.CurrentDifficulty = 0;
         texts[3].text = "";
-        selectedLetter = 1;
-        inputDelayCounter = 0;
         startedReset = false;
         GameManager.instance.player.GoBackToInitial();
         thingsToSwitch.SwitchStuff();
