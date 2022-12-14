@@ -1292,6 +1292,10 @@ PrefabInstance:
       value: 0.7853981
       objectReference: {fileID: 0}
     - target: {fileID: 8773990605612795230, guid: 04308228ba892774c98900b36b47b6f3, type: 3}
+      propertyPath: ShapeModule.radiusThickness
+      value: 1.0000
+      objectReference: {fileID: 0}
+    - target: {fileID: 8773990605612795230, guid: 04308228ba892774c98900b36b47b6f3, type: 3}
       propertyPath: RotationModule.x.minMaxState
       value: 3
       objectReference: {fileID: 0}
@@ -15838,7 +15842,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4426651363253447992, guid: af47f4cfa35ea284db0d717d876c7766, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.3
+      value: -0.51
       objectReference: {fileID: 0}
     - target: {fileID: 4426651363253447992, guid: af47f4cfa35ea284db0d717d876c7766, type: 3}
       propertyPath: m_LocalPosition.z
