@@ -9,20 +9,24 @@ public class Platform : MonoBehaviour
     private BoxCollider platCollider;
     private AudioSource audioSource;
     private GameObject player;
+    private MeshRenderer mesh;
     private bool playerTouched;
     private float disableTimerCounter;
     private float deleteThreshold = -2.8f;
+    private float angleLimitAdd = 0.75f;
     #endregion
 
     #region serialized variables
     [SerializeField] private float disableTimerSet;
+    [SerializeField] private float disappearingEffectRate;
     #endregion
 
     private void Start()
     {
         platCollider = GetComponent<BoxCollider>();
         audioSource = GetComponent<AudioSource>();
-        transform.position = new Vector3(transform.position.x, transform.position.y, 0.5f);
+        mesh = GetComponentInChildren<MeshRenderer>();
+        transform.position = new Vector3(transform.position.x, transform.position.y, 0f);
     }
 
     private void Update()
@@ -54,6 +58,9 @@ public class Platform : MonoBehaviour
         if(disableTimerCounter > 0f)
         {
             disableTimerCounter -= Time.deltaTime;
+            angleLimitAdd += disappearingEffectRate * Time.deltaTime;
+            mesh.material.SetFloat("_angleLimit", angleLimitAdd);
+            mesh.transform.localScale -= new Vector3();
         }
     }
 

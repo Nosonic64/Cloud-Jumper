@@ -21,7 +21,7 @@ public class StartPlat : MonoBehaviour
         }
         else
         {
-            Destroy(gameObject);
+            transform.position -= new Vector3(0, 1, 0) * Time.deltaTime;
         }
     }
 }

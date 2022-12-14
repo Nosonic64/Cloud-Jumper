@@ -26,11 +26,12 @@ public class SpriteSequence : MonoBehaviour
 
     public void StartSpriteSequence() //Starts the animation that has all the event markers
     {
+        transform.position = new Vector3(GameManager.instance.player.transform.position.x, GameManager.instance.player.transform.position.y, transform.position.z);
         anim.Play("Sprite_Sequence");
     }
     public void SetPlayer()
     {
-        GameManager.instance.player.transform.position = new Vector3(8, 8, 0);
+        //GameManager.instance.player.transform.position = new Vector3(8, 8, 0);
     }
 
     public void ParentPlayer(int i)
@@ -38,7 +39,7 @@ public class SpriteSequence : MonoBehaviour
         switch (i)
         {
             case 0:
-            GameManager.instance.player.transform.parent = gameObject.transform;
+            GameManager.instance.player.transform.parent = gameObject.transform.GetChild(1);
                 break;
             case 1:
                 GameManager.instance.player.transform.parent = null;
@@ -54,6 +55,7 @@ public class SpriteSequence : MonoBehaviour
         {
             case 0:
                 spriteCarryingPlayer = true;
+                GameManager.instance.player.PlayParticle(3);
                 break;
             case 1:
                 spriteCarryingPlayer = false;

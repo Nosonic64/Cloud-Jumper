@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 2861513933442665869}
   - component: {fileID: 6783017217890632368}
   - component: {fileID: 8251262686085131043}
+  - component: {fileID: 2216236130212678786}
   m_Layer: 3
   m_Name: Plat_FallPlat
   m_TagString: Platform
@@ -157,6 +158,25 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!95 &2216236130212678786
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2861513933442665868}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: c40cfd5096c1cd94788b6cfcd594f4b2, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1001 &3811005859964899127
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -190,7 +210,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: a2d8a4942b2c663428fa57340ca611a9, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -1.7278352
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: a2d8a4942b2c663428fa57340ca611a9, type: 3}
       propertyPath: m_LocalRotation.w
