@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Net.Http.Headers;
 using UnityEngine;
 
 public class LevelChunk : MonoBehaviour
@@ -12,6 +13,7 @@ public class LevelChunk : MonoBehaviour
     private float createNewChunkThreshold = -46f; 
     private float deleteThisChunkThreshold = -92f;
     private float placeNewOffset = 92f;
+    private List<GameObject> bgArts = new List<GameObject>();
     #endregion
 
     #region serialized variables
@@ -30,7 +32,7 @@ public class LevelChunk : MonoBehaviour
         // The amount we try to spawn is governed by an array in LevelChunkManager, and we select what number to use from
         // That array by the difficulty set for this level chunk.
         SpawnRandomPowerUp(GameManager.instance.levelChunkManager.PowerUpAmountToTryAndSpawnPerDifficulty[chunkDifficulty]);
-        SpawnRandomBGArt(Random.Range(8, 20));
+        SpawnRandomBGArt(Random.Range(6, 10));
     }
 
     private void Update()
@@ -127,11 +129,26 @@ public class LevelChunk : MonoBehaviour
     {
         for(var i = 0; i < amount; i++)
         {
-            var artXSpawn = Random.Range(2, 14);
+            var artXSpawn = Random.Range(4, 12);
             var artYSpawn = Random.Range(0, 92);
-            var artZSpawn = Random.Range(3, 9);
-            var bgArt = Instantiate(GameManager.instance.levelChunkManager.BackgroundArt, transform.position + new Vector3(artXSpawn,artYSpawn, artZSpawn), GameManager.instance.levelChunkManager.BackgroundArt.transform.rotation);
-            bgArt.transform.parent = transform;    
+            var bgArt = Instantiate(GameManager.instance.levelChunkManager.BackgroundArt, transform.position + new Vector3(artXSpawn,artYSpawn, 5), GameManager.instance.levelChunkManager.BackgroundArt.transform.rotation);
+            if (bgArts != null)
+            {
+                foreach (GameObject go in bgArts)
+                {
+                    if (Vector3.Distance(bgArt.transform.position, go.transform.position) < 5f)
+                    {
+                        Destroy(bgArt);
+                        break;
+                    }
+                }
+
+                if (bgArt != null)
+                {
+                    bgArts.Add(bgArt);
+                    bgArt.transform.parent = transform;
+                }
+            }
         }
     }
 }

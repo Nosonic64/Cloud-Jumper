@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 9162102995018998989}
   - component: {fileID: 9162102995018998986}
   - component: {fileID: 2314583530364374893}
-  - component: {fileID: 7072880087821669886}
+  - component: {fileID: 4929620314340296968}
   m_Layer: 0
   m_Name: ArtObject
   m_TagString: Untagged
@@ -112,7 +112,7 @@ MonoBehaviour:
   - {fileID: 2800000, guid: 0dbe10655591ced4dbe0b73e76952004, type: 3}
   - {fileID: 2800000, guid: 2cca2dee8d86e3e498399195b8615418, type: 3}
   - {fileID: 2800000, guid: 96453b80068be844fab792967edeff4a, type: 3}
---- !u!65 &7072880087821669886
+--- !u!65 &4929620314340296968
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -123,5 +123,5 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 18.099697, y: 6.146516, z: 17.043512}
-  m_Center: {x: 0.162323, y: -0.0078005795, z: 0.041728973}
+  m_Size: {x: 12, y: 2, z: 12}
+  m_Center: {x: 0, y: 0, z: 0}
