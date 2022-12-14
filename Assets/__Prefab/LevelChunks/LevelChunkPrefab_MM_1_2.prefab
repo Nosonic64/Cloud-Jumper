@@ -276,7 +276,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: acaa7bad190f40e4d8969afbbb94b4a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  chunkDifficulty: 3
+  chunkDifficulty: 1
 --- !u!1 &4008996443742164579
 GameObject:
   m_ObjectHideFlags: 0
