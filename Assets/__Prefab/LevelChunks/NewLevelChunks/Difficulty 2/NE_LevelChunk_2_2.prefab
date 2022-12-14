@@ -1752,6 +1752,10 @@ PrefabInstance:
       value: HZ_2PointChestnut (4)
       objectReference: {fileID: 0}
     - target: {fileID: 8063482375157842013, guid: 90eb3f71653537a4ca8d8893791418a9, type: 3}
+      propertyPath: moveSpeed
+      value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 8063482375157842013, guid: 90eb3f71653537a4ca8d8893791418a9, type: 3}
       propertyPath: chestnutMoveLocation.x
       value: 5
       objectReference: {fileID: 0}
@@ -1956,6 +1960,10 @@ PrefabInstance:
     - target: {fileID: 8063482375157842012, guid: 90eb3f71653537a4ca8d8893791418a9, type: 3}
       propertyPath: m_Name
       value: HZ_2PointChestnut (5)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8063482375157842013, guid: 90eb3f71653537a4ca8d8893791418a9, type: 3}
+      propertyPath: moveSpeed
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 8063482375157842013, guid: 90eb3f71653537a4ca8d8893791418a9, type: 3}
       propertyPath: chestnutMoveLocation.x
@@ -2190,6 +2198,10 @@ PrefabInstance:
     - target: {fileID: 8063482375157842012, guid: 90eb3f71653537a4ca8d8893791418a9, type: 3}
       propertyPath: m_Name
       value: HZ_2PointChestnut (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8063482375157842013, guid: 90eb3f71653537a4ca8d8893791418a9, type: 3}
+      propertyPath: moveSpeed
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 8063482375157842013, guid: 90eb3f71653537a4ca8d8893791418a9, type: 3}
       propertyPath: chestnutMoveLocation.x
@@ -3536,6 +3548,10 @@ PrefabInstance:
       value: HZ_2PointChestnut (2)
       objectReference: {fileID: 0}
     - target: {fileID: 8063482375157842013, guid: 90eb3f71653537a4ca8d8893791418a9, type: 3}
+      propertyPath: moveSpeed
+      value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 8063482375157842013, guid: 90eb3f71653537a4ca8d8893791418a9, type: 3}
       propertyPath: chestnutMoveLocation.x
       value: 8
       objectReference: {fileID: 0}
@@ -4574,6 +4590,10 @@ PrefabInstance:
     - target: {fileID: 8063482375157842012, guid: 90eb3f71653537a4ca8d8893791418a9, type: 3}
       propertyPath: m_Name
       value: HZ_2PointChestnut (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8063482375157842013, guid: 90eb3f71653537a4ca8d8893791418a9, type: 3}
+      propertyPath: moveSpeed
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 8063482375157842013, guid: 90eb3f71653537a4ca8d8893791418a9, type: 3}
       propertyPath: chestnutMoveLocation.x
