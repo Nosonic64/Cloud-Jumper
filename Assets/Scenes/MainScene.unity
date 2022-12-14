@@ -1292,6 +1292,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 4818468558592154352, guid: 70aaa155f66defe4d94762f5225d3485, type: 3}
     - target: {fileID: 5615297096937419362, guid: 3c36ea9ce4ff4b746a7ef4629a6cb0df, type: 3}
+      propertyPath: backgroundArt
+      value: 
+      objectReference: {fileID: 9162102995018998984, guid: c99cd50c905143a44b247e59e36bb136, type: 3}
+    - target: {fileID: 5615297096937419362, guid: 3c36ea9ce4ff4b746a7ef4629a6cb0df, type: 3}
       propertyPath: dontBreakPlats
       value: 0
       objectReference: {fileID: 0}

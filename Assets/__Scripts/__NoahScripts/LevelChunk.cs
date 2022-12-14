@@ -30,6 +30,7 @@ public class LevelChunk : MonoBehaviour
         // The amount we try to spawn is governed by an array in LevelChunkManager, and we select what number to use from
         // That array by the difficulty set for this level chunk.
         SpawnRandomPowerUp(GameManager.instance.levelChunkManager.PowerUpAmountToTryAndSpawnPerDifficulty[chunkDifficulty]);
+        SpawnRandomBGArt(Random.Range(8, 20));
     }
 
     private void Update()
@@ -119,6 +120,18 @@ public class LevelChunk : MonoBehaviour
         else
         {
             Debug.Log("No list could be found at this difficulty level, Check Level Chunk Manager");
+        }
+    }
+
+    private void SpawnRandomBGArt(int amount)
+    {
+        for(var i = 0; i < amount; i++)
+        {
+            var artXSpawn = Random.Range(2, 14);
+            var artYSpawn = Random.Range(0, 92);
+            var artZSpawn = Random.Range(3, 9);
+            var bgArt = Instantiate(GameManager.instance.levelChunkManager.BackgroundArt, transform.position + new Vector3(artXSpawn,artYSpawn, artZSpawn), GameManager.instance.levelChunkManager.BackgroundArt.transform.rotation);
+            bgArt.transform.parent = transform;    
         }
     }
 }
