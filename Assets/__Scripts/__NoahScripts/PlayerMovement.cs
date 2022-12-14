@@ -23,7 +23,7 @@ public class PlayerMovement : MonoBehaviour
     private AudioSource[] audioSources = new AudioSource[0];
     private PlayerParticles playerParticles;
     private PlayerAnimation playerAnimation;
-    private Vector3 fallPlatSpawnOffset = new Vector3(2,6,0);
+    private Vector3 fallPlatSpawnOffset = new Vector3(2,6,-1f);
     private IEnumerator blinkCoroutine;
     private bool hasBell;
     private bool gameOver;
@@ -254,11 +254,14 @@ public class PlayerMovement : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Platform")) // This is where we instantiate a landing on platform particle
         {
-            var cloudParticle = Instantiate(platLandParticleSystem, new Vector3(transform.position.x, transform.position.y, 0), Quaternion.identity);
-            cloudParticle.transform.SetParent(other.gameObject.transform);
-            var particlePlay = cloudParticle.GetComponent<ParticleSystem>();
-            particlePlay.Play();
-            gameObject.transform.parent = other.gameObject.transform;
+            if (!other.gameObject.GetComponentInChildren<ParticleSystem>())
+            {
+                var instantiatedPlatLandParticle = Instantiate(platLandParticleSystem, new Vector3(transform.position.x, transform.position.y, 0), Quaternion.identity);
+                instantiatedPlatLandParticle.transform.SetParent(other.gameObject.transform);
+                var particlePlay = instantiatedPlatLandParticle.GetComponent<ParticleSystem>();
+                particlePlay.Play();
+                gameObject.transform.parent = other.gameObject.transform;
+            }
         }
     }
 
@@ -426,6 +429,10 @@ public class PlayerMovement : MonoBehaviour
                 break;
             case 2:
                 playerParticles.ParticleObjects[2].Play();
+                break;
+
+            case 3:
+                playerParticles.ParticleObjects[3].Play();
                 break;
         }
     }

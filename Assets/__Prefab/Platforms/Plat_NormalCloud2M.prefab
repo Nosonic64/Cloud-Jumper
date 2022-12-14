@@ -60,6 +60,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   disableTimerSet: 2.75
+  disappearingEffectRate: 0.09
 --- !u!82 &2193901293776684734
 AudioSource:
   m_ObjectHideFlags: 0

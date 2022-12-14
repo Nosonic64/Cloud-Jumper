@@ -8,6 +8,7 @@ public class FallPlat : MonoBehaviour
     #region private variables
     private BoxCollider platCollider;
     private bool playerTouched;
+    private GameObject player;
     #endregion
 
     #region serialized variables
@@ -33,6 +34,11 @@ public class FallPlat : MonoBehaviour
         // another platform.
         if(disableTimer <= 0f || GameManager.instance.player.transform.position.y > transform.position.y + 3f && playerTouched || GameManager.instance.player.Grounded && !playerTouched && disableTimer <= 5f)
         {
+
+            if (player != null)
+            {
+                player.transform.SetParent(null);
+            }
             Destroy(gameObject);
         }
     }
@@ -41,7 +47,13 @@ public class FallPlat : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player") && !playerTouched)
         {
+            player = collision.gameObject;
             playerTouched = true;
         }
+    }
+
+    private void OnCollisionExit()
+    {
+        player = null;
     }
 }

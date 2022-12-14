@@ -3,6 +3,8 @@ AAA
 BBB
 130
 AAA
+115
+AAA
 113
 BBB
 77
@@ -16,5 +18,3 @@ AAA
 68
 AAA
 67
-ABC
-65

@@ -13,6 +13,7 @@ public class AttractMode : MonoBehaviour
     [SerializeField] private GameObject scoreTable;
     [SerializeField] private GameObject insertCoin;
     [SerializeField] private GameObject highestScoreDisplay;
+    [SerializeField] private GameObject scoreDisplay;
     #endregion
 
     #region private variables
@@ -40,6 +41,7 @@ public class AttractMode : MonoBehaviour
         music.Play();
         SetInsertCoin(5, 1);
         highestScoreDisplay.SetActive(false);
+        scoreDisplay.SetActive(false);
     }
 
     void Update()
@@ -60,6 +62,7 @@ public class AttractMode : MonoBehaviour
             music.Play();
             GameStart();
             highestScoreDisplay.SetActive(true);
+            scoreDisplay.SetActive(true);
             gameObject.SetActive(false);
         }
 

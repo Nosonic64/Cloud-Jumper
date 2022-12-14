@@ -8,7 +8,7 @@ public class LevelChunk : MonoBehaviour
     #region private variables
     private bool spawnedNewLevelChunk;
     private float bellScrollSpeedMultiple = 60f;
-    private float resetScrollMultiple = 60f;
+    private float resetScrollMultiple = 90f;
     private float createNewChunkThreshold = -46f; 
     private float deleteThisChunkThreshold = -92f;
     private float placeNewOffset = 92f;
