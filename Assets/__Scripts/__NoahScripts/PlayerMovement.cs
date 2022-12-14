@@ -354,6 +354,7 @@ public class PlayerMovement : MonoBehaviour
         playerLives = maxPlayerLives;
         retryCount = maxRetrys;
         transform.position = startPoint;
+        kitLifeChange.ChangeMat(0);
         rb.velocity = Vector3.zero; //Reset the players velocity to zero 
     }
     public void ResetFromBell()
