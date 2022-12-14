@@ -1035,7 +1035,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1380814540, guid: d6f72c31b696d7f43b50268292f0c567, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 659305920782764773, guid: d6f72c31b696d7f43b50268292f0c567, type: 3}
       propertyPath: m_Name
@@ -1138,22 +1138,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 144996686143395465, guid: 9007e2b2feaa83c448f71f4a250b8ce5, type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: bbeed39b07281a14f8c0d98e1a2e5803, type: 2}
-    - target: {fileID: 529890116016261314, guid: 9007e2b2feaa83c448f71f4a250b8ce5, type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: bbeed39b07281a14f8c0d98e1a2e5803, type: 2}
-    - target: {fileID: 4403474509664277776, guid: 9007e2b2feaa83c448f71f4a250b8ce5, type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: bbeed39b07281a14f8c0d98e1a2e5803, type: 2}
-    - target: {fileID: 5133878250609862183, guid: 9007e2b2feaa83c448f71f4a250b8ce5, type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: bbeed39b07281a14f8c0d98e1a2e5803, type: 2}
     - target: {fileID: 5272022362285667528, guid: 9007e2b2feaa83c448f71f4a250b8ce5, type: 3}
       propertyPath: m_RootOrder
       value: 4
@@ -1202,10 +1186,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: SpriteCompanionBellPower
       objectReference: {fileID: 0}
-    - target: {fileID: 7631777338953000832, guid: 9007e2b2feaa83c448f71f4a250b8ce5, type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: bbeed39b07281a14f8c0d98e1a2e5803, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9007e2b2feaa83c448f71f4a250b8ce5, type: 3}
 --- !u!1001 &5615297096402408846

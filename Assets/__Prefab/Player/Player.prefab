@@ -520,7 +520,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2866153625116290861, guid: ebdfd5d5686ad8c4386e2bd2c6778dca, type: 3}
       propertyPath: lengthInSec
-      value: 3
+      value: 1.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 2866153625116290861, guid: ebdfd5d5686ad8c4386e2bd2c6778dca, type: 3}
+      propertyPath: InitialModule.startSpeed.scalar
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 2866153625116290861, guid: ebdfd5d5686ad8c4386e2bd2c6778dca, type: 3}
+      propertyPath: InitialModule.startLifetime.scalar
+      value: 0.4
       objectReference: {fileID: 0}
     - target: {fileID: 8847143174497028247, guid: ebdfd5d5686ad8c4386e2bd2c6778dca, type: 3}
       propertyPath: m_Name
