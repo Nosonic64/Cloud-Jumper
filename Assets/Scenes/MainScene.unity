@@ -1578,6 +1578,14 @@ PrefabInstance:
       propertyPath: yClamp
       value: 
       objectReference: {fileID: 2009430537}
+    - target: {fileID: 6873983875910749243, guid: cf5c535ef3827de40b7bed5325dd8656, type: 3}
+      propertyPath: startPoint.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6873983875910749243, guid: cf5c535ef3827de40b7bed5325dd8656, type: 3}
+      propertyPath: respawnPoint.y
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 6873983875910749245, guid: cf5c535ef3827de40b7bed5325dd8656, type: 3}
       propertyPath: m_Name
       value: Player

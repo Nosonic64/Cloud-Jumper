@@ -274,7 +274,7 @@ public class PlayerMovement : MonoBehaviour
             powerUp.PowerUpObtained(); //Call up the powerup we collided withs PowerUpObtained() Function, which contains all the things that it needs to do when the player collides with it.
         }
 
-        if (other.gameObject.CompareTag("Hazard") && hasInvulnerable <= 0f)
+        if (other.gameObject.CompareTag("Hazard") && hasInvulnerable <= 0f && transform.position.y > 0f)
         {  
             PlayerHit();
             kitLifeChange.ChangeMat(1);
@@ -340,13 +340,13 @@ public class PlayerMovement : MonoBehaviour
         colliderPlayer.enabled = true;
         beforeStart = false;
         hasInvulnerable = 5f;
-        var startingPlatform = Instantiate(startPlat, transform.position - new Vector3(0,1,0), transform.rotation);
-        startingPlatform.transform.parent = FindObjectOfType<LevelChunk>().transform;  
-
+        var startingPlatform = Instantiate(startPlat, transform.position - new Vector3(0,0.1f,0), transform.rotation);
+        startingPlatform.transform.parent = FindObjectOfType<LevelChunk>().transform;
     }
 
     public void GoBackToInitial()
     {
+        playerAnimation.Anim.SetTrigger("wakeUp");
         gameOver = false;
         beforeStart = true;
         mesh.SetActive(false);

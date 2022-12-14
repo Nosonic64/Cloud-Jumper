@@ -13,11 +13,14 @@ public class PlayerAnimation : MonoBehaviour
     private Animator anim;
     private float animLastInputDir;
     private float animHorizontal;
+
+    public Animator Anim { get => anim; set => anim = value; }
     #endregion
 
     void Start()
     {
         anim = GetComponent<Animator>();
+        anim.keepAnimatorControllerStateOnDisable = true;
     }
 
     void Update()
@@ -37,7 +40,7 @@ public class PlayerAnimation : MonoBehaviour
 
     private void DirectionFacing(float lastInputdir) //Changes the facing direction of the fox mesh dependent on what direction the player last pressed.
     {
-        if(lastInputdir < 0)
+        if (lastInputdir < 0)
         {
             transform.eulerAngles = new Vector3(0, 270);
         }

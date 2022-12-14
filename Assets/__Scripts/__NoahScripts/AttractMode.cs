@@ -100,7 +100,7 @@ public class AttractMode : MonoBehaviour
 
     }
 
-    public void GameStart() // This function controls the thing we need to do when starting the game.
+    public void GameStart() // This function controls the things we need to do when starting the game.
     {
         scoreTable.SetActive(false);
         GameManager.instance.levelChunkManager.ResetTimerCounter = resetScreenScrollAmount;

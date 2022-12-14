@@ -9,6 +9,7 @@ public class FallPlat : MonoBehaviour
     private BoxCollider platCollider;
     private bool playerTouched;
     private GameObject player;
+    private Animator anim;
     #endregion
 
     #region serialized variables
@@ -19,6 +20,7 @@ public class FallPlat : MonoBehaviour
     void Start()
     {
         disableTimer = disableTimerSet;
+        anim = GetComponent<Animator>();    
     }
 
 
@@ -34,12 +36,7 @@ public class FallPlat : MonoBehaviour
         // another platform.
         if(disableTimer <= 0f || GameManager.instance.player.transform.position.y > transform.position.y + 3f && playerTouched || GameManager.instance.player.Grounded && !playerTouched && disableTimer <= 5f)
         {
-
-            if (player != null)
-            {
-                player.transform.SetParent(null);
-            }
-            Destroy(gameObject);
+            anim.Play("Plat_FallPlatSlideOut");
         }
     }
 
@@ -55,5 +52,14 @@ public class FallPlat : MonoBehaviour
     private void OnCollisionExit()
     {
         player = null;
+    }
+
+    private void DestroyCloud()
+    {
+        if (player != null)
+        {
+            player.transform.SetParent(null);
+        }
+        Destroy(gameObject);
     }
 }
