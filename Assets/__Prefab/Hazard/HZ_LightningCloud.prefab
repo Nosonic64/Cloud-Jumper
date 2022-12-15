@@ -4892,8 +4892,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 4100532842448457250}
   - {fileID: 4104239247116159376}
+  - {fileID: 4100532842448457250}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -19578,7 +19578,7 @@ Transform:
   - {fileID: 2786994692966492130}
   - {fileID: 2532869804802727423}
   m_Father: {fileID: 2861513933442665865}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!114 &3810712120597455177
 MonoBehaviour:
@@ -19607,8 +19607,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 0
   serializedVersion: 2
-  m_Size: {x: 2.5, y: 12, z: 2}
-  m_Center: {x: 0, y: -6.4, z: 0}
+  m_Size: {x: 1.75, y: 9.154899, z: 2}
+  m_Center: {x: 0, y: -6.011315, z: 0}
 --- !u!198 &5769022013096612619
 ParticleSystem:
   m_ObjectHideFlags: 0
@@ -24560,7 +24560,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 1912b1ee7ccbcdb42a871efc235ce1d5, type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 1912b1ee7ccbcdb42a871efc235ce1d5, type: 3}
       propertyPath: m_LocalScale.x
