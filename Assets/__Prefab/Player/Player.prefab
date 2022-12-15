@@ -177,7 +177,7 @@ MonoBehaviour:
   coyoteTime: 0.2
   jumpBufferTime: 0.01
   respawnPoint: {x: 8, y: 10, z: 0}
-  startPoint: {x: 8, y: 2, z: 0}
+  startPoint: {x: 8, y: 1, z: 0}
   fallPlat: {fileID: 2861513933442665868, guid: 78919e19a41b4404fa79ea17916a94ae, type: 3}
   startPlat: {fileID: 3565267206979551804, guid: e3a57d0330a6f9546bd756734540e38e, type: 3}
   yClamp: {fileID: 0}
@@ -520,7 +520,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2866153625116290861, guid: ebdfd5d5686ad8c4386e2bd2c6778dca, type: 3}
       propertyPath: lengthInSec
-      value: 1.4
+      value: 2.4
       objectReference: {fileID: 0}
     - target: {fileID: 2866153625116290861, guid: ebdfd5d5686ad8c4386e2bd2c6778dca, type: 3}
       propertyPath: InitialModule.startSpeed.scalar
@@ -1028,10 +1028,50 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -6358341290958752397, guid: cd615997d8dd3ac49b7ab3bccb39b9b9, type: 3}
+      propertyPath: m_CastShadows
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -6358341290958752397, guid: cd615997d8dd3ac49b7ab3bccb39b9b9, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: bbeed39b07281a14f8c0d98e1a2e5803, type: 2}
+    - target: {fileID: -3759295391612936998, guid: cd615997d8dd3ac49b7ab3bccb39b9b9, type: 3}
+      propertyPath: m_CastShadows
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -3759295391612936998, guid: cd615997d8dd3ac49b7ab3bccb39b9b9, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: bbeed39b07281a14f8c0d98e1a2e5803, type: 2}
+    - target: {fileID: -1657765007133295942, guid: cd615997d8dd3ac49b7ab3bccb39b9b9, type: 3}
+      propertyPath: m_CastShadows
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -1657765007133295942, guid: cd615997d8dd3ac49b7ab3bccb39b9b9, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: bbeed39b07281a14f8c0d98e1a2e5803, type: 2}
     - target: {fileID: 919132149155446097, guid: cd615997d8dd3ac49b7ab3bccb39b9b9, type: 3}
       propertyPath: m_Name
       value: Kit_Fox_Anim
       objectReference: {fileID: 0}
+    - target: {fileID: 2017492371738417627, guid: cd615997d8dd3ac49b7ab3bccb39b9b9, type: 3}
+      propertyPath: m_CastShadows
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2017492371738417627, guid: cd615997d8dd3ac49b7ab3bccb39b9b9, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: bbeed39b07281a14f8c0d98e1a2e5803, type: 2}
+    - target: {fileID: 8604835517968275020, guid: cd615997d8dd3ac49b7ab3bccb39b9b9, type: 3}
+      propertyPath: m_CastShadows
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8604835517968275020, guid: cd615997d8dd3ac49b7ab3bccb39b9b9, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: bbeed39b07281a14f8c0d98e1a2e5803, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cd615997d8dd3ac49b7ab3bccb39b9b9, type: 3}
 --- !u!1 &6295290246462733291 stripped

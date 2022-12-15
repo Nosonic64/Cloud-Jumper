@@ -42,7 +42,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: -1117005199435819731, guid: 84b8ea097d4f68245b5e0dcbcd9f9f3c, type: 2}
-  m_audioClip: {fileID: 8300000, guid: c13d3badde974aa498e3f74fb9535e7e, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 03c5b38be0dd4e14397c641ba65d1328, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
@@ -274,6 +274,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 0}
   gameOverUI: {fileID: 0}
+  musicManager: {fileID: 5615297095768216662}
   bellSprite: {fileID: 0}
   levelChunkManager: {fileID: 5615297096937419362}
   powerUpManager: {fileID: 5615297096765607806}
@@ -368,6 +369,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   powerUps:
   - {fileID: 3674615041974713879, guid: 6b17969cc573ccd4882c5fe40b90e026, type: 3}
+  - {fileID: 3674615041974713879, guid: 6b17969cc573ccd4882c5fe40b90e026, type: 3}
+  - {fileID: 4818468558592154352, guid: 768ef7d013f350e4f88db58dc84686c5, type: 3}
+  - {fileID: 4818468558592154352, guid: 768ef7d013f350e4f88db58dc84686c5, type: 3}
   - {fileID: 4818468558592154352, guid: 768ef7d013f350e4f88db58dc84686c5, type: 3}
   - {fileID: 4818468558592154352, guid: 70aaa155f66defe4d94762f5225d3485, type: 3}
 --- !u!1 &5615297096937419364
@@ -431,13 +435,10 @@ MonoBehaviour:
   - {fileID: 663362984732550218, guid: 3fb17941b786e344a86998a778ca933c, type: 3}
   - {fileID: 7800066514813882884, guid: 15ed1c6368920134e82e9cf973e5151d, type: 3}
   - {fileID: 3714779738582554145, guid: 906f6710e87d1d143a6b063fc93a751e, type: 3}
-  - {fileID: 4556189965577016995, guid: 1187cba30aed8f84fbf4b0e9e023ce68, type: 3}
-  - {fileID: 4556189965577016995, guid: 2f15e7605ee13b741bc610d9488ff876, type: 3}
-  - {fileID: 4556189965577016995, guid: 5cc2af6a46a87154b90c861861bcf16b, type: 3}
-  - {fileID: 4556189965577016995, guid: dbd510efe0b6ded4c8bd3b9dcd8c12b4, type: 3}
-  difficultyThresholds: 05000000140000002300000032000000
-  powerUpSpawnChancePerDifficulty: 460000003c000000320000002800000014000000
-  powerUpAmountToTryAndSpawnPerDifficulty: 0600000004000000040000000300000002000000
+  difficultyThresholds: 14000000320000005000000078000000
+  powerUpSpawnChancePerDifficulty: 4600000041000000390000002d0000002d000000
+  powerUpAmountToTryAndSpawnPerDifficulty: 0600000004000000040000000300000003000000
+  backgroundArt: {fileID: 9162102995018998984, guid: c99cd50c905143a44b247e59e36bb136, type: 3}
   dontBreakPlats: 0
 --- !u!1 &5615297097208972573
 GameObject:

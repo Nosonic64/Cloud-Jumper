@@ -12,7 +12,8 @@ public class ArtObject : MonoBehaviour
     {
         mesh = GetComponent<MeshRenderer>();
         currentTexture = textures[Random.Range(0, textures.Length)];
-        transform.localScale = new Vector3(currentTexture.width / 1750f, 0,currentTexture.height / 1750f);
+        transform.localScale = new Vector3(currentTexture.width / 1920f, 1,currentTexture.height / 1920f);
         mesh.material.SetTexture("_BaseMap", currentTexture);
+        //1750f
     }
 }
