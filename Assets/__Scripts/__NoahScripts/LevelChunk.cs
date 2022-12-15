@@ -32,7 +32,7 @@ public class LevelChunk : MonoBehaviour
         // The amount we try to spawn is governed by an array in LevelChunkManager, and we select what number to use from
         // That array by the difficulty set for this level chunk.
         SpawnRandomPowerUp(GameManager.instance.levelChunkManager.PowerUpAmountToTryAndSpawnPerDifficulty[chunkDifficulty]);
-        SpawnRandomBGArt(Random.Range(2, 6));
+        SpawnRandomBGArt(Random.Range(2, 4));
     }
 
     private void Update()

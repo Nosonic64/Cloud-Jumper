@@ -27,6 +27,11 @@ public class Platform : MonoBehaviour
         audioSource = GetComponent<AudioSource>();
         mesh = GetComponentInChildren<MeshRenderer>();
         transform.position = new Vector3(transform.position.x, transform.position.y, 0f);
+        var meshTransform = GetComponentInChildren<Transform>();
+        if (Random.Range(0, 2) == 1)
+        {
+            meshTransform.localScale = new Vector3(meshTransform.localScale.x * -1, meshTransform.localScale.y, meshTransform.localScale.z);
+        }
     }
 
     private void Update()

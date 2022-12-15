@@ -918,6 +918,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1400962764906017253, guid: 2f1634bfa6e36bf4eacb2c1e9972dd5f, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.17
+      objectReference: {fileID: 0}
     - target: {fileID: 5344408681636693288, guid: 2f1634bfa6e36bf4eacb2c1e9972dd5f, type: 3}
       propertyPath: m_Name
       value: LevelChunkPrefab_MM_0_1
