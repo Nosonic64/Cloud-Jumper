@@ -1101,6 +1101,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1380814542, guid: d6f72c31b696d7f43b50268292f0c567, type: 3}
+      propertyPath: clips.Array.data[0]
+      value: 
+      objectReference: {fileID: 8300000, guid: 21a4913504659db4d9123424ab5b383a, type: 3}
     - target: {fileID: 659305920782764773, guid: d6f72c31b696d7f43b50268292f0c567, type: 3}
       propertyPath: m_Name
       value: Canvas
@@ -1255,6 +1259,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 5615297095768216660, guid: 3c36ea9ce4ff4b746a7ef4629a6cb0df, type: 3}
+      propertyPath: m_audioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 21a4913504659db4d9123424ab5b383a, type: 3}
     - target: {fileID: 5615297096114849377, guid: 3c36ea9ce4ff4b746a7ef4629a6cb0df, type: 3}
       propertyPath: m_Name
       value: Managers
