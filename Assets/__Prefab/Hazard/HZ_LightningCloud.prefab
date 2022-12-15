@@ -19607,8 +19607,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 0
   serializedVersion: 2
-  m_Size: {x: 1.75, y: 9.643053, z: 2}
-  m_Center: {x: 0, y: -6.255392, z: 0}
+  m_Size: {x: 1.75, y: 9.154899, z: 2}
+  m_Center: {x: 0, y: -6.011315, z: 0}
 --- !u!198 &5769022013096612619
 ParticleSystem:
   m_ObjectHideFlags: 0
