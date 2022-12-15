@@ -136,7 +136,7 @@ public class LevelChunk : MonoBehaviour
             {
                 foreach (GameObject go in bgArts)
                 {
-                    if (Vector3.Distance(bgArt.transform.position, go.transform.position) < 5f)
+                    if (Vector3.Distance(bgArt.transform.position, go.transform.position) < 8f)
                     {
                         Destroy(bgArt);
                         break;

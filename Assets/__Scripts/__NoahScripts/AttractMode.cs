@@ -39,7 +39,7 @@ public class AttractMode : MonoBehaviour
         var music = GameManager.instance.musicManager.GetComponent<AudioSource>();
         music.clip = clips[0];
         music.Play();
-        SetInsertCoin(5, 1);
+        SetInsertCoin(6, 1);
         highestScoreDisplay.SetActive(false);
         scoreDisplay.SetActive(false);
     }
@@ -51,8 +51,8 @@ public class AttractMode : MonoBehaviour
             StopCoroutine(attractModeCoroutine);
             coroutineRunning = false;
             image.enabled = true;
-            SetScreenTo(4);
-            SetInsertCoin(6, 2);
+            SetScreenTo(5);
+            SetInsertCoin(7, 2);
         }
 
         if (Input.GetButtonDown("Jump") && !coroutineRunning) // If the player has put in a coin and then hits jump, we start the game.
@@ -82,6 +82,8 @@ public class AttractMode : MonoBehaviour
             image.sprite = sprites[2];
             yield return new WaitForSeconds(timeBetweenImages);
             image.sprite = sprites[3];
+            yield return new WaitForSeconds(timeBetweenImages);
+            image.sprite = sprites[4];
             yield return new WaitForSeconds(timeBetweenImages);
         }
     }
