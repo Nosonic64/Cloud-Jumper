@@ -5,6 +5,8 @@ using UnityEngine.SceneManagement;
 
 public class ScoreManager : MonoBehaviour
 {
+    // Script that holds the players score (distance) and their 
+    // current top score for a play session.
     #region private variables
     private float distance;
     private float currentPlayerTopDistance;

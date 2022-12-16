@@ -2,6 +2,13 @@ using UnityEngine;
 
 public class SpriteSequence : MonoBehaviour
 {
+    // This script controls the thing that carries the player up after
+    // collecting a bell.
+    // This script is entirely functions that get called from a Unity Animation
+    // using its events system.
+    // https://docs.unity3d.com/Manual/script-AnimationWindowEvent.html
+    // We do this because its an easy way to do a sequence of events that
+    // we know is gonna be the same every time.
     #region private variables
     private bool spriteCarryingPlayer;
     private Animator anim;
@@ -9,6 +16,7 @@ public class SpriteSequence : MonoBehaviour
 
     #region getters and setters
     public bool SpriteCarryingPlayer { get => spriteCarryingPlayer; }
+    public Animator Anim { get => anim; set => anim = value; }
     #endregion
 
     private void Start()
@@ -16,37 +24,46 @@ public class SpriteSequence : MonoBehaviour
         anim = GetComponent<Animator>();
     }
 
-    public void StartAnim()
+    public void StartSpriteSequence() //Starts the animation that has all the event markers
     {
+        transform.position = new Vector3(GameManager.instance.player.transform.position.x, GameManager.instance.player.transform.position.y, transform.position.z);
         anim.Play("Sprite_Sequence");
     }
     public void SetPlayer()
     {
-        GameManager.instance.player.transform.position = new Vector3(8, 8, 0);
+        //GameManager.instance.player.transform.position = new Vector3(8, 8, 0);
     }
 
-    public void ParentPlayer()
+    public void ParentPlayer(int i)
     {
-        GameManager.instance.player.transform.parent = gameObject.transform;
+        switch (i)
+        {
+            case 0:
+            GameManager.instance.player.transform.parent = gameObject.transform.GetChild(1);
+                break;
+            case 1:
+                GameManager.instance.player.transform.parent = null;
+                GameManager.instance.player.ResetFromBell();
+                break;
+
+        }
     }
 
-    //Unity animation events allow you to call functions, but not if they have arguments for some reason, so i have to call 2 seperate functions to change a boolean
-    public void SetSpriteCarryTrue()
+    public void SetSpriteCarry(int i)
     {
-        spriteCarryingPlayer = true;
-    }
-    public void SetSpriteCarryFalse()
-    {
-        spriteCarryingPlayer = false;
-    }
-
-    public void UnparentPlayer()
-    {
-        GameManager.instance.player.transform.parent = null;
-        GameManager.instance.player.ResetFromBell();
+        switch (i)
+        {
+            case 0:
+                spriteCarryingPlayer = true;
+                GameManager.instance.player.PlayParticle(3);
+                break;
+            case 1:
+                spriteCarryingPlayer = false;
+                break;
+        }
     }
 
-    public void GoBackToIdle()
+    private void StopSpriteSequence()
     {
         anim.Play("Sprite_Idle");
     }

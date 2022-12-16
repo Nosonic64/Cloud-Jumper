@@ -60,6 +60,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   disableTimerSet: 2.75
+  disappearingEffectRate: 0.09
+  material:
+  - {fileID: 2100000, guid: 82c4e3e686206ca46a7cb3ed3352a1a9, type: 2}
+  - {fileID: 2100000, guid: b88d22d80f806384c9166fe1ae785861, type: 2}
 --- !u!82 &6748389125693660964
 AudioSource:
   m_ObjectHideFlags: 0
@@ -72,7 +76,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 8555666711396512500, guid: 84b8ea097d4f68245b5e0dcbcd9f9f3c, type: 2}
   m_audioClip: {fileID: 8300000, guid: 52bcd73501e08f8458cbcd064a5b1e37, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.25
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -116,7 +120,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 1
+      value: 0
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -169,7 +173,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 1912b1ee7ccbcdb42a871efc235ce1d5, type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.19
+      value: 0.17
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 1912b1ee7ccbcdb42a871efc235ce1d5, type: 3}
       propertyPath: m_LocalScale.y
@@ -181,7 +185,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 1912b1ee7ccbcdb42a871efc235ce1d5, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.1
+      value: -0.05
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 1912b1ee7ccbcdb42a871efc235ce1d5, type: 3}
       propertyPath: m_LocalPosition.y
@@ -219,6 +223,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -5754084199372789682, guid: 1912b1ee7ccbcdb42a871efc235ce1d5, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 8313087309680424158, guid: bfb45e45ae787c249b5af052374f73b4, type: 3}
     - target: {fileID: 919132149155446097, guid: 1912b1ee7ccbcdb42a871efc235ce1d5, type: 3}
       propertyPath: m_Name
       value: Cloud_Low_3m

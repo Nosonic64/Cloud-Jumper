@@ -42,7 +42,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: -1117005199435819731, guid: 84b8ea097d4f68245b5e0dcbcd9f9f3c, type: 2}
-  m_audioClip: {fileID: 8300000, guid: c13d3badde974aa498e3f74fb9535e7e, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 03c5b38be0dd4e14397c641ba65d1328, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
@@ -274,11 +274,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 0}
   gameOverUI: {fileID: 0}
+  musicManager: {fileID: 5615297095768216662}
   bellSprite: {fileID: 0}
   levelChunkManager: {fileID: 5615297096937419362}
   powerUpManager: {fileID: 5615297096765607806}
   scoreManager: {fileID: 5615297096217491218}
   scoreData: {fileID: 5615297097208972570}
+  splashScreen: {fileID: 0}
 --- !u!1 &5615297096217491220
 GameObject:
   m_ObjectHideFlags: 0
@@ -367,10 +369,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   powerUps:
   - {fileID: 3674615041974713879, guid: 6b17969cc573ccd4882c5fe40b90e026, type: 3}
+  - {fileID: 3674615041974713879, guid: 6b17969cc573ccd4882c5fe40b90e026, type: 3}
+  - {fileID: 4818468558592154352, guid: 768ef7d013f350e4f88db58dc84686c5, type: 3}
+  - {fileID: 4818468558592154352, guid: 768ef7d013f350e4f88db58dc84686c5, type: 3}
   - {fileID: 4818468558592154352, guid: 768ef7d013f350e4f88db58dc84686c5, type: 3}
   - {fileID: 4818468558592154352, guid: 70aaa155f66defe4d94762f5225d3485, type: 3}
-  chanceToSpawnPowerUpSet: 35
-  addToChance: 15
 --- !u!1 &5615297096937419364
 GameObject:
   m_ObjectHideFlags: 0
@@ -415,11 +418,28 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   levelChunks:
-  - {fileID: 4556189965577016995, guid: 1234f83b17bf451449671ac5821afa4c, type: 3}
-  - {fileID: 4556189965577016995, guid: 25cccc3d84a7237469a8a9a59e3bb796, type: 3}
-  - {fileID: 4556189965577016995, guid: 7796f97b2d3b66e4aa12f4cff4d86f49, type: 3}
-  difficultyThresholds: 000000000a0000003c000000
-  dontBreakPlats: 1
+  - {fileID: 6110127849517859939, guid: caebc60f4a1e89c4fbea584340e333a2, type: 3}
+  - {fileID: 1841280501710273901, guid: 729e88c347fe0154181bd10c80a52c15, type: 3}
+  - {fileID: 296711281999469268, guid: 3e497e645eaddca439fd8108195d1911, type: 3}
+  - {fileID: 3452224605194461273, guid: 3b2ff8a993648cf47b084680ccbb1c60, type: 3}
+  - {fileID: 5842272142913087371, guid: a9e278ee9e99fa54385a45e3858d3538, type: 3}
+  - {fileID: 4535787977073907022, guid: 49ee6f335d627c04ebf81aaa7d7f9378, type: 3}
+  - {fileID: 7687412206760187004, guid: 635b1b1e3cf53d9418dc4e7e6da328ee, type: 3}
+  - {fileID: 697491474560157256, guid: c1717ad367d94d8458bf222f34b3f897, type: 3}
+  - {fileID: 5625568826736346878, guid: f71eab7f4584f02409072ed679e38c9f, type: 3}
+  - {fileID: 870679969478992179, guid: 38513819301e25c4ba1451330003951b, type: 3}
+  - {fileID: 5344408681636693288, guid: 2f1634bfa6e36bf4eacb2c1e9972dd5f, type: 3}
+  - {fileID: 5636969262218006609, guid: aff5bab52eea4c54bbec077296db998d, type: 3}
+  - {fileID: 2309024650302334203, guid: f313b536b91ab1049aa8c74aa5a2127c, type: 3}
+  - {fileID: 3496419566287425378, guid: 62da5527c6251aa499b5cfe81fbc75a3, type: 3}
+  - {fileID: 663362984732550218, guid: 3fb17941b786e344a86998a778ca933c, type: 3}
+  - {fileID: 7800066514813882884, guid: 15ed1c6368920134e82e9cf973e5151d, type: 3}
+  - {fileID: 3714779738582554145, guid: 906f6710e87d1d143a6b063fc93a751e, type: 3}
+  difficultyThresholds: 14000000320000005000000078000000
+  powerUpSpawnChancePerDifficulty: 4600000041000000390000002d0000002d000000
+  powerUpAmountToTryAndSpawnPerDifficulty: 0600000004000000040000000300000003000000
+  backgroundArt: {fileID: 9162102995018998984, guid: c99cd50c905143a44b247e59e36bb136, type: 3}
+  dontBreakPlats: 0
 --- !u!1 &5615297097208972573
 GameObject:
   m_ObjectHideFlags: 0

@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class LevelChunkManager : MonoBehaviour
 {
+    // This script holds variables that all level chunks need to function.
+    // It also contains a list of level chunks that it sorts into different difficultys
+    // on start.
     #region private variables
     private float resetTimer = 10f;
     private float resetTimerCounter;
@@ -13,8 +16,16 @@ public class LevelChunkManager : MonoBehaviour
     #endregion
 
     #region serialized variables
+    [Header("Place all level chunks in here")]
     [SerializeField] List<GameObject> levelChunks;
+    [Header("Level Chunk Stats")]
     [SerializeField] private int[] difficultyThresholds;
+    [Header("Done in percentages, dont go over 100 or under 0")]
+    [SerializeField] private int[] powerUpSpawnChancePerDifficulty = new int[0];
+    [Header("The amount of times we try and spawn a powerup")]
+    [SerializeField] private int[] powerUpAmountToTryAndSpawnPerDifficulty = new int[0];
+    [Header("Misc")]
+    [SerializeField] private GameObject backgroundArt;
     [Header("Debug")]
     [SerializeField] private bool dontBreakPlats; //Turn this on in the inspector to stop platforms from breaking at all
     #endregion
@@ -27,6 +38,9 @@ public class LevelChunkManager : MonoBehaviour
     public int[] DifficultyThresholds { get => difficultyThresholds;}
     public Dictionary<int, List<GameObject>> LevelChunkDictionary { get => levelChunkDictionary;}
     public float PassiveScrollMultiple { get => passiveScrollMultiple; set => passiveScrollMultiple = value; }
+    public int[] PowerUpSpawnChancePerDifficulty { get => powerUpSpawnChancePerDifficulty;}
+    public int[] PowerUpAmountToTryAndSpawnPerDifficulty { get => powerUpAmountToTryAndSpawnPerDifficulty;}
+    public GameObject BackgroundArt { get => backgroundArt;}
     #endregion
 
     private void Start()
@@ -41,9 +55,9 @@ public class LevelChunkManager : MonoBehaviour
             resetTimerCounter -= Time.deltaTime;    
         }
 
-        if(passiveScrollMultiple < 1f && !GameManager.instance.player.BeforeStart) //This code scrolls the screen down passively, outside of the player hitting the top of the screen. 
+        if(passiveScrollMultiple < 0.90f && !GameManager.instance.player.BeforeStart) //This code scrolls the screen down passively, outside of the player hitting the top of the screen. 
         {
-            passiveScrollMultiple += Time.deltaTime / 80f;
+            passiveScrollMultiple += Time.deltaTime / 120f;
         }
     }
 
